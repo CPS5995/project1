@@ -1,0 +1,9 @@
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.csprojResolveAssemblyReference.cache
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.Properties.Resources.resources
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.csproj.GenerateResource.Cache
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmMain.resources
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\bin\Debug\bmw.exe.config
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\bin\Debug\bmw.exe
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\bin\Debug\bmw.pdb
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\bmw.exe
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\bmw.pdb
