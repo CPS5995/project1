@@ -30,6 +30,23 @@ using System.Threading.Tasks;
             return this.cashFlows.Where(x => x.isOverDue()).ToList();
         }
         
+        /// <summary>
+        /// Returns a list of all "income" flows associated with the funding profile
+        /// </summary>
+        /// <returns></returns>
+        public List<cashFlow> getAllIncomeFlows()
+        {
+            return this.cashFlows.Where(x => x.flowType == cashFlowType.income).ToList();
+        }
 
-    }
+        /// <summary>
+        /// Returns a list of all "income" flows associated with the funding profile
+        /// </summary>
+        /// <returns></returns>
+        public List<cashFlow> getAllExpenseFlows()
+        {
+            return this.cashFlows.Where(x => x.flowType == cashFlowType.expense).ToList();
+        }
+
+}
 

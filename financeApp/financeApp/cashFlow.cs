@@ -5,6 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+public enum cashFlowType
+{
+    income,
+    expense
+};
 
     /// <summary>
     /// Class for user CashFlows
@@ -17,15 +22,19 @@ using System.Threading.Tasks;
         public string name { get; set; }
         public double amount { get; set; }
         public DateTime dueDate { get; set; }
+        public DateTime flowDate { get; set; } //invoice date? pay date?
+        public cashFlowType flowType { get; set; }
 
         /* Constructors */
         public cashFlow() { }
 
-        public cashFlow(string name, double amount, DateTime dueDate)
+        public cashFlow(string name, double amount, DateTime dueDate, DateTime flowDate, cashFlowType flowType)
         {
             this.name = name;
             this.amount = amount;
             this.dueDate = dueDate;
+            this.flowDate = flowDate;
+            this.flowType = flowType;
         }
         /* End Constructors */
 
@@ -38,7 +47,11 @@ using System.Threading.Tasks;
         /// <returns></returns>
         public bool isOverDue()
         {
-            return (this.dueDate - DateTime.Now).TotalDays < 0;
+        
+        /* This has To-the-second granularity 
+         * That is, it will id a transaction as overdue
+         * if it is even ONE SECOND past its due date */
+        return (this.dueDate - DateTime.Now).TotalSeconds < 0;
         }
 
     }//end class

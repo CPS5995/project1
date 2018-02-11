@@ -46,4 +46,22 @@ using System.Threading.Tasks;
 
     }
 
+    /// <summary>
+    /// Returns a list of all "income" flows associated with the user account
+    /// </summary>
+    /// <returns></returns>
+    public List<cashFlow> getAllIncomeFlows()
+    {
+        return this.getAccountCashFlows().Where(x => x.flowType == cashFlowType.income).ToList();
+    }
+
+    /// <summary>
+    /// Returns a list of all "income" flows associated with the user account
+    /// </summary>
+    /// <returns></returns>
+    public List<cashFlow> getAllExpenseFlows()
+    {
+        return this.getAccountCashFlows().Where(x => x.flowType == cashFlowType.expense).ToList();
+    }
+
 }
