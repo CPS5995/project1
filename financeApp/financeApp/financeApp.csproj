@@ -49,11 +49,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cashFlow.cs" />
+    <Compile Include="frmAccountDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAccountDetails.Designer.cs">
+      <DependentUpon>frmAccountDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmReporting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReporting.Designer.cs">
+      <DependentUpon>frmReporting.cs</DependentUpon>
     </Compile>
     <Compile Include="fundingProfile.cs" />
     <Compile Include="Program.cs" />
@@ -61,8 +73,14 @@
     <Compile Include="reporting.cs" />
     <Compile Include="testing.cs" />
     <Compile Include="userAccount.cs" />
+    <EmbeddedResource Include="frmAccountDetails.resx">
+      <DependentUpon>frmAccountDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReporting.resx">
+      <DependentUpon>frmReporting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
