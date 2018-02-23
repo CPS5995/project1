@@ -39,8 +39,21 @@ namespace financeApp
             txtAccountName.Text = loadedAccount.name;
         }
 
+        private void addNewProfileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (frmInputBox inputBox = new frmInputBox())
+            {
+                inputBox.Text = "Add Profile";
+                inputBox.lblMessage.Text = "Enter new profile name:";
 
+                inputBox.ShowDialog();
 
+                if (!string.IsNullOrEmpty(inputBox.result))
+                {
+                    //add the profile
+                }
 
+            }
+        }
     }
 }

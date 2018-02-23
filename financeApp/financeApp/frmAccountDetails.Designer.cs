@@ -36,6 +36,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.msAccountDetails = new System.Windows.Forms.MenuStrip();
             this.accountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ssAccountViewStatus.SuspendLayout();
             this.msAccountDetails.SuspendLayout();
             this.SuspendLayout();
@@ -104,9 +105,18 @@
             // 
             // accountToolStripMenuItem
             // 
+            this.accountToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addNewProfileToolStripMenuItem});
             this.accountToolStripMenuItem.Name = "accountToolStripMenuItem";
             this.accountToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.accountToolStripMenuItem.Text = "Account";
+            // 
+            // addNewProfileToolStripMenuItem
+            // 
+            this.addNewProfileToolStripMenuItem.Name = "addNewProfileToolStripMenuItem";
+            this.addNewProfileToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.addNewProfileToolStripMenuItem.Text = "Add New Profile";
+            this.addNewProfileToolStripMenuItem.Click += new System.EventHandler(this.addNewProfileToolStripMenuItem_Click);
             // 
             // frmAccountDetails
             // 
@@ -146,5 +156,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MenuStrip msAccountDetails;
         private System.Windows.Forms.ToolStripMenuItem accountToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addNewProfileToolStripMenuItem;
     }
 }

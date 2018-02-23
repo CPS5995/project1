@@ -11,6 +11,13 @@ using System.Drawing;
 public static class reporting
 {
 
+    public enum reportType
+    {
+        weekly,
+        monthly,
+        yearly
+    };
+
     /// <summary>
     /// Generates a Weekly summation series for the passed cashflows 
     /// </summary>
@@ -27,6 +34,50 @@ public static class reporting
         foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)).OfType<DayOfWeek>().ToList())
         {
             outputSeries.Points.AddXY(day.ToString(), dataToReport.Where(x => x.flowDate.DayOfWeek == day).Sum(x => x.amount));
+        }
+
+        return outputSeries;
+    }
+
+    /// <summary>
+    /// Generates a Monthly summation for the passed cashFlows
+    /// </summary>
+    /// <param name="dataToReport"></param>
+    /// <param name="seriesName"></param>
+    /// <param name="chartType"></param>
+    /// <param name="displayColor"></param>
+    /// <returns></returns>
+    public static Series getMonthlySummationSeries(List<cashFlow> dataToReport, string seriesName, SeriesChartType chartType, Color displayColor)
+    {
+        Series outputSeries = new Series(seriesName);
+        outputSeries.ChartType = chartType;
+        outputSeries.Color = displayColor;
+
+        for (int i = 1; i <= 12; i++)
+        {
+            outputSeries.Points.AddXY(common.getMonthName(i), dataToReport.Where(x => x.flowDate.Month == i).Sum(x => x.amount));
+        }
+
+        return outputSeries;
+    }
+
+    /// <summary>
+    /// Generates a Yearly summation series for the given cash flows
+    /// </summary>
+    /// <param name="dataToReport"></param>
+    /// <param name="seriesName"></param>
+    /// <param name="chartType"></param>
+    /// <param name="displayColor"></param>
+    /// <returns></returns>
+    public static Series getYearlySummationSeries(List<cashFlow> dataToReport, string seriesName, SeriesChartType chartType, Color displayColor)
+    {
+        Series outputSeries = new Series(seriesName);
+        outputSeries.ChartType = chartType;
+        outputSeries.Color = displayColor;
+
+        for (int i = dataToReport.Min(x => x.flowDate).Year; i <= dataToReport.Max(x => x.flowDate).Year; i++)
+        {
+            outputSeries.Points.AddXY(i, dataToReport.Where(x => x.flowDate.Year == i).Sum(x => x.amount));
         }
 
         return outputSeries;

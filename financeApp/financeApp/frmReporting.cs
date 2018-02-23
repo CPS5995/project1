@@ -27,7 +27,10 @@ namespace financeApp
             chrtReportChart.ChartAreas[0].AxisX.MinorGrid.Enabled = false;
             chrtReportChart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
             chrtReportChart.ChartAreas[0].AxisY.MinorGrid.Enabled = false;
-            
+
+            tstbLowerBound.Text = common.getStartOfWeek(DateTime.Now).ToShortDateString();
+            tstbUpperBound.Text = common.getEndOfWeek(DateTime.Now).ToShortDateString();
+
             runReport(loadedAccount.profiles);
         }
 
@@ -66,7 +69,7 @@ namespace financeApp
 
             chrtReportChart.Series.Add(reporting.getWeeklySummationSeries(reportIncomeFlows, "Income", SeriesChartType.Column,Color.Green));
             chrtReportChart.Series.Add(reporting.getWeeklySummationSeries(reportExpenseFlows, "Expenses", SeriesChartType.Column,Color.Red));
-
+            
             //chrtReportChart.Series.Add(reporting.getWeeklySummationSeries(reportFlows, "Report", SeriesChartType.Column));
         }
 

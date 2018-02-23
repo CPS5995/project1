@@ -10,3 +10,4 @@ C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\bmw
 C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmReporting.resources
 C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmAccountDetails.resources
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmInputBox.resources

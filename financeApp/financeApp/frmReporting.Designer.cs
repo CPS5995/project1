@@ -39,6 +39,15 @@
             this.pnlReportPanel = new System.Windows.Forms.Panel();
             this.ssReportStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsslReportInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.dataRangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.upperBoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lowerBoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tstbLowerBound = new System.Windows.Forms.ToolStripTextBox();
+            this.tstbUpperBound = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.reportTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tscbReportType = new System.Windows.Forms.ToolStripComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.chrtReportChart)).BeginInit();
             this.msMenuStrip.SuspendLayout();
             this.pnlReportPanel.SuspendLayout();
@@ -84,7 +93,9 @@
             // reportToolStripMenuItem
             // 
             this.reportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.runReportToolStripMenuItem});
+            this.runReportToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.reportTypeToolStripMenuItem});
             this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
             this.reportToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.reportToolStripMenuItem.Text = "Report";
@@ -99,6 +110,8 @@
             // 
             // filtersToolStripMenuItem
             // 
+            this.filtersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dataRangeToolStripMenuItem});
             this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
             this.filtersToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.filtersToolStripMenuItem.Text = "Filters";
@@ -127,6 +140,64 @@
             this.tsslReportInfo.Name = "tsslReportInfo";
             this.tsslReportInfo.Size = new System.Drawing.Size(46, 17);
             this.tsslReportInfo.Text = "[status]";
+            // 
+            // dataRangeToolStripMenuItem
+            // 
+            this.dataRangeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lowerBoundToolStripMenuItem,
+            this.tstbLowerBound,
+            this.toolStripSeparator1,
+            this.upperBoundToolStripMenuItem,
+            this.tstbUpperBound});
+            this.dataRangeToolStripMenuItem.Name = "dataRangeToolStripMenuItem";
+            this.dataRangeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dataRangeToolStripMenuItem.Text = "Data Range";
+            // 
+            // upperBoundToolStripMenuItem
+            // 
+            this.upperBoundToolStripMenuItem.Name = "upperBoundToolStripMenuItem";
+            this.upperBoundToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.upperBoundToolStripMenuItem.Text = "Upper Bound";
+            // 
+            // lowerBoundToolStripMenuItem
+            // 
+            this.lowerBoundToolStripMenuItem.Name = "lowerBoundToolStripMenuItem";
+            this.lowerBoundToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.lowerBoundToolStripMenuItem.Text = "Lower Bound";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+            // 
+            // tstbLowerBound
+            // 
+            this.tstbLowerBound.Name = "tstbLowerBound";
+            this.tstbLowerBound.Size = new System.Drawing.Size(100, 23);
+            // 
+            // tstbUpperBound
+            // 
+            this.tstbUpperBound.Name = "tstbUpperBound";
+            this.tstbUpperBound.Size = new System.Drawing.Size(100, 23);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(171, 6);
+            // 
+            // reportTypeToolStripMenuItem
+            // 
+            this.reportTypeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tscbReportType});
+            this.reportTypeToolStripMenuItem.Name = "reportTypeToolStripMenuItem";
+            this.reportTypeToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.reportTypeToolStripMenuItem.Text = "Report Type";
+            // 
+            // tscbReportType
+            // 
+            this.tscbReportType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tscbReportType.Name = "tscbReportType";
+            this.tscbReportType.Size = new System.Drawing.Size(121, 23);
             // 
             // frmReporting
             // 
@@ -165,5 +236,14 @@
         private System.Windows.Forms.Panel pnlReportPanel;
         private System.Windows.Forms.StatusStrip ssReportStatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel tsslReportInfo;
+        private System.Windows.Forms.ToolStripMenuItem dataRangeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lowerBoundToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox tstbLowerBound;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem upperBoundToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox tstbUpperBound;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem reportTypeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox tscbReportType;
     }
 }
