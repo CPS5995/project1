@@ -32,15 +32,16 @@
             this.msMainMenu = new System.Windows.Forms.MenuStrip();
             this.accountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ssMainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsslClock = new System.Windows.Forms.ToolStripStatusLabel();
             this.tmrTimer = new System.Windows.Forms.Timer(this.components);
-            this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMainMenu.SuspendLayout();
             this.ssMainStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -62,8 +63,9 @@
             // 
             this.accountToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.accountDetailsToolStripMenuItem,
-            this.logOutToolStripMenuItem,
+            this.manageProfilesToolStripMenuItem,
             this.toolStripSeparator1,
+            this.logOutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.accountToolStripMenuItem.Name = "accountToolStripMenuItem";
             this.accountToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
@@ -75,6 +77,25 @@
             this.accountDetailsToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.accountDetailsToolStripMenuItem.Text = "Manage Account";
             this.accountDetailsToolStripMenuItem.Click += new System.EventHandler(this.accountDetailsToolStripMenuItem_Click);
+            // 
+            // logOutToolStripMenuItem
+            // 
+            this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.logOutToolStripMenuItem.Text = "Log Out";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(209, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.exitToolStripMenuItem.Text = "Close Application";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // reportingToolStripMenuItem
             // 
@@ -119,24 +140,12 @@
             // 
             this.tmrTimer.Tick += new System.EventHandler(this.tmrTimer_Tick);
             // 
-            // logOutToolStripMenuItem
+            // manageProfilesToolStripMenuItem
             // 
-            this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.logOutToolStripMenuItem.Text = "Log Out";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(154, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
-            this.exitToolStripMenuItem.Text = "Close Application";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.manageProfilesToolStripMenuItem.Name = "manageProfilesToolStripMenuItem";
+            this.manageProfilesToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.manageProfilesToolStripMenuItem.Text = "Manage Profiles";
+            this.manageProfilesToolStripMenuItem.Click += new System.EventHandler(this.manageProfilesToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -173,5 +182,6 @@
         private System.Windows.Forms.ToolStripMenuItem logOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manageProfilesToolStripMenuItem;
     }
 }

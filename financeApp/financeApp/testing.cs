@@ -184,6 +184,43 @@ namespace unitTests
             Assert.IsFalse(filteredSet.Contains(outOfRangeFlow2));
         }
 
+        /// <summary>
+        /// Testing the parameters for the isDate method
+        /// </summary>
+        [TestMethod]
+        public void testIsDate()
+        {
+
+            Assert.IsTrue(common.isDate("01/01/2018"));
+            Assert.IsTrue(common.isDate("01/01/2018 12:30 PM"));
+            Assert.IsTrue(common.isDate("January 1, 2018"));
+            Assert.IsTrue(common.isDate("January 1, 2018 12:30 PM"));
+            Assert.IsTrue(common.isDate("January 1, 2018 23:30"));
+            Assert.IsTrue(common.isDate("12:30 PM"));
+            Assert.IsTrue(common.isDate("23:30"));
+
+            Assert.IsFalse(common.isDate("Totally a Date"));
+            Assert.IsFalse(common.isDate("01/32/2018"));
+            Assert.IsFalse(common.isDate("-1/01/2018"));
+            Assert.IsFalse(common.isDate("January 1st, 2018"));
+            Assert.IsFalse(common.isDate("January 1.0, 2018"));
+            Assert.IsFalse(common.isDate("Totally NOT a Date"));
+            Assert.IsFalse(common.isDate("24:30"));
+            Assert.IsFalse(common.isDate("20:77"));
+
+            /* it's weird, but this ["January -1, 2018"] will parse as a DateTime.
+             * it'll become "January 1, 2018", and behave normally from that point on. 
+             * Negative dates aren't a thing, so this should be acceptable behavior */
+            Assert.IsTrue(common.isDate("January -1, 2018"));
+
+            /* Similarly, the AM/PM specifies a 12 Hour format, yet ["14:30 PM"] parses fine.
+             * It becomes "02:30 PM", and behaves normally after that point.
+             * Really odd behavior, but it's kinda correct.
+             * 
+             * ["14:30 AM"] corresponds to no existing time, and fails appropriately. */
+            Assert.IsFalse(common.isDate("14:30 AM"));
+            Assert.IsTrue(common.isDate("14:30 PM"));
+        }
 
     }
 

@@ -17,7 +17,7 @@ public static class common
     public static DateTime getStartOfWeek(DateTime date)
     {
         int dateDiff = date.DayOfWeek - DayOfWeek.Sunday;
-        return date.AddDays(-1 * dateDiff);
+        return date.AddDays(-1 * dateDiff).Date;
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public static class common
     public static DateTime getEndOfWeek(DateTime date)
     {
         int dateDiff = date.DayOfWeek - DayOfWeek.Saturday;
-        return date.AddDays(-1*dateDiff);
+        return date.AddDays(-1 * dateDiff).Date;
     }
 
     /// <summary>
@@ -54,6 +54,31 @@ public static class common
     public static string getMonthName(int month)
     {
         return new DateTime(2018, month, 1).ToString("MMMMMMMMMMMMMMMM", System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>
+    /// returns a boolean indicating if the passed value is a date
+    /// </summary>
+    /// <param name="dateString"></param>
+    /// <returns></returns>
+    public static bool isDate(string dateString)
+    {
+        DateTime temp;
+        if (DateTime.TryParse(dateString, out temp))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    public static void addProfileToAccount(userAccount accountToAddProfile, fundingProfile profileToAdd)
+    {
+        //still needs to do the database stuff and whatever
+        accountToAddProfile.profiles.Add(profileToAdd);
     }
 
 }

@@ -51,6 +51,7 @@ namespace financeApp
                 if (!string.IsNullOrEmpty(inputBox.result))
                 {
                     //add the profile
+                    
                 }
 
             }

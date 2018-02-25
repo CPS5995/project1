@@ -84,5 +84,23 @@ namespace financeApp
                 this.Close();
             }
         }
+
+        private void manageProfilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            /* As with the Account form, the profle view form is an single instance form
+             * if the user already has an existing instance of the form, just focus that one */
+            if (this.MdiChildren.Where(x => x.Name == "frmProfileDetails").Count() > 0)
+            {
+                this.MdiChildren.First(x => x.Name == "frmProfileDetails").Focus();
+            }
+            else
+            {
+                frmProfileDetails profileViewForm = new frmProfileDetails();
+                profileViewForm.Name = "frmProfileDetails";
+                profileViewForm.MdiParent = this;
+                profileViewForm.loadAccountIntoForm(loadedAccount);
+                profileViewForm.Show();
+            }
+        }
     }
 }
