@@ -74,11 +74,27 @@ public static class common
         }
     }
 
-
+    /*<begin DB stuff>*/
+    /* TODO: still needs to do the database stuff and whatever */
     public static void addProfileToAccount(userAccount accountToAddProfile, fundingProfile profileToAdd)
     {
-        //still needs to do the database stuff and whatever
         accountToAddProfile.profiles.Add(profileToAdd);
+    }
+
+    public static void updateProfileOnAccount(userAccount accountToUpdate, fundingProfile oldProfile, fundingProfile updatedProfile)
+    {
+        //TODO
+    }
+
+    public static void deleteProfileFromAccount(userAccount owningAccount, fundingProfile profileToDelete)
+    {
+        owningAccount.profiles.Remove(profileToDelete);
+    }
+    /*</end DB stuff>*/
+
+    public static financeApp.frmMain getMainForm()
+    {
+        return (financeApp.frmMain)System.Windows.Forms.Application.OpenForms["frmMain"];
     }
 
 }

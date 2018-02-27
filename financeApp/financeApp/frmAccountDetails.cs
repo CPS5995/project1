@@ -29,15 +29,23 @@ namespace financeApp
             this.loadedAccount = accountToLoad;
             this.Text = "Details for Account: " + loadedAccount.name;
 
-            foreach(fundingProfile profile in loadedAccount.profiles)
-            {
-                lbProfiles.Items.Add(profile.name);
-            }
+            populateProfilesListBox(loadedAccount.profiles);
+
 
             tsslAccountStats.Text = "Total Profiles: " + loadedAccount.profiles.Count() + " | Total Cash Flows: " + loadedAccount.getAccountCashFlows().Count();
 
             txtAccountName.Text = loadedAccount.name;
         }
+
+        private void populateProfilesListBox(List<fundingProfile> profilesToLoad)
+        {
+            lbProfiles.Items.Clear();
+            foreach (fundingProfile profile in profilesToLoad.OrderBy(x => x.name))
+            {
+                lbProfiles.Items.Add(profile.name);
+            }
+        }
+
 
         private void addNewProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -50,8 +58,9 @@ namespace financeApp
 
                 if (!string.IsNullOrEmpty(inputBox.result))
                 {
-                    //add the profile
-                    
+                    /* TODO: SQL/database stuff */
+                    common.addProfileToAccount(common.getMainForm().loadedAccount, new fundingProfile(inputBox.result));
+                    loadAccountIntoForm(common.getMainForm().loadedAccount);
                 }
 
             }
