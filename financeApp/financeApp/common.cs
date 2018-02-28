@@ -81,7 +81,7 @@ public static class common
         accountToAddProfile.profiles.Add(profileToAdd);
     }
 
-    public static void updateProfileOnAccount(userAccount accountToUpdate, fundingProfile oldProfile, fundingProfile updatedProfile)
+    public static void updateProfileOnAccount(userAccount owningAccount, fundingProfile oldProfile, fundingProfile updatedProfile)
     {
         //TODO
     }
@@ -90,6 +90,22 @@ public static class common
     {
         owningAccount.profiles.Remove(profileToDelete);
     }
+
+    public static void addCashFlowToProfile(fundingProfile profileToRecieveFlow, cashFlow flowToAdd)
+    {
+        profileToRecieveFlow.cashFlows.Add(flowToAdd);
+    }
+
+    public static void updateCashFlowOnAccount(fundingProfile owningPRofile, cashFlow oldFlow, cashFlow updatedFlow)
+    {
+        //TODO
+    }
+
+    public static void deleteCashFlowFromProfile(fundingProfile owningProfile, cashFlow flowToDelete)
+    {
+        owningProfile.cashFlows.Remove(flowToDelete);
+    }
+
     /*</end DB stuff>*/
 
     public static financeApp.frmMain getMainForm()

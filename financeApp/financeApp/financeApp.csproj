@@ -56,6 +56,12 @@
     <Compile Include="frmAccountDetails.Designer.cs">
       <DependentUpon>frmAccountDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCashFlowDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCashFlowDetails.Designer.cs">
+      <DependentUpon>frmCashFlowDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmInputBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     <Compile Include="userAccount.cs" />
     <EmbeddedResource Include="frmAccountDetails.resx">
       <DependentUpon>frmAccountDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCashFlowDetails.resx">
+      <DependentUpon>frmCashFlowDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmInputBox.resx">
       <DependentUpon>frmInputBox.cs</DependentUpon>

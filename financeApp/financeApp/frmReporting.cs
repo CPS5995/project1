@@ -161,7 +161,12 @@ namespace financeApp
         }
 
 
-
+        /// <summary>
+        /// Takes the STRING name of a reportType, and returns the appropriate reportType object
+        /// Throws an exception if none exists
+        /// </summary>
+        /// <param name="reportTypeName"></param>
+        /// <returns></returns>
         private reporting.reportType getReportTypeByName(string reportTypeName)
         {
 

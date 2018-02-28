@@ -12,3 +12,4 @@ C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\fin
 C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmAccountDetails.resources
 C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmInputBox.resources
 C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmProfileDetails.resources
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmCashFlowDetails.resources
