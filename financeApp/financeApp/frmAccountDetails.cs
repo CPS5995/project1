@@ -59,7 +59,7 @@ namespace financeApp
                 if (!string.IsNullOrEmpty(inputBox.result))
                 {
                     /* TODO: SQL/database stuff */
-                    common.addProfileToAccount(common.getMainForm().loadedAccount, new fundingProfile(inputBox.result));
+                    common.addProfileToAccount(common.getMainForm().loadedAccount, new fundingProfile(common.getNextProfileId(),inputBox.result));
                     loadAccountIntoForm(common.getMainForm().loadedAccount);
                 }
 

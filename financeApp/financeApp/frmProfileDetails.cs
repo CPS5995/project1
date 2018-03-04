@@ -86,7 +86,7 @@ namespace financeApp
 
                 if (!string.IsNullOrEmpty(inputBox.result))
                 {
-                    common.addProfileToAccount(common.getMainForm().loadedAccount, new fundingProfile(inputBox.result));
+                    common.addProfileToAccount(common.getMainForm().loadedAccount, new fundingProfile(common.getNextProfileId(),inputBox.result));
                     loadAccountIntoForm(common.getMainForm().loadedAccount);
                 }
 
@@ -179,7 +179,20 @@ namespace financeApp
 
         private void addNewCashFlowToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (getSelectedProfile() == null)
+            {
+                MessageBox.Show("No Profile Selected.");
+            }
+            else
+            {
+                using (frmCashFlowDetails cashFlowForm = new frmCashFlowDetails())
+                {
+                    cashFlowForm.loadAccountIntoForm(this.loadedAccount);
+                    cashFlowForm.loadProfileIntoForm(getSelectedProfile());
 
+                    cashFlowForm.ShowDialog();
+                }
+            }
         }
 
         private void deleteSelectedCashFlowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -217,6 +230,7 @@ namespace financeApp
                     cashFlowForm.loadCashFlowIntoForm(getSelectedCashFlow());
 
                     cashFlowForm.ShowDialog();
+                    loadAccountIntoForm(common.getMainForm().loadedAccount);
                 }
             }
         }

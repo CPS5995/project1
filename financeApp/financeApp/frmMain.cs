@@ -29,16 +29,16 @@ namespace financeApp
             loadedAccount.profiles.Add(new fundingProfile());
 
             loadedAccount.profiles[0].name = "Test Profile1";
-            loadedAccount.profiles[0].cashFlows.Add(new cashFlow("Test Flow", 100, DateTime.Now, DateTime.Now.AddDays(-2), cashFlowType.income));
-            loadedAccount.profiles[0].cashFlows.Add(new cashFlow("Test Flow2", 1000, DateTime.Now, DateTime.Now.AddDays(-1), cashFlowType.expense));
-            loadedAccount.profiles[1].cashFlows.Add(new cashFlow("Test Flow3", 125, DateTime.Now, DateTime.Now, cashFlowType.income));
+            loadedAccount.profiles[0].cashFlows.Add(new cashFlow(1,"Test Flow", 100, DateTime.Now, DateTime.Now.AddDays(-2), cashFlowType.income));
+            loadedAccount.profiles[0].cashFlows.Add(new cashFlow(2,"Test Flow2", 1000, DateTime.Now, DateTime.Now.AddDays(-1), cashFlowType.expense));
+            loadedAccount.profiles[1].cashFlows.Add(new cashFlow(3,"Test Flow3", 125, DateTime.Now, DateTime.Now, cashFlowType.income));
 
             loadedAccount.profiles[1].name = "Test Profile2";
-            loadedAccount.profiles[1].cashFlows.Add(new cashFlow("Test Flow3", 12, DateTime.Now, DateTime.Now.AddDays(-2), cashFlowType.income));
-            loadedAccount.profiles[1].cashFlows.Add(new cashFlow("Test Flow4", 50, DateTime.Now, DateTime.Now.AddDays(-1), cashFlowType.expense));
-            loadedAccount.profiles[1].cashFlows.Add(new cashFlow("Test Flow5", 175, DateTime.Now, DateTime.Now, cashFlowType.income));
-            loadedAccount.profiles[1].cashFlows.Add(new cashFlow("Test Flow6", 98, DateTime.Now, DateTime.Now.AddDays(+1), cashFlowType.income));
-            loadedAccount.profiles[1].cashFlows.Add(new cashFlow("Test Flow7", 100, DateTime.Now, DateTime.Now.AddDays(+2), cashFlowType.expense));
+            loadedAccount.profiles[1].cashFlows.Add(new cashFlow(4,"Test Flow3", 12, DateTime.Now, DateTime.Now.AddDays(-2), cashFlowType.income));
+            loadedAccount.profiles[1].cashFlows.Add(new cashFlow(5,"Test Flow4", 50, DateTime.Now, DateTime.Now.AddDays(-1), cashFlowType.expense));
+            loadedAccount.profiles[1].cashFlows.Add(new cashFlow(6,"Test Flow5", 175, DateTime.Now, DateTime.Now, cashFlowType.income));
+            loadedAccount.profiles[1].cashFlows.Add(new cashFlow(7,"Test Flow6", 98, DateTime.Now, DateTime.Now.AddDays(+1), cashFlowType.income));
+            loadedAccount.profiles[1].cashFlows.Add(new cashFlow(8,"Test Flow7", 100, DateTime.Now, DateTime.Now.AddDays(+2), cashFlowType.expense));
             /* end dummy data */
 
             this.WindowState = FormWindowState.Maximized;
@@ -79,7 +79,7 @@ namespace financeApp
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to close the application? Any unsaved work will be lost.", "Close Application?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Are you sure you want to close the application?\r\nAny unsaved work will be lost.", "Close Application?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 this.Close();
             }
@@ -100,6 +100,32 @@ namespace financeApp
                 profileViewForm.MdiParent = this;
                 profileViewForm.loadAccountIntoForm(loadedAccount);
                 profileViewForm.Show();
+            }
+        }
+
+
+        /// <summary>
+        /// Logs the currently loaded Account OUT,
+        /// and reverts the App to a pre-login state
+        /// </summary>
+        private void logOut()
+        {
+            common.closeAllMdiChildForms(this);
+            this.loadedAccount = null;
+        }
+
+        private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("You will be logged out of the Application?\r\nAny unsaved work will be lost."
+                + "\r\n\r\n Are you sure you want to log out?",
+                "Log Out?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                logOut();
+                using (frmLogin loginForm = new frmLogin())
+                {
+                    loginForm.ShowDialog();
+                }
+                              
             }
         }
     }

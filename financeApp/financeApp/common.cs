@@ -74,8 +74,47 @@ public static class common
         }
     }
 
+    /// <summary>
+    /// Gets the active instance of "frmMain".
+    /// </summary>
+    /// <returns></returns>
+    public static financeApp.frmMain getMainForm()
+    {
+        return (financeApp.frmMain)System.Windows.Forms.Application.OpenForms["frmMain"];
+    }
+
+    /// <summary>
+    /// Closes all MDI Children for the passed Form.
+    /// Done by calling .Close() on all the children.
+    /// </summary>
+    /// <param name="parentForm"></param>
+    public static void closeAllMdiChildForms(System.Windows.Forms.Form parentForm)
+    {
+        foreach (System.Windows.Forms.Form childForm in parentForm.MdiChildren)
+        {
+            childForm.Close();
+        }
+    }
+
     /*<begin DB stuff>*/
     /* TODO: still needs to do the database stuff and whatever */
+
+    public static int getNextAccountId()
+    {
+        return 1; //placeholder
+    }
+
+    public static int getNextProfileId()
+    {
+        return getNextProfileId(getMainForm().loadedAccount); //placeholder
+    }
+
+    public static int getNextProfileId(userAccount accountToGetNextFrom)
+    {
+        //placeholder function, don't use in "Prod"
+        return accountToGetNextFrom.profiles.Max(x => x.id) + 1;
+    }
+
     public static void addProfileToAccount(userAccount accountToAddProfile, fundingProfile profileToAdd)
     {
         accountToAddProfile.profiles.Add(profileToAdd);
@@ -91,12 +130,23 @@ public static class common
         owningAccount.profiles.Remove(profileToDelete);
     }
 
+    public static int getNextCashFlowId()
+    {
+        return getNextCashFlowId(getMainForm().loadedAccount); //placeholder
+    }
+
+    public static int getNextCashFlowId(userAccount accountToGetNextFrom)
+    {
+        //placeholder function, don't use in "Prod"
+        return accountToGetNextFrom.getAccountCashFlows().Max(x => x.id) + 1;
+    }
+
     public static void addCashFlowToProfile(fundingProfile profileToRecieveFlow, cashFlow flowToAdd)
     {
         profileToRecieveFlow.cashFlows.Add(flowToAdd);
     }
 
-    public static void updateCashFlowOnAccount(fundingProfile owningPRofile, cashFlow oldFlow, cashFlow updatedFlow)
+    public static void updateCashFlowOnAccount(fundingProfile owningProfile, cashFlow oldFlow, cashFlow updatedFlow)
     {
         //TODO
     }
@@ -107,11 +157,6 @@ public static class common
     }
 
     /*</end DB stuff>*/
-
-    public static financeApp.frmMain getMainForm()
-    {
-        return (financeApp.frmMain)System.Windows.Forms.Application.OpenForms["frmMain"];
-    }
 
 }
 

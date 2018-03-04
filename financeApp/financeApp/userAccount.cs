@@ -12,6 +12,7 @@ using System.Threading.Tasks;
     public class userAccount
     {
 
+    public readonly int id;
     public string name { get; set; }
     public List<fundingProfile> profiles = new List<fundingProfile>();
 

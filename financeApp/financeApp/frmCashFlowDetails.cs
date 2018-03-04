@@ -86,5 +86,67 @@ namespace financeApp
             throw new ArgumentException("No such CashFlowType Exists");
         }
 
+        private void deleteFlowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (loadedFlow == null)
+            {
+                MessageBox.Show("This Cash Flow has not yet been saved (and cannot be deleted).");
+            }
+            else
+            {
+                if (MessageBox.Show("You are about to delete the Cash Flow: [" + loadedFlow.name + "]"
+                                   + "\r\nfrom the profile: [" + loadedProfile.name + "]"
+                                   + "\r\n\r\nThe deleted Flow will be LOST, and cannot be recovered!"
+                                   + "\r\n\r\nAre you sure you want to delete this Flow?",
+                                   "Delete Cash Flow?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    common.deleteCashFlowFromProfile(loadedProfile, loadedFlow);
+                    loadAccountIntoForm(common.getMainForm().loadedAccount);
+
+                    //close the form after deleting the flow
+                    MessageBox.Show("Cash Flow Deleted.");
+                    this.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Pulls the values from the form's textboxes, 
+        /// and creates an appropriate Cash Flow Object
+        /// </summary>
+        /// <returns></returns>
+        private cashFlow getCashFlowFromForm()
+        {
+            int id;
+            // if we don't have a loaded flow, get the next flow ID
+            if (loadedFlow ==null)
+            {
+                id = common.getNextCashFlowId();
+            } else
+            {
+                id = loadedFlow.id;
+            }
+
+            return new cashFlow(id, txtCashFlowName.Text, double.Parse(txtCashFlowAmount.Text),
+                DateTime.Parse(txtCashFlowDueDate.Text), DateTime.Parse(txtCashFlowDate.Text), 
+               getCashFlowTypeByName(cbCashFlowType.SelectedValue.ToString()));
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cashFlow flowToSave = getCashFlowFromForm();
+
+            if (loadedFlow == null)
+            {
+                common.addCashFlowToProfile(loadedProfile, flowToSave);
+                loadCashFlowIntoForm(flowToSave);
+            }
+            else
+            {
+                /* TODO: Add Validation */
+                common.updateCashFlowOnAccount(loadedProfile, loadedFlow, flowToSave);
+                loadCashFlowIntoForm(flowToSave);
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 /// </summary>
 public class fundingProfile
 {
+    public readonly int id;
     public string name { get; set; }
     public List<cashFlow> cashFlows = new List<cashFlow>();
 
@@ -21,14 +22,16 @@ public class fundingProfile
     public fundingProfile() { }
 
     //constructor using name
-    public fundingProfile(string name)
+    public fundingProfile(int id, string name)
     {
+        this.id = id;
         this.name = name;
     }
 
     //constructor using name AND flows
-    public fundingProfile(string name, List<cashFlow> cashFlows)
+    public fundingProfile(int id, string name, List<cashFlow> cashFlows)
     {
+        this.id = id;
         this.name = name;
         this.cashFlows.AddRange(cashFlows);
     }

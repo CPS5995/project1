@@ -29,9 +29,12 @@
         private void InitializeComponent()
         {
             this.msCashFlowDetails = new System.Windows.Forms.MenuStrip();
+            this.cashFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ssCashFlowStatus = new System.Windows.Forms.StatusStrip();
             this.tsslFlowStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.cashFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtCashFlowName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCashFlowAmount = new System.Windows.Forms.TextBox();
@@ -57,6 +60,35 @@
             this.msCashFlowDetails.TabIndex = 0;
             this.msCashFlowDetails.Text = "menuStrip1";
             // 
+            // cashFlowToolStripMenuItem
+            // 
+            this.cashFlowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.deleteFlowToolStripMenuItem});
+            this.cashFlowToolStripMenuItem.Name = "cashFlowToolStripMenuItem";
+            this.cashFlowToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.cashFlowToolStripMenuItem.Text = "Cash Flow";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // deleteFlowToolStripMenuItem
+            // 
+            this.deleteFlowToolStripMenuItem.Name = "deleteFlowToolStripMenuItem";
+            this.deleteFlowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteFlowToolStripMenuItem.Text = "Delete Flow";
+            this.deleteFlowToolStripMenuItem.Click += new System.EventHandler(this.deleteFlowToolStripMenuItem_Click);
+            // 
             // ssCashFlowStatus
             // 
             this.ssCashFlowStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -72,12 +104,6 @@
             this.tsslFlowStatus.Name = "tsslFlowStatus";
             this.tsslFlowStatus.Size = new System.Drawing.Size(46, 17);
             this.tsslFlowStatus.Text = "[status]";
-            // 
-            // cashFlowToolStripMenuItem
-            // 
-            this.cashFlowToolStripMenuItem.Name = "cashFlowToolStripMenuItem";
-            this.cashFlowToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
-            this.cashFlowToolStripMenuItem.Text = "Cash Flow";
             // 
             // txtCashFlowName
             // 
@@ -211,5 +237,8 @@
         private System.Windows.Forms.TextBox txtCashFlowDueDate;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolStripMenuItem deleteFlowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
