@@ -94,9 +94,9 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox txtInput;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         public System.Windows.Forms.Label lblMessage;
+        public System.Windows.Forms.TextBox txtInput;
     }
 }

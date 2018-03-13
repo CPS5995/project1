@@ -86,7 +86,7 @@ namespace financeApp
 
                 if (!string.IsNullOrEmpty(inputBox.result))
                 {
-                    common.addProfileToAccount(common.getMainForm().loadedAccount, new fundingProfile(common.getNextProfileId(),inputBox.result));
+                    common.addProfileToAccount(common.getMainForm().loadedAccount, new fundingProfile(common.getNextProfileId(), inputBox.result));
                     loadAccountIntoForm(common.getMainForm().loadedAccount);
                 }
 
@@ -142,13 +142,17 @@ namespace financeApp
                 {
                     inputBox.Text = "Rename Profile: [" + getSelectedProfile().name + "]";
                     inputBox.lblMessage.Text = "Enter new profile name:";
+                    inputBox.txtInput.Text = getSelectedProfile().name;
 
                     inputBox.ShowDialog();
 
                     if (!string.IsNullOrEmpty(inputBox.result))
                     {
                         //rename profile
-                        //common.updateProfileOnAccount(common.getMainForm().loadedAccount, new fundingProfile(inputBox.result));
+                        fundingProfile renamedProfile = getSelectedProfile();
+                        renamedProfile.name = inputBox.result;
+
+                        common.updateProfileOnAccount(common.getMainForm().loadedAccount, getSelectedProfile(), renamedProfile);
                         loadAccountIntoForm(common.getMainForm().loadedAccount);
                     }
 
@@ -191,6 +195,7 @@ namespace financeApp
                     cashFlowForm.loadProfileIntoForm(getSelectedProfile());
 
                     cashFlowForm.ShowDialog();
+                    loadAccountIntoForm(common.getMainForm().loadedAccount);
                 }
             }
         }

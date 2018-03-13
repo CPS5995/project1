@@ -75,6 +75,24 @@ public static class common
     }
 
     /// <summary>
+    /// returns a boolean indicating if the passed value is a number
+    /// </summary>
+    /// <param name="numberString"></param>
+    /// <returns></returns>
+    public static bool isNumeric(string numberString)
+    {
+        double temp;
+        if (double.TryParse(numberString, out temp))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
     /// Gets the active instance of "frmMain".
     /// </summary>
     /// <returns></returns>
@@ -96,14 +114,64 @@ public static class common
         }
     }
 
+    /// <summary>
+    /// Replaces an item in a list with a new item
+    /// </summary>
+    /// <param name="parentList"></param>
+    /// <param name="itemToReplace"></param>
+    /// <param name="newItem"></param>
+    public static void replaceItemInList(List<cashFlow> parentList, cashFlow itemToReplace, cashFlow newItem)
+    {
+        int index = parentList.IndexOf(itemToReplace);
+
+        if (index != -1)
+        {
+            parentList[index] = newItem;
+        }
+    }
+
+    /// <summary>
+    /// Replaces an item in a list with a new item
+    /// [This is the overload for fundingProfiles]
+    /// </summary>
+    /// <param name="parentList"></param>
+    /// <param name="itemToReplace"></param>
+    /// <param name="newItem"></param>
+    public static void replaceItemInList(List<fundingProfile> parentList, fundingProfile itemToReplace, fundingProfile newItem)
+    {
+        int index = parentList.IndexOf(itemToReplace);
+
+        if (index != -1)
+        {
+            parentList[index] = newItem;
+        }
+    }
+
     /*<begin DB stuff>*/
     /* TODO: still needs to do the database stuff and whatever */
 
+    /*User Accounts*/
     public static int getNextAccountId()
     {
         return 1; //placeholder
     }
 
+    public static void createNewAccount(userAccount accountToCreate)
+    {
+        //TODO
+    }
+
+    public static void updateAccount(userAccount oldAccount, userAccount updatedAccount)
+    {
+        //TODO
+    }
+
+    public static void deleteAccount(userAccount accountToDelete)
+    {
+        //TODO
+    }
+
+    /*Funding Profiles*/
     public static int getNextProfileId()
     {
         return getNextProfileId(getMainForm().loadedAccount); //placeholder
@@ -122,7 +190,7 @@ public static class common
 
     public static void updateProfileOnAccount(userAccount owningAccount, fundingProfile oldProfile, fundingProfile updatedProfile)
     {
-        //TODO
+        replaceItemInList(owningAccount.profiles, oldProfile, updatedProfile);
     }
 
     public static void deleteProfileFromAccount(userAccount owningAccount, fundingProfile profileToDelete)
@@ -130,6 +198,7 @@ public static class common
         owningAccount.profiles.Remove(profileToDelete);
     }
 
+    /*Cash Flows*/
     public static int getNextCashFlowId()
     {
         return getNextCashFlowId(getMainForm().loadedAccount); //placeholder
@@ -148,7 +217,7 @@ public static class common
 
     public static void updateCashFlowOnAccount(fundingProfile owningProfile, cashFlow oldFlow, cashFlow updatedFlow)
     {
-        //TODO
+        replaceItemInList(owningProfile.cashFlows, oldFlow, updatedFlow);
     }
 
     public static void deleteCashFlowFromProfile(fundingProfile owningProfile, cashFlow flowToDelete)

@@ -45,6 +45,7 @@
             this.txtCashFlowDueDate = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.saveAndCloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msCashFlowDetails.SuspendLayout();
             this.ssCashFlowStatus.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +65,7 @@
             // 
             this.cashFlowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripMenuItem,
+            this.saveAndCloseToolStripMenuItem,
             this.toolStripSeparator1,
             this.deleteFlowToolStripMenuItem});
             this.cashFlowToolStripMenuItem.Name = "cashFlowToolStripMenuItem";
@@ -73,6 +75,7 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
@@ -187,6 +190,15 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "Due Date:";
             // 
+            // saveAndCloseToolStripMenuItem
+            // 
+            this.saveAndCloseToolStripMenuItem.Name = "saveAndCloseToolStripMenuItem";
+            this.saveAndCloseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.saveAndCloseToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.saveAndCloseToolStripMenuItem.Text = "Save and Close";
+            this.saveAndCloseToolStripMenuItem.Click += new System.EventHandler(this.saveAndCloseToolStripMenuItem_Click);
+            // 
             // frmCashFlowDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,5 +252,6 @@
         private System.Windows.Forms.ToolStripMenuItem deleteFlowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem saveAndCloseToolStripMenuItem;
     }
 }

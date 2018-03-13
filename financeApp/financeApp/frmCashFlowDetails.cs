@@ -23,6 +23,7 @@ namespace financeApp
 
         private void frmCashFlowDetails_Load(object sender, EventArgs e)
         {
+            tsslFlowStatus.Text = "";
             loadFlowTypeComboBox();
             if (!(loadedFlow == null))
             {
@@ -41,6 +42,7 @@ namespace financeApp
         public void loadProfileIntoForm(fundingProfile profileToLoad)
         {
             this.loadedProfile = profileToLoad;
+            tsslFlowStatus.Text = "Loaded Profile: " + loadedProfile.name;
         }
 
         public void loadCashFlowIntoForm(cashFlow flowToLoad)
@@ -77,7 +79,7 @@ namespace financeApp
 
             foreach (cashFlowType flowType in Enum.GetValues(typeof(cashFlowType)))
             {
-                if (Enum.GetName(typeof(reporting.reportType), flowType) == cashFlowTypeName)
+                if (Enum.GetName(typeof(cashFlowType), flowType) == cashFlowTypeName)
                 {
                     return flowType;
                 }
@@ -119,33 +121,84 @@ namespace financeApp
         {
             int id;
             // if we don't have a loaded flow, get the next flow ID
-            if (loadedFlow ==null)
+            if (loadedFlow == null)
             {
                 id = common.getNextCashFlowId();
-            } else
+            }
+            else
             {
                 id = loadedFlow.id;
             }
 
             return new cashFlow(id, txtCashFlowName.Text, double.Parse(txtCashFlowAmount.Text),
-                DateTime.Parse(txtCashFlowDueDate.Text), DateTime.Parse(txtCashFlowDate.Text), 
-               getCashFlowTypeByName(cbCashFlowType.SelectedValue.ToString()));
+                DateTime.Parse(txtCashFlowDueDate.Text), DateTime.Parse(txtCashFlowDate.Text),
+               getCashFlowTypeByName(cbCashFlowType.SelectedItem.ToString()));
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            cashFlow flowToSave = getCashFlowFromForm();
+            saveCashFlow();
+        }
 
-            if (loadedFlow == null)
+        /// <summary>
+        /// runs the procedure for saving a cash flow
+        /// returns a boolean to indicate if the flow was saved successfully or not.
+        /// </summary>
+        /// <returns></returns>
+        private bool saveCashFlow()
+        {
+            if (isFormCashFlowValid())
             {
-                common.addCashFlowToProfile(loadedProfile, flowToSave);
-                loadCashFlowIntoForm(flowToSave);
+                cashFlow flowToSave = getCashFlowFromForm();
+
+                if (loadedFlow == null)
+                {
+                    common.addCashFlowToProfile(loadedProfile, flowToSave);
+                    loadCashFlowIntoForm(flowToSave);
+                }
+                else
+                {
+                    common.updateCashFlowOnAccount(loadedProfile, loadedFlow, flowToSave);
+                    loadCashFlowIntoForm(flowToSave);
+                }
+                return true;
             }
             else
             {
-                /* TODO: Add Validation */
-                common.updateCashFlowOnAccount(loadedProfile, loadedFlow, flowToSave);
-                loadCashFlowIntoForm(flowToSave);
+                MessageBox.Show("Unable to save current flow!\r\n" +
+                                "Please make sure all fields are properly filled out.",
+                                "Error Saving Cash Flow", MessageBoxButtons.OK);
+                return false;
+            }
+
+        }
+
+        /// <summary>
+        /// Validates the data on the form before saving/updating the cash flow.
+        /// Returns a bool indicating if the data is valid.
+        /// </summary>
+        /// <returns></returns>
+        private bool isFormCashFlowValid()
+        {
+            if (common.isDate(txtCashFlowDate.Text) &&
+                common.isDate(txtCashFlowDueDate.Text) &&
+                common.isNumeric(txtCashFlowAmount.Text) &&
+                cbCashFlowType.SelectedItem != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        private void saveAndCloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveCashFlow())
+            {
+                this.Close();
             }
         }
     }
