@@ -52,7 +52,14 @@ namespace financeApp
             this.txtCashFlowName.Text = flowToLoad.name;
             this.txtCashFlowAmount.Text = flowToLoad.amount.ToString();
             this.txtCashFlowDate.Text = flowToLoad.flowDate.ToShortDateString();
-            this.txtCashFlowDueDate.Text = flowToLoad.dueDate.ToShortDateString();
+            if (flowToLoad.dueDate != null)
+            {
+                this.txtCashFlowDueDate.Text = ((DateTime)flowToLoad.dueDate).ToShortDateString();
+            }
+            else
+            {
+                this.txtCashFlowDueDate.Text = "";
+            }
             this.cbCashFlowType.Text = flowToLoad.flowType.ToString();
         }
 

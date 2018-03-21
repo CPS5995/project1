@@ -34,6 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\..\..\Desktop\CPS5440\mysql-connector-net-6.10.6-noinstall\v4.5.2\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -50,6 +53,7 @@
   <ItemGroup>
     <Compile Include="cashFlow.cs" />
     <Compile Include="common.cs" />
+    <Compile Include="database.cs" />
     <Compile Include="frmAccountDetails.cs">
       <SubType>Form</SubType>
     </Compile>

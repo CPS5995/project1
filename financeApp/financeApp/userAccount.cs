@@ -19,6 +19,12 @@ using System.Threading.Tasks;
     //Default constructor
     public userAccount() { }
 
+    public userAccount(int id, string name, List<fundingProfile> profiles)
+    {
+        this.id = id;
+        this.name = name;
+        this.profiles = profiles;
+    }
 
 
     /// <summary>

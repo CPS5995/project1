@@ -18,31 +18,21 @@ namespace financeApp
             InitializeComponent();
         }
 
-        public userAccount loadedAccount = new userAccount();
-
-
+        public userAccount loadedAccount;
+        
         private void frmMain_Load(object sender, EventArgs e)
         {
-            /* dummy data for Testing */
-            loadedAccount.name = "Test Account";
-            loadedAccount.profiles.Add(new fundingProfile());
-            loadedAccount.profiles.Add(new fundingProfile());
-
-            loadedAccount.profiles[0].name = "Test Profile1";
-            loadedAccount.profiles[0].cashFlows.Add(new cashFlow(1,"Test Flow", 100, DateTime.Now, DateTime.Now.AddDays(-2), cashFlowType.income));
-            loadedAccount.profiles[0].cashFlows.Add(new cashFlow(2,"Test Flow2", 1000, DateTime.Now, DateTime.Now.AddDays(-1), cashFlowType.expense));
-            loadedAccount.profiles[1].cashFlows.Add(new cashFlow(3,"Test Flow3", 125, DateTime.Now, DateTime.Now, cashFlowType.income));
-
-            loadedAccount.profiles[1].name = "Test Profile2";
-            loadedAccount.profiles[1].cashFlows.Add(new cashFlow(4,"Test Flow3", 12, DateTime.Now, DateTime.Now.AddDays(-2), cashFlowType.income));
-            loadedAccount.profiles[1].cashFlows.Add(new cashFlow(5,"Test Flow4", 50, DateTime.Now, DateTime.Now.AddDays(-1), cashFlowType.expense));
-            loadedAccount.profiles[1].cashFlows.Add(new cashFlow(6,"Test Flow5", 175, DateTime.Now, DateTime.Now, cashFlowType.income));
-            loadedAccount.profiles[1].cashFlows.Add(new cashFlow(7,"Test Flow6", 98, DateTime.Now, DateTime.Now.AddDays(+1), cashFlowType.income));
-            loadedAccount.profiles[1].cashFlows.Add(new cashFlow(8,"Test Flow7", 100, DateTime.Now, DateTime.Now.AddDays(+2), cashFlowType.expense));
-            /* end dummy data */
-
+            this.Text = "Be My Wallet";
             this.WindowState = FormWindowState.Maximized;
             tmrTimer.Start();
+        }
+
+        private void frmMain_Shown(object sender, EventArgs e)
+        {
+            using (frmLogin loginForm = new frmLogin())
+            {
+                loginForm.ShowDialog();
+            }
         }
 
         private void runReportToolStripMenuItem_Click(object sender, EventArgs e)
@@ -128,5 +118,6 @@ namespace financeApp
                               
             }
         }
+
     }
 }

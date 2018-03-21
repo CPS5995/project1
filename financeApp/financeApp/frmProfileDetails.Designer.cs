@@ -35,6 +35,8 @@
             this.deleteSelectedProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cashFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewCashFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteSelectedCashFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewEditSelectedCashFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ssProfileViewStatus = new System.Windows.Forms.StatusStrip();
             this.tsslProfileDetailStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlProfiles = new System.Windows.Forms.Panel();
@@ -45,8 +47,6 @@
             this.lbCashFlows = new System.Windows.Forms.ListBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblCashFlows = new System.Windows.Forms.Label();
-            this.deleteSelectedCashFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewEditSelectedCashFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msProfileDetails.SuspendLayout();
             this.ssProfileViewStatus.SuspendLayout();
             this.pnlProfiles.SuspendLayout();
@@ -102,8 +102,8 @@
             // 
             this.cashFlowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addNewCashFlowToolStripMenuItem,
-            this.deleteSelectedCashFlowToolStripMenuItem,
-            this.viewEditSelectedCashFlowToolStripMenuItem});
+            this.viewEditSelectedCashFlowToolStripMenuItem,
+            this.deleteSelectedCashFlowToolStripMenuItem});
             this.cashFlowToolStripMenuItem.Name = "cashFlowToolStripMenuItem";
             this.cashFlowToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.cashFlowToolStripMenuItem.Text = "Cash Flow";
@@ -111,9 +111,23 @@
             // addNewCashFlowToolStripMenuItem
             // 
             this.addNewCashFlowToolStripMenuItem.Name = "addNewCashFlowToolStripMenuItem";
-            this.addNewCashFlowToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.addNewCashFlowToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.addNewCashFlowToolStripMenuItem.Text = "Add New Cash Flow";
             this.addNewCashFlowToolStripMenuItem.Click += new System.EventHandler(this.addNewCashFlowToolStripMenuItem_Click);
+            // 
+            // deleteSelectedCashFlowToolStripMenuItem
+            // 
+            this.deleteSelectedCashFlowToolStripMenuItem.Name = "deleteSelectedCashFlowToolStripMenuItem";
+            this.deleteSelectedCashFlowToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.deleteSelectedCashFlowToolStripMenuItem.Text = "Delete Selected Cash Flow";
+            this.deleteSelectedCashFlowToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedCashFlowToolStripMenuItem_Click);
+            // 
+            // viewEditSelectedCashFlowToolStripMenuItem
+            // 
+            this.viewEditSelectedCashFlowToolStripMenuItem.Name = "viewEditSelectedCashFlowToolStripMenuItem";
+            this.viewEditSelectedCashFlowToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.viewEditSelectedCashFlowToolStripMenuItem.Text = "View/Edit Selected Cash Flow";
+            this.viewEditSelectedCashFlowToolStripMenuItem.Click += new System.EventHandler(this.viewEditSelectedCashFlowToolStripMenuItem_Click);
             // 
             // ssProfileViewStatus
             // 
@@ -207,20 +221,6 @@
             this.lblCashFlows.Size = new System.Drawing.Size(61, 13);
             this.lblCashFlows.TabIndex = 3;
             this.lblCashFlows.Text = "Cash Flows";
-            // 
-            // deleteSelectedCashFlowToolStripMenuItem
-            // 
-            this.deleteSelectedCashFlowToolStripMenuItem.Name = "deleteSelectedCashFlowToolStripMenuItem";
-            this.deleteSelectedCashFlowToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.deleteSelectedCashFlowToolStripMenuItem.Text = "Delete Selected Cash Flow";
-            this.deleteSelectedCashFlowToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedCashFlowToolStripMenuItem_Click);
-            // 
-            // viewEditSelectedCashFlowToolStripMenuItem
-            // 
-            this.viewEditSelectedCashFlowToolStripMenuItem.Name = "viewEditSelectedCashFlowToolStripMenuItem";
-            this.viewEditSelectedCashFlowToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.viewEditSelectedCashFlowToolStripMenuItem.Text = "View/Edit Selected Cash Flow";
-            this.viewEditSelectedCashFlowToolStripMenuItem.Click += new System.EventHandler(this.viewEditSelectedCashFlowToolStripMenuItem_Click);
             // 
             // frmProfileDetails
             // 

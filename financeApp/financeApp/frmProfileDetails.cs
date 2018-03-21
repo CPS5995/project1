@@ -149,8 +149,8 @@ namespace financeApp
                     if (!string.IsNullOrEmpty(inputBox.result))
                     {
                         //rename profile
-                        fundingProfile renamedProfile = getSelectedProfile();
-                        renamedProfile.name = inputBox.result;
+                        fundingProfile renamedProfile = new fundingProfile(getSelectedProfile().id,inputBox.result);
+                        //renamedProfile.name = inputBox.result;
 
                         common.updateProfileOnAccount(common.getMainForm().loadedAccount, getSelectedProfile(), renamedProfile);
                         loadAccountIntoForm(common.getMainForm().loadedAccount);

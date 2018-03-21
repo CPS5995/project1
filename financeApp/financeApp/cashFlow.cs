@@ -21,14 +21,14 @@ public class cashFlow
     public readonly int id;
     public string name { get; set; }
     public double amount { get; set; }
-    public DateTime dueDate { get; set; }
+    public DateTime? dueDate { get; set; }
     public DateTime flowDate { get; set; } //invoice date? pay date?
     public cashFlowType flowType { get; set; }
 
     /* Constructors */
     public cashFlow() { }
 
-    public cashFlow(int id, string name, double amount, DateTime dueDate, DateTime flowDate, cashFlowType flowType)
+    public cashFlow(int id, string name, double amount, DateTime? dueDate, DateTime flowDate, cashFlowType flowType)
     {
         this.id = id;
         this.name = name;
@@ -39,8 +39,6 @@ public class cashFlow
     }
     /* End Constructors */
 
-
-
     /// <summary>
     /// Indicates if the flow is overdue
     /// a flow is "overdue" if it's dueDate is less than the current date
@@ -48,11 +46,17 @@ public class cashFlow
     /// <returns></returns>
     public bool isOverDue()
     {
-
-        /* This has To-the-second granularity 
-         * That is, it will id a transaction as overdue
-         * if it is even ONE SECOND past its due date */
-        return (this.dueDate - DateTime.Now).TotalSeconds < 0;
+        if (this.dueDate == null)
+        {
+            return false;
+        }
+        else
+        {
+            /* This has To-the-second granularity 
+             * That is, it will id a transaction as overdue
+             * if it is even ONE SECOND past its due date */
+            return ((DateTime)this.dueDate - DateTime.Now).TotalSeconds < 0;
+        }
     }
 
 }//end class

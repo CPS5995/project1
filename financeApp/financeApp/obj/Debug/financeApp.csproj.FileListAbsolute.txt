@@ -14,3 +14,5 @@ C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\fin
 C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmProfileDetails.resources
 C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmCashFlowDetails.resources
 C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmLogin.resources
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\bin\Debug\MySql.Data.dll
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\bin\Debug\MySql.Data.xml

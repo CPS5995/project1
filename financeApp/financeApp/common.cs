@@ -186,16 +186,63 @@ public static class common
     public static void addProfileToAccount(userAccount accountToAddProfile, fundingProfile profileToAdd)
     {
         accountToAddProfile.profiles.Add(profileToAdd);
+        //Database stuff
+        database.sqlStatement insertSql = new database.sqlStatement();
+        insertSql.connectionString = database.getConnectString();
+
+        insertSql.query = "INSERT INTO bmw_funding_profile " +
+                          "(account_id,profile_name) " +
+                          "VALUES " +
+                          "(@account_id, @profile_name) ";
+
+        insertSql.queryParameters.Add("@account_id", accountToAddProfile.id);
+        insertSql.queryParameters.Add("@profile_name", profileToAdd.name);
+
+        database.executeNonQueryOnDatabase(insertSql);
     }
 
     public static void updateProfileOnAccount(userAccount owningAccount, fundingProfile oldProfile, fundingProfile updatedProfile)
     {
         replaceItemInList(owningAccount.profiles, oldProfile, updatedProfile);
+        //Database stuff
+        database.sqlStatement updateSql = new database.sqlStatement();
+        updateSql.connectionString = database.getConnectString();
+
+        updateSql.query = "UPDATE bmw_funding_profile " +
+                          "SET profile_name = @profile_name " +
+                          "WHERE id = @id ";
+
+        updateSql.queryParameters.Add("@id", oldProfile.id);
+        updateSql.queryParameters.Add("@profile_name", updatedProfile.name);
+
+        database.executeNonQueryOnDatabase(updateSql);
     }
 
     public static void deleteProfileFromAccount(userAccount owningAccount, fundingProfile profileToDelete)
     {
         owningAccount.profiles.Remove(profileToDelete);
+        
+        //Database stuff
+        database.sqlStatement deleteSql = new database.sqlStatement();
+        deleteSql.connectionString = database.getConnectString();
+
+        /* Delete the Child Cash Flows */
+        deleteSql.query = "DELETE FROM bmw_cash_flow " +
+                          "WHERE profile_id = @profile_id ";
+
+        deleteSql.queryParameters.Add("@profile_id", profileToDelete.id);
+
+        database.executeNonQueryOnDatabase(deleteSql);
+        deleteSql.queryParameters.Clear();
+
+        /* Delete the Profile */
+        deleteSql.query = "DELETE FROM bmw_funding_profile " +
+                          "WHERE id = @id ";
+
+        deleteSql.queryParameters.Add("@id", profileToDelete.id);
+        
+        database.executeNonQueryOnDatabase(deleteSql);
+        
     }
 
     /*Cash Flows*/
@@ -213,19 +260,167 @@ public static class common
     public static void addCashFlowToProfile(fundingProfile profileToRecieveFlow, cashFlow flowToAdd)
     {
         profileToRecieveFlow.cashFlows.Add(flowToAdd);
+        //Database stuff
+        database.sqlStatement insertSql = new database.sqlStatement();
+        insertSql.connectionString = database.getConnectString();
+
+        insertSql.query = "INSERT INTO bmw_cash_flow " +
+                          "(profile_id,flow_name,flow_type,amount,transaction_date,due_date) " +
+                          "VALUES " +
+                          "(@profile_id,@flow_name,@flow_type,@amount,@transaction_date,@due_date) ";
+
+        insertSql.queryParameters.Add("@profile_id", profileToRecieveFlow.id);
+        insertSql.queryParameters.Add("@flow_name", flowToAdd.name);
+        insertSql.queryParameters.Add("@flow_type", flowToAdd.flowType);
+        insertSql.queryParameters.Add("@amount", flowToAdd.amount);
+        insertSql.queryParameters.Add("@transaction_date", flowToAdd.flowDate);
+        insertSql.queryParameters.Add("@due_date", flowToAdd.dueDate);
+
+        database.executeNonQueryOnDatabase(insertSql);
     }
 
     public static void updateCashFlowOnAccount(fundingProfile owningProfile, cashFlow oldFlow, cashFlow updatedFlow)
     {
         replaceItemInList(owningProfile.cashFlows, oldFlow, updatedFlow);
+        //Database stuff
+        database.sqlStatement updateSql = new database.sqlStatement();
+        updateSql.connectionString = database.getConnectString();
+
+        updateSql.query = "UPDATE bmw_cash_flow " +
+                          "SET flow_name = @flow_name, " +
+                          "flow_type = @flow_type, " +
+                          "amount = @amount, " +
+                          "transaction_date = @transaction_date, " +
+                          "due_date = @due_date " +
+                          "WHERE id = @id ";
+
+        updateSql.queryParameters.Add("@id", oldFlow.id);
+        updateSql.queryParameters.Add("@flow_name", updatedFlow.name);
+        updateSql.queryParameters.Add("@flow_type", updatedFlow.flowType);
+        updateSql.queryParameters.Add("@amount", updatedFlow.amount);
+        updateSql.queryParameters.Add("@transaction_date", updatedFlow.flowDate);
+        updateSql.queryParameters.Add("@due_date", updatedFlow.dueDate);
+
+        database.executeNonQueryOnDatabase(updateSql);
     }
 
     public static void deleteCashFlowFromProfile(fundingProfile owningProfile, cashFlow flowToDelete)
     {
         owningProfile.cashFlows.Remove(flowToDelete);
+        //Database stuff
+        database.sqlStatement deleteSql = new database.sqlStatement();
+        deleteSql.connectionString = database.getConnectString();
+
+        deleteSql.query = "DELETE FROM bmw_cash_flow " +
+                          "WHERE id = @id ";
+
+        deleteSql.queryParameters.Add("@id", flowToDelete.id);
+
+        database.executeNonQueryOnDatabase(deleteSql);
     }
 
     /*</end DB stuff>*/
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="accountId"></param>
+    /// <returns></returns>
+    public static userAccount getAccountFromDatabase(int accountId)
+    {
+        database.sqlStatement sql = new database.sqlStatement();
+        sql.connectionString = database.getConnectString();
+
+        sql.query = "SELECT ua.id, ua.username " +
+                    "FROM bmw_user_account ua " +
+                    "WHERE ua.id = @account_id ";
+
+        sql.queryParameters.Add("@account_id", accountId);
+
+
+        foreach (System.Data.DataRow row in database.selectFromDatabase(sql).Rows)
+        {
+            return new userAccount(int.Parse(row["id"].ToString()),
+                row["username"].ToString(),
+                getProfilesForAccount(int.Parse(row["id"].ToString())));
+        }
+
+        return null;
+
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="accountId"></param>
+    /// <returns></returns>
+    public static List<fundingProfile> getProfilesForAccount(int accountId)
+    {
+        database.sqlStatement sql = new database.sqlStatement();
+        sql.connectionString = database.getConnectString();
+
+        sql.query = "SELECT fp.id, fp.profile_name " +
+                    "FROM bmw_funding_profile fp " +
+                    "WHERE fp.account_id = @account_id ";
+
+        sql.queryParameters.Add("@account_id", accountId);
+
+        List<fundingProfile> profiles = new List<fundingProfile>();
+
+        foreach (System.Data.DataRow row in database.selectFromDatabase(sql).Rows)
+        {
+            profiles.Add(new fundingProfile(int.Parse(row["id"].ToString()),
+                row["profile_name"].ToString(), getCashFlowsForProfile(int.Parse(row["id"].ToString()))));
+        }
+
+        return profiles;
+
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="profileId"></param>
+    /// <returns></returns>
+    public static List<cashFlow> getCashFlowsForProfile(int profileId)
+    {
+        database.sqlStatement sql = new database.sqlStatement();
+        sql.connectionString = database.getConnectString();
+
+        sql.query = "SELECT cf.id, cf.flow_name, cf.flow_type, " +
+                    "cf.amount, cf.transaction_date, cf.due_date " +
+                    "FROM bmw_cash_flow cf " +
+                    "WHERE cf.profile_id = @profile_id ";
+
+        sql.queryParameters.Add("@profile_id", profileId);
+
+        List<cashFlow> cashFlows = new List<cashFlow>();
+
+        foreach (System.Data.DataRow row in database.selectFromDatabase(sql).Rows)
+        {
+            DateTime? dueDate;
+
+            if (string.IsNullOrEmpty(row["due_date"].ToString()))
+            {
+                dueDate = null;
+            }
+            else
+            {
+                dueDate = DateTime.Parse(row["due_date"].ToString());
+            }
+
+            cashFlows.Add(new cashFlow(int.Parse(row["id"].ToString()),
+                row["flow_name"].ToString(),
+                double.Parse(row["amount"].ToString()),
+                dueDate,
+                DateTime.Parse(row["transaction_date"].ToString()),
+                cashFlowType.income));
+        }
+
+        return cashFlows;
+
+    }
 
 }
 
