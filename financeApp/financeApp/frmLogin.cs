@@ -49,6 +49,14 @@ namespace financeApp
 
         }
 
+        private void llblCreateAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using (frmAccountCreation accountCreationForm = new frmAccountCreation())
+            {
+                accountCreationForm.ShowDialog();
+            }
+        }
+
         /// <summary>
         /// Runs the passed user/pass combo against the database
         /// returns a boolean if it exists
@@ -95,6 +103,5 @@ namespace financeApp
 
             return int.Parse(database.executeScalarOnDatabase(sql).ToString());
         }
-
     }
 }

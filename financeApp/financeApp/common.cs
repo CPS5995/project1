@@ -153,12 +153,26 @@ public static class common
     /*User Accounts*/
     public static int getNextAccountId()
     {
+        //might not need due to auto_inc
         return 1; //placeholder
     }
 
-    public static void createNewAccount(userAccount accountToCreate)
+    public static void createNewAccount(userAccount accountToCreate, string password)
     {
-        //TODO
+        //Database stuff
+        database.sqlStatement insertSql = new database.sqlStatement();
+        insertSql.connectionString = database.getConnectString();
+
+        insertSql.query = "INSERT INTO bmw_user_account " +
+                          "(username,password,email) " +
+                          "VALUES " +
+                          "(@username,@password,@email)";
+
+        insertSql.queryParameters.Add("@username", accountToCreate.name);
+        insertSql.queryParameters.Add("@password", password);
+        insertSql.queryParameters.Add("@email", null);
+
+        database.executeNonQueryOnDatabase(insertSql);
     }
 
     public static void updateAccount(userAccount oldAccount, userAccount updatedAccount)
@@ -174,14 +188,15 @@ public static class common
     /*Funding Profiles*/
     public static int getNextProfileId()
     {
-        return getNextProfileId(getMainForm().loadedAccount); //placeholder
+        database.sqlStatement selectSql = new database.sqlStatement();
+        selectSql.connectionString = database.getConnectString();
+
+        selectSql.query = "SELECT MAX(id) + 1 " +
+                          "FROM bmw_funding_profile ";
+
+        return int.Parse(database.executeScalarOnDatabase(selectSql).ToString());
     }
 
-    public static int getNextProfileId(userAccount accountToGetNextFrom)
-    {
-        //placeholder function, don't use in "Prod"
-        return accountToGetNextFrom.profiles.Max(x => x.id) + 1;
-    }
 
     public static void addProfileToAccount(userAccount accountToAddProfile, fundingProfile profileToAdd)
     {
@@ -191,10 +206,11 @@ public static class common
         insertSql.connectionString = database.getConnectString();
 
         insertSql.query = "INSERT INTO bmw_funding_profile " +
-                          "(account_id,profile_name) " +
+                          "(id,account_id,profile_name) " +
                           "VALUES " +
-                          "(@account_id, @profile_name) ";
+                          "(@id, @account_id, @profile_name) ";
 
+        insertSql.queryParameters.Add("@id", profileToAdd.id);
         insertSql.queryParameters.Add("@account_id", accountToAddProfile.id);
         insertSql.queryParameters.Add("@profile_name", profileToAdd.name);
 
@@ -221,7 +237,7 @@ public static class common
     public static void deleteProfileFromAccount(userAccount owningAccount, fundingProfile profileToDelete)
     {
         owningAccount.profiles.Remove(profileToDelete);
-        
+
         //Database stuff
         database.sqlStatement deleteSql = new database.sqlStatement();
         deleteSql.connectionString = database.getConnectString();
@@ -240,21 +256,20 @@ public static class common
                           "WHERE id = @id ";
 
         deleteSql.queryParameters.Add("@id", profileToDelete.id);
-        
+
         database.executeNonQueryOnDatabase(deleteSql);
-        
     }
 
     /*Cash Flows*/
     public static int getNextCashFlowId()
     {
-        return getNextCashFlowId(getMainForm().loadedAccount); //placeholder
-    }
+        database.sqlStatement selectSql = new database.sqlStatement();
+        selectSql.connectionString = database.getConnectString();
 
-    public static int getNextCashFlowId(userAccount accountToGetNextFrom)
-    {
-        //placeholder function, don't use in "Prod"
-        return accountToGetNextFrom.getAccountCashFlows().Max(x => x.id) + 1;
+        selectSql.query = "SELECT MAX(id) + 1 " +
+                          "FROM bmw_cash_flow ";
+
+        return int.Parse(database.executeScalarOnDatabase(selectSql).ToString());
     }
 
     public static void addCashFlowToProfile(fundingProfile profileToRecieveFlow, cashFlow flowToAdd)
@@ -265,10 +280,11 @@ public static class common
         insertSql.connectionString = database.getConnectString();
 
         insertSql.query = "INSERT INTO bmw_cash_flow " +
-                          "(profile_id,flow_name,flow_type,amount,transaction_date,due_date) " +
+                          "(id,profile_id,flow_name,flow_type,amount,transaction_date,due_date) " +
                           "VALUES " +
-                          "(@profile_id,@flow_name,@flow_type,@amount,@transaction_date,@due_date) ";
+                          "(@id,@profile_id,@flow_name,@flow_type,@amount,@transaction_date,@due_date) ";
 
+        insertSql.queryParameters.Add("@id", flowToAdd.id);
         insertSql.queryParameters.Add("@profile_id", profileToRecieveFlow.id);
         insertSql.queryParameters.Add("@flow_name", flowToAdd.name);
         insertSql.queryParameters.Add("@flow_type", flowToAdd.flowType);

@@ -54,6 +54,12 @@
     <Compile Include="cashFlow.cs" />
     <Compile Include="common.cs" />
     <Compile Include="database.cs" />
+    <Compile Include="frmAccountCreation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAccountCreation.Designer.cs">
+      <DependentUpon>frmAccountCreation.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAccountDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,9 @@
     <Compile Include="reporting.cs" />
     <Compile Include="testing.cs" />
     <Compile Include="userAccount.cs" />
+    <EmbeddedResource Include="frmAccountCreation.resx">
+      <DependentUpon>frmAccountCreation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAccountDetails.resx">
       <DependentUpon>frmAccountDetails.cs</DependentUpon>
     </EmbeddedResource>
