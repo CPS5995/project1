@@ -19,9 +19,14 @@ namespace financeApp
         }
 
         public userAccount loadedAccount;
-        
+        public theme loadedTheme;
+
         private void frmMain_Load(object sender, EventArgs e)
         {
+            this.loadedTheme = new theme("default", "#23272E", "#282C34", "#FFFFFF",
+                "#6494ED", "#FFFFFF", "#6494ED", "#73C990", "#FF6347", "#6494ED"); 
+
+            this.loadedTheme.themeForm(this);
             this.Text = "Be My Wallet";
             this.WindowState = FormWindowState.Maximized;
             tmrTimer.Start();
@@ -31,6 +36,7 @@ namespace financeApp
         {
             using (frmLogin loginForm = new frmLogin())
             {
+                this.loadedTheme.themeForm(loginForm);
                 loginForm.ShowDialog();
             }
         }
@@ -38,6 +44,7 @@ namespace financeApp
         private void runReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmReporting reportForm = new frmReporting();
+            this.loadedTheme.themeForm(reportForm);
             reportForm.MdiParent = this;
             reportForm.loadAccountIntoForm(loadedAccount);
             reportForm.Show();
@@ -59,6 +66,7 @@ namespace financeApp
             else
             {
                 frmAccountDetails accountViewForm = new frmAccountDetails();
+                this.loadedTheme.themeForm(accountViewForm);
                 accountViewForm.Name = "frmAccountDetails";
                 accountViewForm.MdiParent = this;
                 accountViewForm.loadAccountIntoForm(loadedAccount);
@@ -69,9 +77,13 @@ namespace financeApp
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to close the application?\r\nAny unsaved work will be lost.", "Close Application?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            using (frmMessageBox messageBox = new frmMessageBox())
             {
-                this.Close();
+                this.loadedTheme.themeForm(messageBox);
+                if (messageBox.show("Are you sure you want to close the application?\r\nAny unsaved work will be lost.", "Close Application?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    this.Close();
+                }
             }
         }
 
@@ -86,6 +98,7 @@ namespace financeApp
             else
             {
                 frmProfileDetails profileViewForm = new frmProfileDetails();
+                this.loadedTheme.themeForm(profileViewForm);
                 profileViewForm.Name = "frmProfileDetails";
                 profileViewForm.MdiParent = this;
                 profileViewForm.loadAccountIntoForm(loadedAccount);
@@ -106,18 +119,27 @@ namespace financeApp
 
         private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("You will be logged out of the Application?\r\nAny unsaved work will be lost."
+            using (frmMessageBox messageBox = new frmMessageBox())
+            {
+                this.loadedTheme.themeForm(messageBox);
+                if (messageBox.show("You will be logged out of the Application?\r\nAny unsaved work will be lost."
                 + "\r\n\r\n Are you sure you want to log out?",
                 "Log Out?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                logOut();
-                using (frmLogin loginForm = new frmLogin())
                 {
-                    loginForm.ShowDialog();
+                    logOut();
+                    using (frmLogin loginForm = new frmLogin())
+                    {
+                        this.loadedTheme.themeForm(loginForm);
+                        loginForm.ShowDialog();
+                    }
+
                 }
-                              
             }
         }
 
+        private void windowsToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            loadedTheme.themeMenuStrip(this.msMainMenu);
+        }
     }
 }

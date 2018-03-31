@@ -25,6 +25,9 @@ namespace financeApp
 
         private void frmInputBox_Load(object sender, EventArgs e)
         {
+            common.getMainForm().loadedTheme.themeNegativeButton(this.btnCancel);
+            common.getMainForm().loadedTheme.themePositiveButton(this.btnOk);
+
             this.AcceptButton = btnOk;
             this.CancelButton = btnCancel;
 

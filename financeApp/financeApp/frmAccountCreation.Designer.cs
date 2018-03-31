@@ -36,6 +36,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtPassword
@@ -92,7 +93,7 @@
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(109, 161);
+            this.btnSubmit.Location = new System.Drawing.Point(109, 153);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(75, 23);
             this.btnSubmit.TabIndex = 10;
@@ -109,11 +110,21 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Please enter your new account information, \r\nand click submit when finished!";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 187);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(235, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Password must be at least eight characters long!";
+            // 
             // frmAccountCreation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(283, 209);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.label3);
@@ -145,5 +156,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

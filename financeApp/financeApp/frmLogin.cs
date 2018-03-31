@@ -19,6 +19,7 @@ namespace financeApp
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
+            common.getMainForm().loadedTheme.themePositiveButton(this.btnLogin);
             this.Text = "Welcome!";
             this.AcceptButton = btnLogin;
         }
@@ -42,7 +43,11 @@ namespace financeApp
             }
             else
             {
-                MessageBox.Show("Invalid Username or Password!", "Login Failed", MessageBoxButtons.OK);
+                using (frmMessageBox messageBox = new frmMessageBox())
+                {
+                    common.getMainForm().loadedTheme.themeForm(messageBox);
+                    messageBox.show("Invalid Username or Password!", "Login Failed", MessageBoxButtons.OK);
+                }
                 txtPassword.Clear();
             }
 
@@ -53,6 +58,7 @@ namespace financeApp
         {
             using (frmAccountCreation accountCreationForm = new frmAccountCreation())
             {
+                common.getMainForm().loadedTheme.themeForm(accountCreationForm);
                 accountCreationForm.ShowDialog();
             }
         }

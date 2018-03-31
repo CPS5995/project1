@@ -90,6 +90,12 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMessageBox.Designer.cs">
+      <DependentUpon>frmMessageBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmProfileDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="reporting.cs" />
     <Compile Include="testing.cs" />
+    <Compile Include="theming.cs" />
     <Compile Include="userAccount.cs" />
     <EmbeddedResource Include="frmAccountCreation.resx">
       <DependentUpon>frmAccountCreation.cs</DependentUpon>
@@ -125,6 +132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMessageBox.resx">
+      <DependentUpon>frmMessageBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProfileDetails.resx">
       <DependentUpon>frmProfileDetails.cs</DependentUpon>

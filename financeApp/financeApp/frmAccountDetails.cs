@@ -51,6 +51,7 @@ namespace financeApp
         {
             using (frmInputBox inputBox = new frmInputBox())
             {
+                common.getMainForm().loadedTheme.themeForm(inputBox);
                 inputBox.Text = "Add Profile";
                 inputBox.lblMessage.Text = "Enter new profile name:";
 

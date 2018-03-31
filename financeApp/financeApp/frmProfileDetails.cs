@@ -79,6 +79,7 @@ namespace financeApp
         {
             using (frmInputBox inputBox = new frmInputBox())
             {
+                common.getMainForm().loadedTheme.themeForm(inputBox);
                 inputBox.Text = "Add Profile";
                 inputBox.lblMessage.Text = "Enter new profile name:";
 
@@ -134,12 +135,17 @@ namespace financeApp
         {
             if (getSelectedProfile() == null)
             {
-                MessageBox.Show("No Profile Selected.");
+                using (frmMessageBox messageBox = new frmMessageBox())
+                {
+                    common.getMainForm().loadedTheme.themeForm(messageBox);
+                    messageBox.show("No Profile Selected.", "No Profile Selected", MessageBoxButtons.OK);
+                }
             }
             else
             {
                 using (frmInputBox inputBox = new frmInputBox())
                 {
+                    common.getMainForm().loadedTheme.themeForm(inputBox);
                     inputBox.Text = "Rename Profile: [" + getSelectedProfile().name + "]";
                     inputBox.lblMessage.Text = "Enter new profile name:";
                     inputBox.txtInput.Text = getSelectedProfile().name;
@@ -149,7 +155,7 @@ namespace financeApp
                     if (!string.IsNullOrEmpty(inputBox.result))
                     {
                         //rename profile
-                        fundingProfile renamedProfile = new fundingProfile(getSelectedProfile().id,inputBox.result);
+                        fundingProfile renamedProfile = new fundingProfile(getSelectedProfile().id, inputBox.result);
                         //renamedProfile.name = inputBox.result;
 
                         common.updateProfileOnAccount(common.getMainForm().loadedAccount, getSelectedProfile(), renamedProfile);
@@ -163,19 +169,24 @@ namespace financeApp
 
         private void deleteSelectedProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (getSelectedProfile() == null)
+            using (frmMessageBox messageBox = new frmMessageBox())
             {
-                MessageBox.Show("No Profile Selected.");
-            }
-            else
-            {
-                if (MessageBox.Show("You are about to delete the profile: [" + getSelectedProfile().name + "]"
-                                   + "\r\nThe Profile and ALL of its Cash Flows will be deleted!"
-                                   + "\r\n\r\nAre you sure you want to delete this Profile?",
-                                   "Delete Profile?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                common.getMainForm().loadedTheme.themeForm(messageBox);
+
+                if (getSelectedProfile() == null)
                 {
-                    common.deleteProfileFromAccount(loadedAccount, getSelectedProfile());
-                    loadAccountIntoForm(common.getMainForm().loadedAccount);
+                    messageBox.show("No Profile Selected.", "No Profile Selected", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    if (messageBox.show("You are about to delete the profile: [" + getSelectedProfile().name + "]"
+                                       + "\r\nThe Profile and ALL of its Cash Flows will be deleted!"
+                                       + "\r\n\r\nAre you sure you want to delete this Profile?",
+                                       "Delete Profile?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        common.deleteProfileFromAccount(loadedAccount, getSelectedProfile());
+                        loadAccountIntoForm(common.getMainForm().loadedAccount);
+                    }
                 }
             }
 
@@ -185,12 +196,17 @@ namespace financeApp
         {
             if (getSelectedProfile() == null)
             {
-                MessageBox.Show("No Profile Selected.");
+                using (frmMessageBox messageBox = new frmMessageBox())
+                {
+                    common.getMainForm().loadedTheme.themeForm(messageBox);
+                    messageBox.show("No Profile Selected.", "No Profile Selected", MessageBoxButtons.OK);
+                }
             }
             else
             {
                 using (frmCashFlowDetails cashFlowForm = new frmCashFlowDetails())
                 {
+                    common.getMainForm().loadedTheme.themeForm(cashFlowForm);
                     cashFlowForm.loadAccountIntoForm(this.loadedAccount);
                     cashFlowForm.loadProfileIntoForm(getSelectedProfile());
 
@@ -202,20 +218,25 @@ namespace financeApp
 
         private void deleteSelectedCashFlowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (getSelectedProfile() == null || getSelectedCashFlow() == null)
+            using (frmMessageBox messageBox = new frmMessageBox())
             {
-                MessageBox.Show("No Cash Flow Selected.");
-            }
-            else
-            {
-                if (MessageBox.Show("You are about to delete the Cash Flow: [" + getSelectedCashFlow().name + "]"
-                                   + "\r\nfrom the profile: [" + getSelectedProfile().name + "]"
-                                   + "\r\n\r\nThe deleted Flow will be LOST, and cannot be recovered!"
-                                   + "\r\n\r\nAre you sure you want to delete this Flow?",
-                                   "Delete Cash Flow?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                common.getMainForm().loadedTheme.themeForm(messageBox);
+
+                if (getSelectedProfile() == null || getSelectedCashFlow() == null)
                 {
-                    common.deleteCashFlowFromProfile(getSelectedProfile(), getSelectedCashFlow());
-                    loadAccountIntoForm(common.getMainForm().loadedAccount);
+                    messageBox.show("No Cash Flow Selected.","No Cash Flow Selected", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    if (messageBox.show("You are about to delete the Cash Flow: [" + getSelectedCashFlow().name + "]"
+                                       + "\r\nfrom the profile: [" + getSelectedProfile().name + "]"
+                                       + "\r\n\r\nThe deleted Flow will be LOST, and cannot be recovered!"
+                                       + "\r\n\r\nAre you sure you want to delete this Flow?",
+                                       "Delete Cash Flow?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        common.deleteCashFlowFromProfile(getSelectedProfile(), getSelectedCashFlow());
+                        loadAccountIntoForm(common.getMainForm().loadedAccount);
+                    }
                 }
             }
         }
@@ -224,12 +245,17 @@ namespace financeApp
         {
             if (getSelectedProfile() == null || getSelectedCashFlow() == null)
             {
-                MessageBox.Show("No Cash Flow Selected.");
+                using (frmMessageBox messageBox = new frmMessageBox())
+                {
+                    common.getMainForm().loadedTheme.themeForm(messageBox);
+                    messageBox.show("No Cash Flow Selected.","No Cash Flow Selected", MessageBoxButtons.OK);
+                }
             }
             else
             {
                 using (frmCashFlowDetails cashFlowForm = new frmCashFlowDetails())
                 {
+                    common.getMainForm().loadedTheme.themeForm(cashFlowForm);
                     cashFlowForm.loadAccountIntoForm(this.loadedAccount);
                     cashFlowForm.loadProfileIntoForm(getSelectedProfile());
                     cashFlowForm.loadCashFlowIntoForm(getSelectedCashFlow());

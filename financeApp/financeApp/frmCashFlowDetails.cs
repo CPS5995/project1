@@ -97,24 +97,29 @@ namespace financeApp
 
         private void deleteFlowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (loadedFlow == null)
+            using (frmMessageBox messageBox = new frmMessageBox())
             {
-                MessageBox.Show("This Cash Flow has not yet been saved (and cannot be deleted).");
-            }
-            else
-            {
-                if (MessageBox.Show("You are about to delete the Cash Flow: [" + loadedFlow.name + "]"
-                                   + "\r\nfrom the profile: [" + loadedProfile.name + "]"
-                                   + "\r\n\r\nThe deleted Flow will be LOST, and cannot be recovered!"
-                                   + "\r\n\r\nAre you sure you want to delete this Flow?",
-                                   "Delete Cash Flow?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    common.deleteCashFlowFromProfile(loadedProfile, loadedFlow);
-                    loadAccountIntoForm(common.getMainForm().loadedAccount);
+                common.getMainForm().loadedTheme.themeForm(messageBox);
 
-                    //close the form after deleting the flow
-                    MessageBox.Show("Cash Flow Deleted.");
-                    this.Close();
+                if (loadedFlow == null)
+                {
+                    messageBox.show("This Cash Flow has not yet been saved (and cannot be deleted).","Unable To Delete", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    if (messageBox.show("You are about to delete the Cash Flow: [" + loadedFlow.name + "]"
+                                       + "\r\nfrom the profile: [" + loadedProfile.name + "]"
+                                       + "\r\n\r\nThe deleted Flow will be LOST, and cannot be recovered!"
+                                       + "\r\n\r\nAre you sure you want to delete this Flow?",
+                                       "Delete Cash Flow?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        common.deleteCashFlowFromProfile(loadedProfile, loadedFlow);
+                        loadAccountIntoForm(common.getMainForm().loadedAccount);
+
+                        //close the form after deleting the flow
+                        messageBox.show("Cash Flow Deleted.", "Flow Deleted", MessageBoxButtons.OK);
+                        this.Close();
+                    }
                 }
             }
         }
@@ -172,9 +177,13 @@ namespace financeApp
             }
             else
             {
-                MessageBox.Show("Unable to save current flow!\r\n" +
+                using (frmMessageBox messageBox = new frmMessageBox())
+                {
+                    common.getMainForm().loadedTheme.themeForm(messageBox);
+                    messageBox.show("Unable to save current flow!\r\n" +
                                 "Please make sure all fields are properly filled out.",
                                 "Error Saving Cash Flow", MessageBoxButtons.OK);
+                }
                 return false;
             }
 

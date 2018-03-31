@@ -19,36 +19,40 @@ namespace financeApp
 
         private void frmAccountCreation_Load(object sender, EventArgs e)
         {
+            common.getMainForm().loadedTheme.themePositiveButton(this.btnSubmit);
             this.Text = "New Account Creation";
             this.AcceptButton = btnSubmit;
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-
-            if (validateNewPassword(txtPassword.Text, txtConfirmPassword.Text))
+            using (frmMessageBox messageBox = new frmMessageBox())
             {
-                if (validateNewUsername(txtUsername.Text))
-                {
-                    common.createNewAccount(
-                        new userAccount(common.getNextAccountId(), txtUsername.Text, null),
-                        txtPassword.Text);
+                common.getMainForm().loadedTheme.themeForm(messageBox);
 
-                    MessageBox.Show("Your account has been created!", "Account Created", MessageBoxButtons.OK);
-                    this.Close();
+                if (validateNewPassword(txtPassword.Text, txtConfirmPassword.Text))
+                {
+                    if (validateNewUsername(txtUsername.Text))
+                    {
+                        common.createNewAccount(
+                            new userAccount(common.getNextAccountId(), txtUsername.Text, null),
+                            txtPassword.Text);
+
+                        messageBox.show("Your account has been created!", "Account Created", MessageBoxButtons.OK);
+                        this.Close();
+                    }
+                    else
+                    {
+                        messageBox.show("The username you have chosen is ALREADY in use,\r\nplease choose a different username\r\n",
+                            "Invalid Username", MessageBoxButtons.OK);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("The username you have chosen is ALREADY in use, please choose a different username\r\n",
-                        "Invalid Username", MessageBoxButtons.OK);
+                    messageBox.show("Please make sure the password you entered matches the \"confirmed\" password\r\n" +
+                        "and that your password is at least EIGHT characters long.", "Invalid Password", MessageBoxButtons.OK);
                 }
             }
-            else
-            {
-                MessageBox.Show("Please make sure the password you entered matches the \"confirmed\" password " +
-                    "and that your password is at least EIGHT characters long.", "Invalid Password", MessageBoxButtons.OK);
-            }
-
         }
 
 
@@ -79,6 +83,12 @@ namespace financeApp
         /// <returns></returns>
         private bool validateNewUsername(string newUsername)
         {
+            if (string.IsNullOrEmpty(newUsername))
+            {
+                /* no empty usernames */
+                return false;
+            }
+
             database.sqlStatement sql = new database.sqlStatement();
             sql.connectionString = database.getConnectString();
 
