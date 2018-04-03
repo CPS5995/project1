@@ -33,6 +33,7 @@ namespace financeApp
             lblMessage.Text = text;
             this.Width = Math.Max(this.Width,lblMessage.Width + 30);
             configureButtons(buttons);
+            this.Height = Math.Max(this.Height,btnOk.Location.Y + btnOk.Height + 57);
 
             this.ShowDialog();
             return this.result;
@@ -47,6 +48,10 @@ namespace financeApp
             btnOk.Left = (this.Width / 2) - (btnOk.Width / 2);
             btnYes.Left = (this.Width / 2) - ((btnYes.Width)+20);
             btnNo.Left = (btnYes.Right) + (20);
+
+            btnOk.Top = Math.Max(btnOk.Top,lblMessage.Height + lblMessage.Location.Y + 20);
+            btnYes.Top = Math.Max(btnYes.Top, lblMessage.Height + lblMessage.Location.Y + 20);
+            btnNo.Top = Math.Max(btnNo.Top, lblMessage.Height + lblMessage.Location.Y + 20);
 
             switch (buttons)
             {

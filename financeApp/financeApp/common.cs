@@ -178,11 +178,53 @@ public static class common
     public static void updateAccount(userAccount oldAccount, userAccount updatedAccount)
     {
         //TODO
+        database.sqlStatement updateSql = new database.sqlStatement();
+        updateSql.connectionString = database.getConnectString();
+
+        updateSql.query = "UPDATE bmw_user_account " +
+                          "SET username = @username " +
+                          "WHERE id = @id ";
+
+        updateSql.queryParameters.Add("@id", oldAccount.id);
+        updateSql.queryParameters.Add("@username", updatedAccount.name);
+
+        database.executeNonQueryOnDatabase(updateSql);
     }
 
     public static void deleteAccount(userAccount accountToDelete)
     {
         //TODO
+        database.sqlStatement deleteSql = new database.sqlStatement();
+        deleteSql.connectionString = database.getConnectString();
+
+        /* Delete the Child Cash Flows from every profile */
+        foreach (fundingProfile profileToDelete in accountToDelete.profiles)
+        {
+            deleteSql.query = "DELETE FROM bmw_cash_flow " +
+                              "WHERE profile_id = @profile_id ";
+
+            deleteSql.queryParameters.Add("@profile_id", profileToDelete.id);
+
+            database.executeNonQueryOnDatabase(deleteSql);
+            deleteSql.queryParameters.Clear();
+        }
+
+        /* Delete the Profiles */
+        deleteSql.query = "DELETE FROM bmw_funding_profile " +
+                          "WHERE account_id = @account_id ";
+
+        deleteSql.queryParameters.Add("@account_id", accountToDelete.id);
+
+        database.executeNonQueryOnDatabase(deleteSql);
+        deleteSql.queryParameters.Clear();
+
+        /* Finally Delete the Account */
+        deleteSql.query = "DELETE FROM bmw_user_account " +
+                          "WHERE id = @id ";
+
+        deleteSql.queryParameters.Add("@id", accountToDelete.id);
+
+        database.executeNonQueryOnDatabase(deleteSql);
     }
 
     /*Funding Profiles*/
@@ -337,6 +379,58 @@ public static class common
 
     /*</end DB stuff>*/
 
+    /// <summary>
+    /// Checks if the password entered into the form is valid.
+    /// A password is valid if it matches the "confirm password",
+    /// and is at least eight characters in length
+    /// </summary>
+    /// <returns></returns>
+    public static bool validateNewPassword(string password, string confirmPassword)
+    {
+        if (password != confirmPassword || password.Length < 8)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    /// <summary>
+    /// Validates the username to create.
+    /// A username is valid if it is unique, in the sense that
+    /// it does NOT already exist in the database.
+    /// </summary>
+    /// <param name="newUsername"></param>
+    /// <returns></returns>
+    public static bool validateNewUsername(string newUsername)
+    {
+        if (string.IsNullOrEmpty(newUsername))
+        {
+            /* no empty usernames */
+            return false;
+        }
+
+        database.sqlStatement sql = new database.sqlStatement();
+        sql.connectionString = database.getConnectString();
+
+        sql.query = "SELECT DISTINCT COUNT(ua.id) " +
+                    "FROM bmw_user_account ua " +
+                    "WHERE ua.username = @username ";
+
+        sql.queryParameters.Add("@username", newUsername);
+
+        if (int.Parse(database.executeScalarOnDatabase(sql).ToString()) == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
 
     /// <summary>
     /// 

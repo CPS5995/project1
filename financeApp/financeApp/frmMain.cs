@@ -111,7 +111,7 @@ namespace financeApp
         /// Logs the currently loaded Account OUT,
         /// and reverts the App to a pre-login state
         /// </summary>
-        private void logOut()
+        public void logOut()
         {
             common.closeAllMdiChildForms(this);
             this.loadedAccount = null;

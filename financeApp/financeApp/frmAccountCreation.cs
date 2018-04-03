@@ -30,9 +30,9 @@ namespace financeApp
             {
                 common.getMainForm().loadedTheme.themeForm(messageBox);
 
-                if (validateNewPassword(txtPassword.Text, txtConfirmPassword.Text))
+                if (common.validateNewPassword(txtPassword.Text, txtConfirmPassword.Text))
                 {
-                    if (validateNewUsername(txtUsername.Text))
+                    if (common.validateNewUsername(txtUsername.Text))
                     {
                         common.createNewAccount(
                             new userAccount(common.getNextAccountId(), txtUsername.Text, null),
@@ -54,60 +54,6 @@ namespace financeApp
                 }
             }
         }
-
-
-        /// <summary>
-        /// Checks if the password entered into the form is valid.
-        /// A password is valid if it matches the "confirm password",
-        /// and is at least eight characters in length
-        /// </summary>
-        /// <returns></returns>
-        private bool validateNewPassword(string password, string confirmPassword)
-        {
-            if (password != confirmPassword || password.Length < 8)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// Validates the username to create.
-        /// A username is valid if it is unique, in the sense that
-        /// it does NOT already exist in the database.
-        /// </summary>
-        /// <param name="newUsername"></param>
-        /// <returns></returns>
-        private bool validateNewUsername(string newUsername)
-        {
-            if (string.IsNullOrEmpty(newUsername))
-            {
-                /* no empty usernames */
-                return false;
-            }
-
-            database.sqlStatement sql = new database.sqlStatement();
-            sql.connectionString = database.getConnectString();
-
-            sql.query = "SELECT DISTINCT COUNT(ua.id) " +
-                        "FROM bmw_user_account ua " +
-                        "WHERE ua.username = @username ";
-
-            sql.queryParameters.Add("@username", newUsername);
-
-            if (int.Parse(database.executeScalarOnDatabase(sql).ToString()) == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-
+        
     }
 }
