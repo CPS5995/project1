@@ -20,14 +20,18 @@ namespace financeApp
 
         public userAccount loadedAccount;
         public theme loadedTheme;
+        public float loadedFontSize;
 
         private void frmMain_Load(object sender, EventArgs e)
         {
             this.loadedTheme = new theme("default", "#23272E", "#282C34", "#FFFFFF",
-                "#6494ED", "#FFFFFF", "#6494ED", "#73C990", "#FF6347", "#6494ED"); 
+                "#6494ED", "#FFFFFF", "#6494ED", "#73C990", "#FF6347", "#6494ED");
+
+            this.loadedFontSize = common.DEFAULT_FONT_SIZE;
+            normalToolStripMenuItem.Checked = true;
 
             this.loadedTheme.themeForm(this);
-            this.Text = "Be My Wallet";
+            this.Text = common.APPLICATION_NAME;
             this.WindowState = FormWindowState.Maximized;
             tmrTimer.Start();
         }
@@ -36,6 +40,7 @@ namespace financeApp
         {
             using (frmLogin loginForm = new frmLogin())
             {
+                common.setFormFontSize(loginForm, this.loadedFontSize);
                 this.loadedTheme.themeForm(loginForm);
                 loginForm.ShowDialog();
             }
@@ -44,6 +49,7 @@ namespace financeApp
         private void runReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmReporting reportForm = new frmReporting();
+            common.setFormFontSize(reportForm, this.loadedFontSize);
             this.loadedTheme.themeForm(reportForm);
             reportForm.MdiParent = this;
             reportForm.loadAccountIntoForm(loadedAccount);
@@ -66,6 +72,7 @@ namespace financeApp
             else
             {
                 frmAccountDetails accountViewForm = new frmAccountDetails();
+                common.setFormFontSize(accountViewForm, this.loadedFontSize);
                 this.loadedTheme.themeForm(accountViewForm);
                 accountViewForm.Name = "frmAccountDetails";
                 accountViewForm.MdiParent = this;
@@ -79,6 +86,7 @@ namespace financeApp
         {
             using (frmMessageBox messageBox = new frmMessageBox())
             {
+                common.setFormFontSize(messageBox, this.loadedFontSize);
                 this.loadedTheme.themeForm(messageBox);
                 if (messageBox.show("Are you sure you want to close the application?\r\nAny unsaved work will be lost.", "Close Application?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
@@ -98,6 +106,7 @@ namespace financeApp
             else
             {
                 frmProfileDetails profileViewForm = new frmProfileDetails();
+                common.setFormFontSize(profileViewForm, this.loadedFontSize);
                 this.loadedTheme.themeForm(profileViewForm);
                 profileViewForm.Name = "frmProfileDetails";
                 profileViewForm.MdiParent = this;
@@ -117,10 +126,22 @@ namespace financeApp
             this.loadedAccount = null;
         }
 
+        private void resizeAllMdiChildren(float fontSize)
+        {
+
+            foreach(Form mdiChild in this.MdiChildren)
+            {
+                common.setFormFontSize(mdiChild, fontSize);
+            }
+             
+        }
+
+
         private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (frmMessageBox messageBox = new frmMessageBox())
             {
+                common.setFormFontSize(messageBox, this.loadedFontSize);
                 this.loadedTheme.themeForm(messageBox);
                 if (messageBox.show("You will be logged out of the Application?\r\nAny unsaved work will be lost."
                 + "\r\n\r\n Are you sure you want to log out?",
@@ -129,6 +150,7 @@ namespace financeApp
                     logOut();
                     using (frmLogin loginForm = new frmLogin())
                     {
+                        common.setFormFontSize(loginForm, this.loadedFontSize);
                         this.loadedTheme.themeForm(loginForm);
                         loginForm.ShowDialog();
                     }
@@ -140,6 +162,36 @@ namespace financeApp
         private void windowsToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             loadedTheme.themeMenuStrip(this.msMainMenu);
+        }
+
+        private void normalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            normalToolStripMenuItem.Checked = true;
+            largeToolStripMenuItem.Checked = false;
+            hugeToolStripMenuItem.Checked = false;
+
+            this.loadedFontSize = common.DEFAULT_FONT_SIZE;
+            resizeAllMdiChildren(this.loadedFontSize);
+        }
+
+        private void largeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            normalToolStripMenuItem.Checked = false;
+            largeToolStripMenuItem.Checked = true;
+            hugeToolStripMenuItem.Checked = false;
+
+            this.loadedFontSize = 9.31f;
+            resizeAllMdiChildren(this.loadedFontSize);
+        }
+
+        private void hugeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            normalToolStripMenuItem.Checked = false;
+            largeToolStripMenuItem.Checked = false;
+            hugeToolStripMenuItem.Checked = true;
+
+            this.loadedFontSize = 10f;
+            resizeAllMdiChildren(this.loadedFontSize);
         }
     }
 }

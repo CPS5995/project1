@@ -36,11 +36,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.msAccountDetails = new System.Windows.Forms.MenuStrip();
             this.accountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ssAccountViewStatus.SuspendLayout();
             this.msAccountDetails.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +65,7 @@
             // 
             this.ssAccountViewStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsslAccountStats});
-            this.ssAccountViewStatus.Location = new System.Drawing.Point(0, 305);
+            this.ssAccountViewStatus.Location = new System.Drawing.Point(0, 306);
             this.ssAccountViewStatus.Name = "ssAccountViewStatus";
             this.ssAccountViewStatus.Size = new System.Drawing.Size(481, 22);
             this.ssAccountViewStatus.TabIndex = 4;
@@ -118,17 +118,25 @@
             this.accountToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.accountToolStripMenuItem.Text = "Account";
             // 
-            // deleteAccountToolStripMenuItem
+            // saveChangesToolStripMenuItem
             // 
-            this.deleteAccountToolStripMenuItem.Name = "deleteAccountToolStripMenuItem";
-            this.deleteAccountToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.deleteAccountToolStripMenuItem.Text = "Delete Account";
-            this.deleteAccountToolStripMenuItem.Click += new System.EventHandler(this.deleteAccountToolStripMenuItem_Click);
+            this.saveChangesToolStripMenuItem.Name = "saveChangesToolStripMenuItem";
+            this.saveChangesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveChangesToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.saveChangesToolStripMenuItem.Text = "Save Changes";
+            this.saveChangesToolStripMenuItem.Click += new System.EventHandler(this.saveChangesToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(184, 6);
+            // 
+            // deleteAccountToolStripMenuItem
+            // 
+            this.deleteAccountToolStripMenuItem.Name = "deleteAccountToolStripMenuItem";
+            this.deleteAccountToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.deleteAccountToolStripMenuItem.Text = "Delete Account";
+            this.deleteAccountToolStripMenuItem.Click += new System.EventHandler(this.deleteAccountToolStripMenuItem_Click);
             // 
             // profilesToolStripMenuItem
             // 
@@ -145,19 +153,11 @@
             this.addNewProfileToolStripMenuItem.Text = "Add New Profile";
             this.addNewProfileToolStripMenuItem.Click += new System.EventHandler(this.addNewProfileToolStripMenuItem_Click);
             // 
-            // saveChangesToolStripMenuItem
-            // 
-            this.saveChangesToolStripMenuItem.Name = "saveChangesToolStripMenuItem";
-            this.saveChangesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveChangesToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.saveChangesToolStripMenuItem.Text = "Save Changes";
-            this.saveChangesToolStripMenuItem.Click += new System.EventHandler(this.saveChangesToolStripMenuItem_Click);
-            // 
             // frmAccountDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(481, 327);
+            this.ClientSize = new System.Drawing.Size(481, 328);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lbProfiles);
             this.Controls.Add(this.ssAccountViewStatus);

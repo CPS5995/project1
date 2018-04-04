@@ -51,6 +51,7 @@ namespace financeApp
         {
             using (frmInputBox inputBox = new frmInputBox())
             {
+                common.setFormFontSize(inputBox, common.getMainForm().loadedFontSize);
                 common.getMainForm().loadedTheme.themeForm(inputBox);
                 inputBox.Text = "Add Profile";
                 inputBox.lblMessage.Text = "Enter new profile name:";
@@ -71,6 +72,7 @@ namespace financeApp
         {
             using (frmMessageBox messageBox = new frmMessageBox())
             {
+                common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
                 common.getMainForm().loadedTheme.themeForm(messageBox);
 
                 if (messageBox.show("You are about to DELETE the account [" + loadedAccount.name + "]!\r\n" +
@@ -87,6 +89,7 @@ namespace financeApp
 
                     using (frmLogin loginForm = new frmLogin())
                     {
+                        common.setFormFontSize(loginForm, common.getMainForm().loadedFontSize);
                         common.getMainForm().loadedTheme.themeForm(loginForm);
                         loginForm.ShowDialog();
                     }
@@ -118,6 +121,7 @@ namespace financeApp
             {
                 using (frmMessageBox messageBox = new frmMessageBox())
                 {
+                    common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
                     common.getMainForm().loadedTheme.themeForm(messageBox);
                     messageBox.show("The username you have chosen is ALREADY in use,\r\n" +
                                     "please choose a different username\r\n",

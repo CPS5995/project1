@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
+using System.Drawing;
 
 public static class common
 {
+
+    public const float DEFAULT_FONT_SIZE = 8.25f;
+    public const string APPLICATION_NAME = "Be My Wallet";
 
     /// <summary>
     /// Returns the FIRST day of the week for a given date.
@@ -145,6 +149,56 @@ public static class common
         {
             parentList[index] = newItem;
         }
+    }
+
+    /// <summary>
+    /// "crawls" a parent form, and returns all child controls.
+    /// this includes children of children
+    /// </summary>
+    /// <param name="rootControl"></param>
+    /// <returns></returns>
+    public static List<Control> getChildControls(Form rootControl)
+    {
+        List<Control> childControls = new List<Control>();
+        Stack<Control> stack = new Stack<Control>();
+
+        stack.Push(rootControl);
+
+        while (stack.Count > 0)
+        {
+            foreach (Control control in stack.Pop().Controls)
+            {
+                childControls.Add(control);
+
+                if (control.HasChildren)
+                {
+                    stack.Push(control);
+                }
+            }
+        }
+        return childControls;
+    }
+
+    public static  void setFormFontSize(Form formToResize, float fontSize)
+    {
+        float scaleFactor = fontSize / DEFAULT_FONT_SIZE;
+
+        if (formToResize.MinimumSize.Width == 0)
+        {
+            formToResize.MinimumSize = new Size(formToResize.Width,formToResize.Height);
+        }
+
+        formToResize.Font = new Font(formToResize.Font.FontFamily, fontSize);
+
+        foreach (Control childControl in common.getChildControls(formToResize))
+        {
+            childControl.Font = new Font(formToResize.Font.FontFamily, fontSize);
+        }
+
+        formToResize.Width = (int)(formToResize.MinimumSize.Width * scaleFactor);
+        formToResize.Height = (int)(formToResize.MinimumSize.Height * scaleFactor);
+
+        formToResize.Refresh();
     }
 
     /*<begin DB stuff>*/

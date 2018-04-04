@@ -137,6 +137,7 @@ namespace financeApp
             {
                 using (frmMessageBox messageBox = new frmMessageBox())
                 {
+                    common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
                     common.getMainForm().loadedTheme.themeForm(messageBox);
                     messageBox.show("No Profile Selected.", "No Profile Selected", MessageBoxButtons.OK);
                 }
@@ -145,6 +146,7 @@ namespace financeApp
             {
                 using (frmInputBox inputBox = new frmInputBox())
                 {
+                    common.setFormFontSize(inputBox, common.getMainForm().loadedFontSize);
                     common.getMainForm().loadedTheme.themeForm(inputBox);
                     inputBox.Text = "Rename Profile: [" + getSelectedProfile().name + "]";
                     inputBox.lblMessage.Text = "Enter new profile name:";
@@ -171,6 +173,7 @@ namespace financeApp
         {
             using (frmMessageBox messageBox = new frmMessageBox())
             {
+                common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
                 common.getMainForm().loadedTheme.themeForm(messageBox);
 
                 if (getSelectedProfile() == null)
@@ -198,6 +201,7 @@ namespace financeApp
             {
                 using (frmMessageBox messageBox = new frmMessageBox())
                 {
+                    common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
                     common.getMainForm().loadedTheme.themeForm(messageBox);
                     messageBox.show("No Profile Selected.", "No Profile Selected", MessageBoxButtons.OK);
                 }
@@ -206,6 +210,7 @@ namespace financeApp
             {
                 using (frmCashFlowDetails cashFlowForm = new frmCashFlowDetails())
                 {
+                    common.setFormFontSize(cashFlowForm, common.getMainForm().loadedFontSize);
                     common.getMainForm().loadedTheme.themeForm(cashFlowForm);
                     cashFlowForm.loadAccountIntoForm(this.loadedAccount);
                     cashFlowForm.loadProfileIntoForm(getSelectedProfile());
@@ -220,6 +225,7 @@ namespace financeApp
         {
             using (frmMessageBox messageBox = new frmMessageBox())
             {
+                common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
                 common.getMainForm().loadedTheme.themeForm(messageBox);
 
                 if (getSelectedProfile() == null || getSelectedCashFlow() == null)
@@ -247,6 +253,7 @@ namespace financeApp
             {
                 using (frmMessageBox messageBox = new frmMessageBox())
                 {
+                    common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
                     common.getMainForm().loadedTheme.themeForm(messageBox);
                     messageBox.show("No Cash Flow Selected.","No Cash Flow Selected", MessageBoxButtons.OK);
                 }
@@ -255,6 +262,7 @@ namespace financeApp
             {
                 using (frmCashFlowDetails cashFlowForm = new frmCashFlowDetails())
                 {
+                    common.setFormFontSize(cashFlowForm, common.getMainForm().loadedFontSize);
                     common.getMainForm().loadedTheme.themeForm(cashFlowForm);
                     cashFlowForm.loadAccountIntoForm(this.loadedAccount);
                     cashFlowForm.loadProfileIntoForm(getSelectedProfile());

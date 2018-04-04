@@ -99,6 +99,7 @@ namespace financeApp
         {
             using (frmMessageBox messageBox = new frmMessageBox())
             {
+                common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
                 common.getMainForm().loadedTheme.themeForm(messageBox);
 
                 if (loadedFlow == null)
@@ -179,6 +180,7 @@ namespace financeApp
             {
                 using (frmMessageBox messageBox = new frmMessageBox())
                 {
+                    common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
                     common.getMainForm().loadedTheme.themeForm(messageBox);
                     messageBox.show("Unable to save current flow!\r\n" +
                                 "Please make sure all fields are properly filled out.",

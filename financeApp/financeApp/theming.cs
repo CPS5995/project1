@@ -44,7 +44,7 @@ public class theme
         formToTheme.BackColor = primaryColor;
         formToTheme.ForeColor = textColor;
 
-        foreach(Control control in getChildControls(formToTheme))
+        foreach(Control control in common.getChildControls(formToTheme))
         {
             themeControl(control);
         }
@@ -161,34 +161,6 @@ public class theme
         statusStripToTheme.ForeColor = this.textColor;
     }
 
-
-    /// <summary>
-    /// "crawls" a parent form, and returns all child controls.
-    /// this includes children of children
-    /// </summary>
-    /// <param name="rootControl"></param>
-    /// <returns></returns>
-    private List<Control> getChildControls(Form rootControl)
-    {
-        List<Control> childControls = new List<Control>();
-        Stack<Control> stack = new Stack<Control>();
-
-        stack.Push(rootControl);
-
-        while (stack.Count > 0)
-        {
-            foreach (Control control in stack.Pop().Controls)
-            {
-                childControls.Add(control);
-
-                if (control.HasChildren)
-                {
-                    stack.Push(control);
-                }
-            }
-        }
-        return childControls;
-    }
 
     private List<ToolStripMenuItem> getMenuItems(MenuStrip parentMenu)
     {

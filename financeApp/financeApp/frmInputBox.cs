@@ -28,6 +28,8 @@ namespace financeApp
             common.getMainForm().loadedTheme.themeNegativeButton(this.btnCancel);
             common.getMainForm().loadedTheme.themePositiveButton(this.btnOk);
 
+            configureLayout();
+
             this.AcceptButton = btnOk;
             this.CancelButton = btnCancel;
 
@@ -48,6 +50,25 @@ namespace financeApp
         private void txtInput_TextChanged(object sender, EventArgs e)
         {
             btnOk.Enabled = !string.IsNullOrEmpty(txtInput.Text);
+        }
+
+
+        /// <summary>
+        /// dynamically sets the location of the buttons on the form
+        /// so they're always in the middle of the form, beneath the "message"
+        /// regardless of how the form is sized
+        /// </summary>
+        private void configureLayout()
+        {
+            lblMessage.Left = (this.Width / 2) - (lblMessage.Width);
+            btnOk.Left = (this.Width / 2) - ((btnOk.Width) + 20);
+            btnCancel.Left = (btnOk.Right) + (20);
+
+            txtInput.Left = 45;
+            txtInput.Width = this.Width - 90;
+
+            btnOk.Top = Math.Max(btnOk.Top, lblMessage.Height + lblMessage.Location.Y + 20);
+            btnCancel.Top = Math.Max(btnCancel.Top, lblMessage.Height + lblMessage.Location.Y + 20);
         }
     }
 }

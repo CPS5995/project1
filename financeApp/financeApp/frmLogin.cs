@@ -45,6 +45,7 @@ namespace financeApp
             {
                 using (frmMessageBox messageBox = new frmMessageBox())
                 {
+                    common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
                     common.getMainForm().loadedTheme.themeForm(messageBox);
                     messageBox.show("Invalid Username or Password!", "Login Failed", MessageBoxButtons.OK);
                 }
@@ -58,6 +59,7 @@ namespace financeApp
         {
             using (frmAccountCreation accountCreationForm = new frmAccountCreation())
             {
+                common.setFormFontSize(accountCreationForm, common.getMainForm().loadedFontSize);
                 common.getMainForm().loadedTheme.themeForm(accountCreationForm);
                 accountCreationForm.ShowDialog();
             }
