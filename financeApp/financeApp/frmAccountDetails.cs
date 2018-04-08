@@ -21,7 +21,7 @@ namespace financeApp
 
         private void frmAccountDetails_Load(object sender, EventArgs e)
         {
-
+            common.getMainForm().loadedTheme.themePositiveButton(this.btnSave);
         }
 
         public void loadAccountIntoForm(userAccount accountToLoad)
@@ -46,6 +46,36 @@ namespace financeApp
             }
         }
 
+        private void updateAccount()
+        {
+            string newUsername = txtAccountName.Text;
+
+            if (loadedAccount.name == newUsername)
+            {
+                /* if the "New" name is the same as the old name, don't do anything */
+                return;
+            }
+
+            if (common.validateNewUsername(newUsername))
+            {
+                userAccount updatedAccount = new userAccount(loadedAccount.id, newUsername, common.getMainForm().loadedAccount.profiles);
+
+                common.updateAccount(common.getMainForm().loadedAccount, updatedAccount);
+                common.getMainForm().loadedAccount = updatedAccount;
+                loadAccountIntoForm(common.getMainForm().loadedAccount);
+            }
+            else
+            {
+                using (frmMessageBox messageBox = new frmMessageBox())
+                {
+                    common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
+                    common.getMainForm().loadedTheme.themeForm(messageBox);
+                    messageBox.show("The username you have chosen is ALREADY in use,\r\n" +
+                                    "please choose a different username\r\n",
+                                    "Invalid Username", MessageBoxButtons.OK);
+                }
+            }
+        }
 
         private void addNewProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -101,34 +131,12 @@ namespace financeApp
 
         private void saveChangesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string newUsername = txtAccountName.Text;
+            updateAccount();
+        }
 
-            if (loadedAccount.name == newUsername)
-            {
-                /* if the "New" name is the same as the old name, don't do anything */
-                return;
-            }
-            
-            if (common.validateNewUsername(newUsername))
-            {
-                userAccount updatedAccount = new userAccount(loadedAccount.id, newUsername, common.getMainForm().loadedAccount.profiles);
-                
-                common.updateAccount(common.getMainForm().loadedAccount, updatedAccount);
-                common.getMainForm().loadedAccount = updatedAccount;
-                loadAccountIntoForm(common.getMainForm().loadedAccount);
-            }
-            else
-            {
-                using (frmMessageBox messageBox = new frmMessageBox())
-                {
-                    common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
-                    common.getMainForm().loadedTheme.themeForm(messageBox);
-                    messageBox.show("The username you have chosen is ALREADY in use,\r\n" +
-                                    "please choose a different username\r\n",
-                                    "Invalid Username", MessageBoxButtons.OK);
-                }
-            }
-
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            updateAccount();
         }
     }
 }

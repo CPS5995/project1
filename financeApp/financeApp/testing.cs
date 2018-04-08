@@ -222,6 +222,35 @@ namespace unitTests
             Assert.IsTrue(common.isDate("14:30 PM"));
         }
 
+        /// <summary>
+        /// Testing values for the isNumeric function
+        /// </summary>
+        [TestMethod]
+        public void testIsNumeric()
+        {
+            Assert.IsTrue(common.isNumeric("10"));
+            Assert.IsTrue(common.isNumeric("0.10"));
+            Assert.IsTrue(common.isNumeric("10.00"));
+            Assert.IsTrue(common.isNumeric("10.001"));
+            Assert.IsTrue(common.isNumeric("10,000"));
+            Assert.IsTrue(common.isNumeric("+10"));
+            Assert.IsTrue(common.isNumeric("-10"));
+            Assert.IsTrue(common.isNumeric("  1  "));
+            Assert.IsTrue(common.isNumeric("10,0,00"));
+
+            Assert.IsFalse(common.isNumeric("10a"));
+            Assert.IsFalse(common.isNumeric("A"));
+            Assert.IsFalse(common.isNumeric("10-"));
+            Assert.IsFalse(common.isNumeric("$10"));
+            Assert.IsFalse(common.isNumeric("one"));
+            Assert.IsFalse(common.isNumeric(""));
+            Assert.IsFalse(common.isNumeric("10-"));
+            Assert.IsFalse(common.isNumeric("--10"));
+            Assert.IsFalse(common.isNumeric("++10"));
+            Assert.IsFalse(common.isNumeric("-  10"));
+            Assert.IsFalse(common.isNumeric("+  10"));
+        }
+
     }
 
 }

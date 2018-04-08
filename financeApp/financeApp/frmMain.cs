@@ -84,15 +84,7 @@ namespace financeApp
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (frmMessageBox messageBox = new frmMessageBox())
-            {
-                common.setFormFontSize(messageBox, this.loadedFontSize);
-                this.loadedTheme.themeForm(messageBox);
-                if (messageBox.show("Are you sure you want to close the application?\r\nAny unsaved work will be lost.", "Close Application?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    this.Close();
-                }
-            }
+            this.Close();
         }
 
         private void manageProfilesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -126,14 +118,32 @@ namespace financeApp
             this.loadedAccount = null;
         }
 
+        /// <summary>
+        /// Loops through all existing MDI Children, and
+        /// sets their size and font size
+        /// </summary>
+        /// <param name="fontSize"></param>
         private void resizeAllMdiChildren(float fontSize)
         {
 
-            foreach(Form mdiChild in this.MdiChildren)
+            foreach (Form mdiChild in this.MdiChildren)
             {
                 common.setFormFontSize(mdiChild, fontSize);
             }
-             
+
+        }
+
+        private void closeActiveWindow()
+        {
+            if (this.ActiveMdiChild != null)
+            {
+                this.ActiveMdiChild.Close();
+            }
+            else
+            {
+                this.Close();
+            }
+
         }
 
 
@@ -192,6 +202,31 @@ namespace financeApp
 
             this.loadedFontSize = 10f;
             resizeAllMdiChildren(this.loadedFontSize);
+        }
+
+        private void closeActiveWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            closeActiveWindow();
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (loadedAccount != null)
+            {
+                using (frmMessageBox messageBox = new frmMessageBox())
+                {
+                    common.setFormFontSize(messageBox, this.loadedFontSize);
+                    this.loadedTheme.themeForm(messageBox);
+                    if (messageBox.show("Are you sure you want to close the application?\r\nAny unsaved work will be lost.", "Close Application?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        e.Cancel = false;
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                }
+            }
         }
     }
 }

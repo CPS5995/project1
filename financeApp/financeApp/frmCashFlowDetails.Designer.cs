@@ -31,6 +31,7 @@
             this.msCashFlowDetails = new System.Windows.Forms.MenuStrip();
             this.cashFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAndCloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ssCashFlowStatus = new System.Windows.Forms.StatusStrip();
@@ -45,7 +46,11 @@
             this.txtCashFlowDueDate = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.saveAndCloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.clearFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msCashFlowDetails.SuspendLayout();
             this.ssCashFlowStatus.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +71,8 @@
             this.cashFlowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripMenuItem,
             this.saveAndCloseToolStripMenuItem,
+            this.closeToolStripMenuItem,
+            this.clearFieldsToolStripMenuItem,
             this.toolStripSeparator1,
             this.deleteFlowToolStripMenuItem});
             this.cashFlowToolStripMenuItem.Name = "cashFlowToolStripMenuItem";
@@ -76,19 +83,28 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // saveAndCloseToolStripMenuItem
+            // 
+            this.saveAndCloseToolStripMenuItem.Name = "saveAndCloseToolStripMenuItem";
+            this.saveAndCloseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.saveAndCloseToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.saveAndCloseToolStripMenuItem.Text = "Save and Close";
+            this.saveAndCloseToolStripMenuItem.Click += new System.EventHandler(this.saveAndCloseToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(222, 6);
             // 
             // deleteFlowToolStripMenuItem
             // 
             this.deleteFlowToolStripMenuItem.Name = "deleteFlowToolStripMenuItem";
-            this.deleteFlowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteFlowToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.deleteFlowToolStripMenuItem.Text = "Delete Flow";
             this.deleteFlowToolStripMenuItem.Click += new System.EventHandler(this.deleteFlowToolStripMenuItem_Click);
             // 
@@ -190,20 +206,60 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "Due Date:";
             // 
-            // saveAndCloseToolStripMenuItem
+            // closeToolStripMenuItem
             // 
-            this.saveAndCloseToolStripMenuItem.Name = "saveAndCloseToolStripMenuItem";
-            this.saveAndCloseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.S)));
-            this.saveAndCloseToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.saveAndCloseToolStripMenuItem.Text = "Save and Close";
-            this.saveAndCloseToolStripMenuItem.Click += new System.EventHandler(this.saveAndCloseToolStripMenuItem_Click);
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(69, 223);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 13;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(153, 223);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 14;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(234, 223);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 15;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // clearFieldsToolStripMenuItem
+            // 
+            this.clearFieldsToolStripMenuItem.Name = "clearFieldsToolStripMenuItem";
+            this.clearFieldsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.clearFieldsToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.clearFieldsToolStripMenuItem.Text = "Clear Fields";
+            this.clearFieldsToolStripMenuItem.Click += new System.EventHandler(this.clearFieldsToolStripMenuItem_Click);
             // 
             // frmCashFlowDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 335);
+            this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtCashFlowDueDate);
@@ -253,5 +309,10 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem saveAndCloseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.ToolStripMenuItem clearFieldsToolStripMenuItem;
     }
 }

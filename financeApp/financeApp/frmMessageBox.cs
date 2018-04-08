@@ -58,11 +58,13 @@ namespace financeApp
                 case MessageBoxButtons.OK:
                     btnOk.Visible = true;
                     AcceptButton = btnOk;
+                    CancelButton = btnOk;
                     break;
                 case MessageBoxButtons.YesNo:
                     btnNo.Visible = true;
                     btnYes.Visible = true;
                     AcceptButton = btnYes;
+                    CancelButton = btnNo;
                     break;
                 default:
                     throw new ArgumentException();

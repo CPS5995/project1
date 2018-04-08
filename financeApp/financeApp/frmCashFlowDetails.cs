@@ -23,8 +23,13 @@ namespace financeApp
 
         private void frmCashFlowDetails_Load(object sender, EventArgs e)
         {
+
+            common.getMainForm().loadedTheme.themeNegativeButton(this.btnDelete);
+            common.getMainForm().loadedTheme.themePositiveButton(this.btnSave);
+
             tsslFlowStatus.Text = "";
             loadFlowTypeComboBox();
+
             if (!(loadedFlow == null))
             {
                 this.cbCashFlowType.Text = loadedFlow.flowType.ToString();
@@ -97,32 +102,7 @@ namespace financeApp
 
         private void deleteFlowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (frmMessageBox messageBox = new frmMessageBox())
-            {
-                common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
-                common.getMainForm().loadedTheme.themeForm(messageBox);
-
-                if (loadedFlow == null)
-                {
-                    messageBox.show("This Cash Flow has not yet been saved (and cannot be deleted).","Unable To Delete", MessageBoxButtons.OK);
-                }
-                else
-                {
-                    if (messageBox.show("You are about to delete the Cash Flow: [" + loadedFlow.name + "]"
-                                       + "\r\nfrom the profile: [" + loadedProfile.name + "]"
-                                       + "\r\n\r\nThe deleted Flow will be LOST, and cannot be recovered!"
-                                       + "\r\n\r\nAre you sure you want to delete this Flow?",
-                                       "Delete Cash Flow?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        common.deleteCashFlowFromProfile(loadedProfile, loadedFlow);
-                        loadAccountIntoForm(common.getMainForm().loadedAccount);
-
-                        //close the form after deleting the flow
-                        messageBox.show("Cash Flow Deleted.", "Flow Deleted", MessageBoxButtons.OK);
-                        this.Close();
-                    }
-                }
-            }
+            deleteCashFlow();
         }
 
         /// <summary>
@@ -192,6 +172,41 @@ namespace financeApp
         }
 
         /// <summary>
+        /// Deletes the cashflow currently loaded in the form
+        /// after prompting the user. If the user DOES delete the flow
+        /// the form closes.
+        /// </summary>
+        private void deleteCashFlow()
+        {
+            using (frmMessageBox messageBox = new frmMessageBox())
+            {
+                common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
+                common.getMainForm().loadedTheme.themeForm(messageBox);
+
+                if (loadedFlow == null)
+                {
+                    messageBox.show("This Cash Flow has not yet been saved (and cannot be deleted).", "Unable To Delete", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    if (messageBox.show("You are about to delete the Cash Flow: [" + loadedFlow.name + "]"
+                                       + "\r\nfrom the profile: [" + loadedProfile.name + "]"
+                                       + "\r\n\r\nThe deleted Flow will be LOST, and cannot be recovered!"
+                                       + "\r\n\r\nAre you sure you want to delete this Flow?",
+                                       "Delete Cash Flow?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        common.deleteCashFlowFromProfile(loadedProfile, loadedFlow);
+                        loadAccountIntoForm(common.getMainForm().loadedAccount);
+
+                        //close the form after deleting the flow
+                        messageBox.show("Cash Flow Deleted.", "Flow Deleted", MessageBoxButtons.OK);
+                        this.Close();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Validates the data on the form before saving/updating the cash flow.
         /// Returns a bool indicating if the data is valid.
         /// </summary>
@@ -212,12 +227,47 @@ namespace financeApp
 
         }
 
+        private void clearFormFields()
+        {
+            txtCashFlowAmount.Clear();
+            txtCashFlowDate.Clear();
+            txtCashFlowDueDate.Clear();
+            txtCashFlowName.Clear();
+            cbCashFlowType.SelectedItem = null;
+            cbCashFlowType.ResetText();
+        }
+
         private void saveAndCloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (saveCashFlow())
             {
                 this.Close();
             }
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            saveCashFlow();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            deleteCashFlow();
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            clearFormFields();
+        }
+
+        private void clearFieldsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clearFormFields();
         }
     }
 }
