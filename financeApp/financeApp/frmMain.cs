@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace financeApp
 {
@@ -18,17 +19,43 @@ namespace financeApp
             InitializeComponent();
         }
 
+        /* user settings */
         public userAccount loadedAccount;
         public theme loadedTheme;
         public float loadedFontSize;
+        public string rememberMeToken;
 
         private void frmMain_Load(object sender, EventArgs e)
         {
             this.loadedTheme = new theme("default", "#23272E", "#282C34", "#FFFFFF",
                 "#6494ED", "#FFFFFF", "#6494ED", "#73C990", "#FF6347", "#6494ED");
 
-            this.loadedFontSize = common.DEFAULT_FONT_SIZE;
-            normalToolStripMenuItem.Checked = true;
+            /* if we can't read the settings file, use the defaults*/
+            if (!readUserSettingsFromFile())
+            {
+                this.loadedFontSize = common.DEFAULT_FONT_SIZE;
+                normalToolStripMenuItem.Checked = true;
+                rememberMeToken = null;
+            }
+
+            if (!string.IsNullOrEmpty(this.rememberMeToken))
+            {
+                rememberMeToolStripMenuItem.Checked = true;
+            }
+
+            if (this.loadedFontSize == common.DEFAULT_FONT_SIZE)
+            {
+                normalToolStripMenuItem.Checked = true;
+            }
+            else if (this.loadedFontSize == common.LARGE_FONT_SIZE)
+            {
+                largeToolStripMenuItem.Checked = true;
+            }
+            else if (this.loadedFontSize == common.HUGE_FONT_SIZE)
+            {
+                hugeToolStripMenuItem.Checked = true;
+            }
+
 
             this.loadedTheme.themeForm(this);
             this.Text = common.APPLICATION_NAME;
@@ -43,6 +70,11 @@ namespace financeApp
                 common.setFormFontSize(loginForm, this.loadedFontSize);
                 this.loadedTheme.themeForm(loginForm);
                 loginForm.ShowDialog();
+            }
+
+            if (!string.IsNullOrEmpty(this.rememberMeToken))
+            {
+                rememberMeToolStripMenuItem.Checked = true;
             }
         }
 
@@ -116,6 +148,8 @@ namespace financeApp
         {
             common.closeAllMdiChildForms(this);
             this.loadedAccount = null;
+            this.rememberMeToken = null;
+            rememberMeToolStripMenuItem.Checked = false;
         }
 
         /// <summary>
@@ -133,6 +167,10 @@ namespace financeApp
 
         }
 
+        /// <summary>
+        /// Closes the current active MDI child window.
+        /// If no child windows exist, closes the main window.
+        /// </summary>
         private void closeActiveWindow()
         {
             if (this.ActiveMdiChild != null)
@@ -144,6 +182,67 @@ namespace financeApp
                 this.Close();
             }
 
+        }
+
+        /// <summary>
+        /// writes the loaded application user settings to
+        /// a settings file in the current directory
+        /// </summary>
+        private void writeUserSettingsToFile()
+        {
+            string settingsFilePath = @"settings.xml";
+            XmlWriterSettings xmlSettings = new XmlWriterSettings();
+
+            xmlSettings.Indent = true;
+
+            using (XmlWriter writer = XmlWriter.Create(settingsFilePath, xmlSettings))
+            {
+                writer.WriteStartDocument();
+                writer.WriteComment("This is the settings file used by the " + common.APPLICATION_NAME + " application.");
+                writer.WriteStartElement("settings");
+                writer.WriteComment("Interface Font Size");
+                writer.WriteElementString("fontSize", this.loadedFontSize.ToString());
+                writer.WriteComment("Remember Me Token");
+                writer.WriteElementString("rememberMe", this.rememberMeToken);
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+
+                /*System.IO.File.SetAttributes(settingsFilePath, 
+                    System.IO.File.GetAttributes(settingsFilePath) | System.IO.FileAttributes.Hidden);*/
+            }
+        }
+
+        private bool readUserSettingsFromFile()
+        {
+            float[] validFontSizes = { common.DEFAULT_FONT_SIZE, common.LARGE_FONT_SIZE, common.HUGE_FONT_SIZE };
+
+            try
+            {
+                XmlDocument settingsFile = new XmlDocument();
+                XmlNode currentNode;
+
+                settingsFile.Load(System.IO.Directory.GetCurrentDirectory() + "\\settings.xml");
+
+                currentNode = settingsFile.SelectSingleNode("/settings/fontSize");
+                if (!common.isNumeric(currentNode.InnerText) ||
+                    !validFontSizes.Contains(float.Parse(currentNode.InnerText)))
+                {
+                    this.loadedFontSize = common.DEFAULT_FONT_SIZE;
+                }
+                else
+                {
+                    this.loadedFontSize = float.Parse(currentNode.InnerText);
+                }
+
+                currentNode = settingsFile.SelectSingleNode("/settings/rememberMe");
+                this.rememberMeToken = currentNode.InnerText;
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
 
@@ -190,7 +289,7 @@ namespace financeApp
             largeToolStripMenuItem.Checked = true;
             hugeToolStripMenuItem.Checked = false;
 
-            this.loadedFontSize = 9.31f;
+            this.loadedFontSize = common.LARGE_FONT_SIZE;
             resizeAllMdiChildren(this.loadedFontSize);
         }
 
@@ -200,7 +299,7 @@ namespace financeApp
             largeToolStripMenuItem.Checked = false;
             hugeToolStripMenuItem.Checked = true;
 
-            this.loadedFontSize = 10f;
+            this.loadedFontSize = common.HUGE_FONT_SIZE;
             resizeAllMdiChildren(this.loadedFontSize);
         }
 
@@ -220,6 +319,17 @@ namespace financeApp
                     if (messageBox.show("Are you sure you want to close the application?\r\nAny unsaved work will be lost.", "Close Application?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         e.Cancel = false;
+
+                        if (!rememberMeToolStripMenuItem.Checked)
+                        {
+                            this.rememberMeToken = null;
+                        }
+                        else
+                        {
+                            this.rememberMeToken = common.getRememberMeToken(this.loadedAccount.id);
+                        }
+
+                        writeUserSettingsToFile();
                     }
                     else
                     {
@@ -227,6 +337,11 @@ namespace financeApp
                     }
                 }
             }
+        }
+
+        private void rememberMeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rememberMeToolStripMenuItem.Checked = !rememberMeToolStripMenuItem.Checked;
         }
     }
 }

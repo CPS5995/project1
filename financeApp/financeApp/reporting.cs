@@ -31,11 +31,13 @@ public static class reporting
         outputSeries.ChartType = chartType;
         outputSeries.Color = displayColor;
 
-        foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)).OfType<DayOfWeek>().ToList())
+        if (dataToReport.Count() > 0)
         {
-            outputSeries.Points.AddXY(day.ToString(), dataToReport.Where(x => x.flowDate.DayOfWeek == day).Sum(x => x.amount));
+            foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)).OfType<DayOfWeek>().ToList())
+            {
+                outputSeries.Points.AddXY(day.ToString(), dataToReport.Where(x => x.flowDate.DayOfWeek == day).Sum(x => x.amount));
+            }
         }
-
         return outputSeries;
     }
 
@@ -53,9 +55,12 @@ public static class reporting
         outputSeries.ChartType = chartType;
         outputSeries.Color = displayColor;
 
-        for (int i = 1; i <= 12; i++)
+        if (dataToReport.Count() > 0)
         {
-            outputSeries.Points.AddXY(common.getMonthName(i), dataToReport.Where(x => x.flowDate.Month == i).Sum(x => x.amount));
+            for (int i = 1; i <= 12; i++)
+            {
+                outputSeries.Points.AddXY(common.getMonthName(i), dataToReport.Where(x => x.flowDate.Month == i).Sum(x => x.amount));
+            }
         }
 
         return outputSeries;
@@ -75,10 +80,25 @@ public static class reporting
         outputSeries.ChartType = chartType;
         outputSeries.Color = displayColor;
 
-        for (int i = dataToReport.Min(x => x.flowDate).Year; i <= dataToReport.Max(x => x.flowDate).Year; i++)
+        if (dataToReport.Count() > 0)
         {
-            outputSeries.Points.AddXY(i, dataToReport.Where(x => x.flowDate.Year == i).Sum(x => x.amount));
+            for (int i = dataToReport.Min(x => x.flowDate).Year; i <= dataToReport.Max(x => x.flowDate).Year; i++)
+            {
+                outputSeries.Points.AddXY(i, dataToReport.Where(x => x.flowDate.Year == i).Sum(x => x.amount));
+            }
         }
+
+        return outputSeries;
+    }
+
+    public static Series getDummySeries()
+    {
+        Series outputSeries = new Series("No Data Found");
+        outputSeries.ChartType = SeriesChartType.Column;
+        outputSeries.Color = Color.White;
+
+        outputSeries.Points.AddXY("No Data Found",1);
+
 
         return outputSeries;
     }

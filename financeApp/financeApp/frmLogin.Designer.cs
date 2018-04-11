@@ -33,7 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
-            this.txtRememberMe = new System.Windows.Forms.CheckBox();
+            this.chkRememberMe = new System.Windows.Forms.CheckBox();
             this.llblCreateAccount = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.lblHeaderMessage = new System.Windows.Forms.Label();
@@ -83,15 +83,15 @@
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // txtRememberMe
+            // chkRememberMe
             // 
-            this.txtRememberMe.AutoSize = true;
-            this.txtRememberMe.Location = new System.Drawing.Point(186, 146);
-            this.txtRememberMe.Name = "txtRememberMe";
-            this.txtRememberMe.Size = new System.Drawing.Size(95, 17);
-            this.txtRememberMe.TabIndex = 5;
-            this.txtRememberMe.Text = "Remember Me";
-            this.txtRememberMe.UseVisualStyleBackColor = true;
+            this.chkRememberMe.AutoSize = true;
+            this.chkRememberMe.Location = new System.Drawing.Point(186, 146);
+            this.chkRememberMe.Name = "chkRememberMe";
+            this.chkRememberMe.Size = new System.Drawing.Size(95, 17);
+            this.chkRememberMe.TabIndex = 5;
+            this.chkRememberMe.Text = "Remember Me";
+            this.chkRememberMe.UseVisualStyleBackColor = true;
             // 
             // llblCreateAccount
             // 
@@ -130,7 +130,7 @@
             this.Controls.Add(this.lblHeaderMessage);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.llblCreateAccount);
-            this.Controls.Add(this.txtRememberMe);
+            this.Controls.Add(this.chkRememberMe);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.label2);
@@ -157,7 +157,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnLogin;
-        private System.Windows.Forms.CheckBox txtRememberMe;
+        private System.Windows.Forms.CheckBox chkRememberMe;
         private System.Windows.Forms.LinkLabel llblCreateAccount;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblHeaderMessage;

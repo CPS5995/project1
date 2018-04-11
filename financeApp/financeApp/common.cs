@@ -10,6 +10,9 @@ public static class common
 {
 
     public const float DEFAULT_FONT_SIZE = 8.25f;
+    public const float LARGE_FONT_SIZE = 9.31f;
+    public const float HUGE_FONT_SIZE = 10f;
+
     public const string APPLICATION_NAME = "Be My Wallet";
 
     /// <summary>
@@ -584,6 +587,25 @@ public static class common
 
         return cashFlows;
 
+    }
+
+    /// <summary>
+    /// gets the "rememberance token" for a given account
+    /// </summary>
+    /// <param name="accountId"></param>
+    /// <returns></returns>
+    public static string getRememberMeToken(int accountId)
+    {
+        database.sqlStatement selectSql = new database.sqlStatement();
+        selectSql.connectionString = database.getConnectString();
+
+        selectSql.query = "SELECT SHA1(CONCAT(ua.id, ua.username)) " +
+                          "FROM bmw_user_account ua " +
+                          "WHERE ua.id = @id ";
+
+        selectSql.queryParameters.Add("@id", accountId);
+
+        return database.executeScalarOnDatabase(selectSql).ToString();
     }
 
 }

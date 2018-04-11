@@ -67,9 +67,16 @@ namespace financeApp
 
             foreach (Series reportSeries in getReportSeries(reportDataSet, reportLowerBound, reportUpperBound, reportType))
             {
-                chrtReportChart.Series.Add(reportSeries);
+                if (reportSeries.Points.Count > 0)
+                {
+                    chrtReportChart.Series.Add(reportSeries);
+                }
             }
 
+            if (chrtReportChart.Series.Count == 0)
+            {
+                chrtReportChart.Series.Add(reporting.getDummySeries());
+            }
 
             tsslReportInfo.Text = getReportStatus(reportDataSet, reportLowerBound, reportUpperBound, reportType);
         }

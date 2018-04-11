@@ -19,6 +19,12 @@ namespace financeApp
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
+            if(!string.IsNullOrEmpty(common.getMainForm().rememberMeToken) && getAccountId(common.getMainForm().rememberMeToken) != null)
+            {
+                common.getMainForm().loadedAccount = common.getAccountFromDatabase((int)getAccountId(common.getMainForm().rememberMeToken));
+                this.Close();
+            }
+
             common.getMainForm().loadedTheme.themePositiveButton(this.btnLogin);
             this.Text = "Welcome!";
             this.AcceptButton = btnLogin;
@@ -39,6 +45,16 @@ namespace financeApp
             if (isValidLogin(txtUsername.Text, txtPassword.Text))
             {
                 common.getMainForm().loadedAccount = common.getAccountFromDatabase(getAccountId(txtUsername.Text, txtPassword.Text));
+
+                if (chkRememberMe.Checked)
+                {
+                    common.getMainForm().rememberMeToken = common.getRememberMeToken(common.getMainForm().loadedAccount.id);
+                }
+                else
+                {
+                    common.getMainForm().rememberMeToken = null;
+                }
+
                 this.Close();
             }
             else
@@ -110,6 +126,26 @@ namespace financeApp
 
 
             return int.Parse(database.executeScalarOnDatabase(sql).ToString());
+        }
+
+        private int? getAccountId(string rememberMeToken)
+        {
+            database.sqlStatement sql = new database.sqlStatement();
+            sql.connectionString = database.getConnectString();
+
+            sql.query = "SELECT DISTINCT ua.id " +
+                        "FROM bmw_user_account ua " +
+                        "WHERE SHA1(CONCAT(ua.id, ua.username)) = @token"; 
+
+            sql.queryParameters.Add("@token", rememberMeToken);
+
+            if (database.executeScalarOnDatabase(sql) == null)
+            {
+                return null;
+            } else
+            {
+                return int.Parse(database.executeScalarOnDatabase(sql).ToString());
+            }
         }
     }
 }
