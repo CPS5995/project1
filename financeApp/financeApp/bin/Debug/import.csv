@@ -1,0 +1,4 @@
+"flow_name","flow_type","amount","transaction_date","due_date"
+"Import From File Flow","income","10","04/11/2018","04/11/2018"
+"Import From File Flow2","expense","10","04/11/2018","04/11/2018"
+"Import Test","expense","10","04/18/2018","04/11/2018"

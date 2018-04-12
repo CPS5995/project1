@@ -47,6 +47,7 @@
             this.lbCashFlows = new System.Windows.Forms.ListBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblCashFlows = new System.Windows.Forms.Label();
+            this.importCashFlowsFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msProfileDetails.SuspendLayout();
             this.ssProfileViewStatus.SuspendLayout();
             this.pnlProfiles.SuspendLayout();
@@ -103,7 +104,8 @@
             this.cashFlowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addNewCashFlowToolStripMenuItem,
             this.viewEditSelectedCashFlowToolStripMenuItem,
-            this.deleteSelectedCashFlowToolStripMenuItem});
+            this.deleteSelectedCashFlowToolStripMenuItem,
+            this.importCashFlowsFromFileToolStripMenuItem});
             this.cashFlowToolStripMenuItem.Name = "cashFlowToolStripMenuItem";
             this.cashFlowToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.cashFlowToolStripMenuItem.Text = "Cash Flow";
@@ -222,6 +224,13 @@
             this.lblCashFlows.TabIndex = 3;
             this.lblCashFlows.Text = "Cash Flows";
             // 
+            // importCashFlowsFromFileToolStripMenuItem
+            // 
+            this.importCashFlowsFromFileToolStripMenuItem.Name = "importCashFlowsFromFileToolStripMenuItem";
+            this.importCashFlowsFromFileToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.importCashFlowsFromFileToolStripMenuItem.Text = "Import Cash Flows From File";
+            this.importCashFlowsFromFileToolStripMenuItem.Click += new System.EventHandler(this.importCashFlowsFromFileToolStripMenuItem_Click);
+            // 
             // frmProfileDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -274,5 +283,6 @@
         private System.Windows.Forms.ToolStripMenuItem addNewCashFlowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteSelectedCashFlowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewEditSelectedCashFlowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importCashFlowsFromFileToolStripMenuItem;
     }
 }

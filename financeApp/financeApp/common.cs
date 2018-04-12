@@ -155,6 +155,26 @@ public static class common
     }
 
     /// <summary>
+    /// Takes the STRING name of a cashFlowType, and returns the appropriate cashFlowType ENUM
+    /// Throws an exception if no ENUM exists for the given string
+    /// </summary>
+    /// <param name="cashFlowTypeName"></param>
+    /// <returns></returns>
+    public static cashFlowType getCashFlowTypeByName(string cashFlowTypeName)
+    {
+
+        foreach (cashFlowType flowType in Enum.GetValues(typeof(cashFlowType)))
+        {
+            if (Enum.GetName(typeof(cashFlowType), flowType) == cashFlowTypeName)
+            {
+                return flowType;
+            }
+        }
+
+        throw new ArgumentException("No such CashFlowType Exists");
+    }
+
+    /// <summary>
     /// "crawls" a parent form, and returns all child controls.
     /// this includes children of children
     /// </summary>
@@ -182,6 +202,12 @@ public static class common
         return childControls;
     }
 
+    /// <summary>
+    /// crawls a given form and sets it (and all of it's controls) 
+    /// to the use the provided font size.
+    /// </summary>
+    /// <param name="formToResize"></param>
+    /// <param name="fontSize"></param>
     public static  void setFormFontSize(Form formToResize, float fontSize)
     {
         float scaleFactor = fontSize / DEFAULT_FONT_SIZE;
@@ -203,6 +229,17 @@ public static class common
 
         formToResize.Refresh();
     }
+
+    /// <summary>
+    /// returns the File Version of the current running
+    /// build of the .exe
+    /// </summary>
+    /// <returns></returns>
+    public static string getApplicationVersion()
+    {
+        return System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion;
+    }
+
 
     /*<begin DB stuff>*/
     /* TODO: still needs to do the database stuff and whatever */

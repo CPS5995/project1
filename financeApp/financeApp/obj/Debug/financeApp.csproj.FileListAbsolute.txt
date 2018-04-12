@@ -18,3 +18,4 @@ C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\bin\Debug\MyS
 C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\bin\Debug\MySql.Data.xml
 C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmAccountCreation.resources
 C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmMessageBox.resources
+C:\Users\Lovecraft\Documents\GitHub\project1\financeApp\financeApp\obj\Debug\financeApp.frmAbout.resources

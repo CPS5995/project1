@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\Desktop\CPS5440\mysql-connector-net-6.10.6-noinstall\v4.5.2\MySql.Data.dll</HintPath>
@@ -54,6 +55,12 @@
     <Compile Include="cashFlow.cs" />
     <Compile Include="common.cs" />
     <Compile Include="database.cs" />
+    <Compile Include="frmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAbout.Designer.cs">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAccountCreation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +122,9 @@
     <Compile Include="testing.cs" />
     <Compile Include="theming.cs" />
     <Compile Include="userAccount.cs" />
+    <EmbeddedResource Include="frmAbout.resx">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAccountCreation.resx">
       <DependentUpon>frmAccountCreation.cs</DependentUpon>
     </EmbeddedResource>

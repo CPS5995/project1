@@ -343,5 +343,17 @@ namespace financeApp
         {
             rememberMeToolStripMenuItem.Checked = !rememberMeToolStripMenuItem.Checked;
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (frmAbout aboutForm = new frmAbout())
+            {
+                common.setFormFontSize(aboutForm, this.loadedFontSize);
+                this.loadedTheme.themeForm(aboutForm);
+
+                aboutForm.ShowDialog();
+
+            }
+        }
     }
 }

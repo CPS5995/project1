@@ -46,10 +46,12 @@
             this.normalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.largeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hugeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rememberMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ssMainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsslClock = new System.Windows.Forms.ToolStripStatusLabel();
             this.tmrTimer = new System.Windows.Forms.Timer(this.components);
-            this.rememberMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMainMenu.SuspendLayout();
             this.ssMainStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +62,8 @@
             this.accountToolStripMenuItem,
             this.reportingToolStripMenuItem,
             this.windowsToolStripMenuItem,
-            this.settingsToolStripMenuItem});
+            this.settingsToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.msMainMenu.Location = new System.Drawing.Point(0, 0);
             this.msMainMenu.MdiWindowListItem = this.windowsToolStripMenuItem;
             this.msMainMenu.Name = "msMainMenu";
@@ -195,6 +198,13 @@
             this.hugeToolStripMenuItem.Text = "Huge";
             this.hugeToolStripMenuItem.Click += new System.EventHandler(this.hugeToolStripMenuItem_Click);
             // 
+            // rememberMeToolStripMenuItem
+            // 
+            this.rememberMeToolStripMenuItem.Name = "rememberMeToolStripMenuItem";
+            this.rememberMeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rememberMeToolStripMenuItem.Text = "Remember Me";
+            this.rememberMeToolStripMenuItem.Click += new System.EventHandler(this.rememberMeToolStripMenuItem_Click);
+            // 
             // ssMainStatusStrip
             // 
             this.ssMainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -217,12 +227,20 @@
             // 
             this.tmrTimer.Tick += new System.EventHandler(this.tmrTimer_Tick);
             // 
-            // rememberMeToolStripMenuItem
+            // helpToolStripMenuItem
             // 
-            this.rememberMeToolStripMenuItem.Name = "rememberMeToolStripMenuItem";
-            this.rememberMeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.rememberMeToolStripMenuItem.Text = "Remember Me";
-            this.rememberMeToolStripMenuItem.Click += new System.EventHandler(this.rememberMeToolStripMenuItem_Click);
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -270,5 +288,7 @@
         private System.Windows.Forms.ToolStripMenuItem closeActiveWindowToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem rememberMeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }

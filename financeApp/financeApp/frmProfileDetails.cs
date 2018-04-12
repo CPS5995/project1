@@ -230,7 +230,7 @@ namespace financeApp
 
                 if (getSelectedProfile() == null || getSelectedCashFlow() == null)
                 {
-                    messageBox.show("No Cash Flow Selected.","No Cash Flow Selected", MessageBoxButtons.OK);
+                    messageBox.show("No Cash Flow Selected.", "No Cash Flow Selected", MessageBoxButtons.OK);
                 }
                 else
                 {
@@ -255,7 +255,7 @@ namespace financeApp
                 {
                     common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
                     common.getMainForm().loadedTheme.themeForm(messageBox);
-                    messageBox.show("No Cash Flow Selected.","No Cash Flow Selected", MessageBoxButtons.OK);
+                    messageBox.show("No Cash Flow Selected.", "No Cash Flow Selected", MessageBoxButtons.OK);
                 }
             }
             else
@@ -273,5 +273,155 @@ namespace financeApp
                 }
             }
         }
+
+        private void importCashFlowsFromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (getSelectedProfile() == null)
+            {
+                using (frmMessageBox messageBox = new frmMessageBox())
+                {
+                    common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
+                    common.getMainForm().loadedTheme.themeForm(messageBox);
+                    messageBox.show("No Profile Selected.", "No Profile Selected", MessageBoxButtons.OK);
+                }
+            }
+            else
+            {
+                string importFile = getFileToImport();
+
+                if (!string.IsNullOrEmpty(importFile))
+                {
+                    try
+                    {
+                        importCashFlowsIntoProfile(parseCsvIntoDataTable(importFile), getSelectedProfile());
+                        using (frmMessageBox messageBox = new frmMessageBox())
+                        {
+                            common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
+                            common.getMainForm().loadedTheme.themeForm(messageBox);
+                            messageBox.show(parseCsvIntoDataTable(importFile).Rows.Count + " Cash Flows Imported.",
+                                "Import Successful", MessageBoxButtons.OK);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        using (frmMessageBox messageBox = new frmMessageBox())
+                        {
+                            common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
+                            common.getMainForm().loadedTheme.themeForm(messageBox);
+                            messageBox.show("Cash Flow Import Failed\r\n" +
+                                "Please Make sure the file is in the proper format.",
+                                "Import Failed", MessageBoxButtons.OK);
+                        }
+                    }
+                    loadAccountIntoForm(common.getMainForm().loadedAccount);
+                }
+            }
+        }
+
+        /// <summary>
+        /// displays the system "file selection dialog",
+        /// and returns the path to the selected file
+        /// </summary>
+        /// <returns></returns>
+        private string getFileToImport()
+        {
+            using (OpenFileDialog fileSelector = new OpenFileDialog())
+            {
+                fileSelector.Multiselect = false;
+                fileSelector.Filter = "CSV Files (.csv)|*.csv";
+
+                fileSelector.ShowDialog();
+                return fileSelector.FileName;
+            }
+        }
+
+        /// <summary>
+        /// parses a CSV file (with headers) into a DataTable, and returns it
+        /// </summary>
+        /// <param name="csvFilePath"></param>
+        /// <returns></returns>
+        private DataTable parseCsvIntoDataTable(string csvFilePath)
+        {
+            using (Microsoft.VisualBasic.FileIO.TextFieldParser parser = new Microsoft.VisualBasic.FileIO.TextFieldParser(csvFilePath))
+            {
+                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                using (DataTable fileData = new DataTable())
+                {
+                    while (!parser.EndOfData)
+                    {
+                        if (parser.LineNumber == 1)
+                        {
+                            foreach (string field in parser.ReadFields())
+                            {
+                                fileData.Columns.Add(field);
+                            }
+                        }
+                        else
+                        {
+                            fileData.Rows.Add(parser.ReadFields());
+                        }
+                    }
+                    return fileData;
+                }
+            }
+        }
+
+        private bool importCashFlowsIntoProfile(DataTable csvData, fundingProfile profileToRecieveFlows)
+        {
+            List<cashFlow> csvFlows = new List<cashFlow>();
+
+            foreach (DataRow row in csvData.Rows)
+            {
+                csvFlows.Add(new cashFlow(common.getNextCashFlowId(),
+                    row["flow_name"].ToString(),
+                    float.Parse(row["amount"].ToString()),
+                    DateTime.Parse(row["due_date"].ToString()),
+                    DateTime.Parse(row["transaction_date"].ToString()),
+                    common.getCashFlowTypeByName(row["flow_type"].ToString())));
+            }
+
+            //Database stuff
+            database.sqlStatement insertSql = new database.sqlStatement();
+            insertSql.connectionString = database.getConnectString();
+
+            insertSql.query = "INSERT INTO bmw_cash_flow " +
+                              "(profile_id,flow_name,flow_type,amount,transaction_date,due_date) " +
+                              "VALUES "; //+
+                                         //"(@id,@profile_id,@flow_name,@flow_type,@amount,@transaction_date,@due_date) ";
+
+            List<string> values = new List<string>();
+            foreach (cashFlow flow in csvFlows)
+            {
+
+                values.Add("(@profile_id" + csvFlows.IndexOf(flow) + "," +
+                    "@flow_name" + csvFlows.IndexOf(flow) + "," +
+                    "@flow_type" + csvFlows.IndexOf(flow) + "," +
+                    "@amount" + csvFlows.IndexOf(flow) + "," +
+                    "@transaction_date" + csvFlows.IndexOf(flow) + "," +
+                    "@due_date" + csvFlows.IndexOf(flow) + ") ");
+
+                //insertSql.queryParameters.Add("@id" + csvFlows.IndexOf(flow), flow.id);
+                insertSql.queryParameters.Add("@profile_id" + csvFlows.IndexOf(flow), profileToRecieveFlows.id);
+                insertSql.queryParameters.Add("@flow_name" + csvFlows.IndexOf(flow), flow.name);
+                insertSql.queryParameters.Add("@flow_type" + csvFlows.IndexOf(flow), flow.flowType);
+                insertSql.queryParameters.Add("@amount" + csvFlows.IndexOf(flow), flow.amount);
+                insertSql.queryParameters.Add("@transaction_date" + csvFlows.IndexOf(flow), flow.flowDate);
+                insertSql.queryParameters.Add("@due_date" + csvFlows.IndexOf(flow), flow.dueDate);
+
+            }
+
+            insertSql.query += string.Join(",", values);
+
+            database.executeNonQueryOnDatabase(insertSql);
+
+            profileToRecieveFlows.cashFlows.AddRange(csvFlows);
+
+            return true;
+        }
+
+
     }
 }
