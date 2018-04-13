@@ -175,12 +175,12 @@ public static class common
     }
 
     /// <summary>
-    /// "crawls" a parent form, and returns all child controls.
+    /// "crawls" a parent control, and returns all child controls.
     /// this includes children of children
     /// </summary>
     /// <param name="rootControl"></param>
     /// <returns></returns>
-    public static List<Control> getChildControls(Form rootControl)
+    public static List<Control> getChildControls(Control rootControl)
     {
         List<Control> childControls = new List<Control>();
         Stack<Control> stack = new Stack<Control>();

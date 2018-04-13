@@ -85,10 +85,21 @@ namespace financeApp
 
                 inputBox.ShowDialog();
 
-                if (!string.IsNullOrEmpty(inputBox.result))
+                if (!string.IsNullOrEmpty(inputBox.result) &&
+                    !isNewProfileNameDuplicate(this.loadedAccount.profiles, inputBox.result))
                 {
                     common.addProfileToAccount(common.getMainForm().loadedAccount, new fundingProfile(common.getNextProfileId(), inputBox.result));
                     loadAccountIntoForm(common.getMainForm().loadedAccount);
+                }
+                else
+                {
+                    using (frmMessageBox messageBox = new frmMessageBox())
+                    {
+                        common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
+                        common.getMainForm().loadedTheme.themeForm(messageBox);
+                        messageBox.show("You cannot have more than one profile with the same name",
+                            "Duplicate Profile Name", MessageBoxButtons.OK);
+                    }
                 }
 
             }
@@ -131,6 +142,31 @@ namespace financeApp
         }
 
 
+
+        /// <summary>
+        /// Checks if the new profile's name already exists in the given set
+        /// </summary>
+        /// <param name="profilesToCheck"></param>
+        /// <param name="profileName"></param>
+        /// <returns></returns>
+        private bool isNewProfileNameDuplicate(List<fundingProfile> profilesToCheck, string profileName)
+        {
+            return profilesToCheck.Where(x => x.name.ToLower() == profileName.ToLower()).Count() > 0;
+        }
+
+        /// <summary>
+        /// checks if the given profile's name exists in the given set, but excludes
+        /// the profile currently being edited
+        /// </summary>
+        /// <param name="profilesToCheck"></param>
+        /// <param name="profileName"></param>
+        /// <returns></returns>
+        private bool isRenameProfileNameDuplicate(List<fundingProfile> profilesToCheck, string profileName)
+        {
+            /* exclude the flow we're editing (if any) from the dupe check*/
+            return profilesToCheck.Where(x => x.id != getSelectedProfile().id).Where(x => x.name.ToLower() == profileName.ToLower()).Count() > 0;
+        }
+
         private void renameSelectedProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (getSelectedProfile() == null)
@@ -154,14 +190,25 @@ namespace financeApp
 
                     inputBox.ShowDialog();
 
-                    if (!string.IsNullOrEmpty(inputBox.result))
+                    if (!string.IsNullOrEmpty(inputBox.result) &&
+                        !isRenameProfileNameDuplicate(this.loadedAccount.profiles, inputBox.result))
                     {
                         //rename profile
-                        fundingProfile renamedProfile = new fundingProfile(getSelectedProfile().id, inputBox.result);
+                        fundingProfile renamedProfile = new fundingProfile(getSelectedProfile().id, inputBox.result, getSelectedProfile().cashFlows);
                         //renamedProfile.name = inputBox.result;
 
                         common.updateProfileOnAccount(common.getMainForm().loadedAccount, getSelectedProfile(), renamedProfile);
                         loadAccountIntoForm(common.getMainForm().loadedAccount);
+                    }
+                    else
+                    {
+                        using (frmMessageBox messageBox = new frmMessageBox())
+                        {
+                            common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
+                            common.getMainForm().loadedTheme.themeForm(messageBox);
+                            messageBox.show("You cannot have more than one profile with the same name",
+                                "Duplicate Profile Name", MessageBoxButtons.OK);
+                        }
                     }
 
                 }

@@ -216,7 +216,9 @@ namespace financeApp
             if (common.isDate(txtCashFlowDate.Text) &&
                 common.isDate(txtCashFlowDueDate.Text) &&
                 common.isNumeric(txtCashFlowAmount.Text) &&
-                cbCashFlowType.SelectedItem != null)
+                cbCashFlowType.SelectedItem != null &&
+                !isCashFlowNameDuplicate(this.loadedProfile,txtCashFlowName.Text)
+                )
             {
                 return true;
             }
@@ -224,7 +226,26 @@ namespace financeApp
             {
                 return false;
             }
+        }
 
+        /// <summary>
+        /// Checks if the given cash flow name already exists on the loaded profile
+        /// </summary>
+        /// <param name="cashFlowName"></param>
+        /// <returns></returns>
+        private bool isCashFlowNameDuplicate(fundingProfile owningProfile,string cashFlowName)
+        {
+            List<cashFlow> profileFlows = owningProfile.cashFlows;
+
+            if (loadedFlow != null)
+            {
+                /* exclude the flow we're editing (if any) from the dupe check*/
+                return profileFlows.Where(x => x.id != loadedFlow.id).Where(x => x.name.ToLower() == cashFlowName.ToLower()).Count() > 0;
+            }
+            else
+            {
+                return profileFlows.Where(x => x.name.ToLower() == cashFlowName.ToLower()).Count() > 0;
+            }
         }
 
         private void clearFormFields()

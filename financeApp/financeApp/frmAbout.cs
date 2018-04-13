@@ -36,6 +36,28 @@ namespace financeApp
             }
         }
 
+        /// <summary>
+        /// Overrides the processing of keys for the form.
+        /// Allows us to close the form on [esc] or [enter]
+        /// </summary>
+        /// <param name="keyData"></param>
+        /// <returns></returns>
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (Form.ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                this.Close();
+                return true;
+            }
+
+            if (Form.ModifierKeys == Keys.None && keyData == Keys.Enter)
+            {
+                this.Close();
+                return true;
+            }
+
+            return base.ProcessDialogKey(keyData);
+        }
 
         private string getApplicationVersion()
         {

@@ -76,16 +76,13 @@ namespace financeApp
             {
                 rememberMeToolStripMenuItem.Checked = true;
             }
+
+            showWelcomeForm();
         }
 
         private void runReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmReporting reportForm = new frmReporting();
-            common.setFormFontSize(reportForm, this.loadedFontSize);
-            this.loadedTheme.themeForm(reportForm);
-            reportForm.MdiParent = this;
-            reportForm.loadAccountIntoForm(loadedAccount);
-            reportForm.Show();
+            showReportingForm();
         }
 
         private void tmrTimer_Tick(object sender, EventArgs e)
@@ -95,23 +92,7 @@ namespace financeApp
 
         private void accountDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /* When the user clicks the button spawn the form if the users doesn't already have one
-             * If they do, just focus the existing form. */
-            if (this.MdiChildren.Where(x => x.Name == "frmAccountDetails").Count() > 0)
-            {
-                this.MdiChildren.First(x => x.Name == "frmAccountDetails").Focus();
-            }
-            else
-            {
-                frmAccountDetails accountViewForm = new frmAccountDetails();
-                common.setFormFontSize(accountViewForm, this.loadedFontSize);
-                this.loadedTheme.themeForm(accountViewForm);
-                accountViewForm.Name = "frmAccountDetails";
-                accountViewForm.MdiParent = this;
-                accountViewForm.loadAccountIntoForm(loadedAccount);
-                accountViewForm.Show();
-            }
-
+            showManageAccountForm();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -121,22 +102,7 @@ namespace financeApp
 
         private void manageProfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /* As with the Account form, the profle view form is an single instance form
-             * if the user already has an existing instance of the form, just focus that one */
-            if (this.MdiChildren.Where(x => x.Name == "frmProfileDetails").Count() > 0)
-            {
-                this.MdiChildren.First(x => x.Name == "frmProfileDetails").Focus();
-            }
-            else
-            {
-                frmProfileDetails profileViewForm = new frmProfileDetails();
-                common.setFormFontSize(profileViewForm, this.loadedFontSize);
-                this.loadedTheme.themeForm(profileViewForm);
-                profileViewForm.Name = "frmProfileDetails";
-                profileViewForm.MdiParent = this;
-                profileViewForm.loadAccountIntoForm(loadedAccount);
-                profileViewForm.Show();
-            }
+            showManageProfilesForm();
         }
 
 
@@ -245,6 +211,101 @@ namespace financeApp
             }
         }
 
+        /// <summary>
+        /// spawns a new "About" form, and shows it as a dialog
+        /// </summary>
+        public void showAboutDialog()
+        {
+            using (frmAbout aboutForm = new frmAbout())
+            {
+                common.setFormFontSize(aboutForm, this.loadedFontSize);
+                this.loadedTheme.themeForm(aboutForm);
+
+                aboutForm.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Spawns a welcome form, and adds it to the Main form's MDI children
+        /// If the child already exists, focus it instead
+        /// </summary>
+        public void showWelcomeForm()
+        {
+            if (this.MdiChildren.Where(x => x.Name == "frmWelcome").Count() > 0)
+            {
+                this.MdiChildren.First(x => x.Name == "frmWelcome").Focus();
+            }
+            else
+            {
+                frmWelcome welcomeForm = new frmWelcome();
+                common.setFormFontSize(welcomeForm, this.loadedFontSize);
+                this.loadedTheme.themeForm(welcomeForm);
+                welcomeForm.Name = "frmWelcome";
+                welcomeForm.MdiParent = this;
+                welcomeForm.Show();
+            }
+        }
+
+        /// <summary>
+        /// When the user clicks the button spawn the form if the users doesn't already have one
+        /// If they do, just focus the existing form.
+        /// </summary>
+        public void showManageAccountForm()
+        {
+            if (this.MdiChildren.Where(x => x.Name == "frmAccountDetails").Count() > 0)
+            {
+                this.MdiChildren.First(x => x.Name == "frmAccountDetails").Focus();
+            }
+            else
+            {
+                frmAccountDetails accountViewForm = new frmAccountDetails();
+                common.setFormFontSize(accountViewForm, this.loadedFontSize);
+                this.loadedTheme.themeForm(accountViewForm);
+                accountViewForm.Name = "frmAccountDetails";
+                accountViewForm.MdiParent = this;
+                accountViewForm.loadAccountIntoForm(loadedAccount);
+                accountViewForm.Show();
+            }
+        }
+
+        /// <summary>
+        /// As with the Account form, the profle view form is an single instance form
+        /// if the user already has an existing instance of the form, just focus that one
+        /// </summary>
+        public void showManageProfilesForm()
+        {
+            if (this.MdiChildren.Where(x => x.Name == "frmProfileDetails").Count() > 0)
+            {
+                this.MdiChildren.First(x => x.Name == "frmProfileDetails").Focus();
+            }
+            else
+            {
+                frmProfileDetails profileViewForm = new frmProfileDetails();
+                common.setFormFontSize(profileViewForm, this.loadedFontSize);
+                this.loadedTheme.themeForm(profileViewForm);
+                profileViewForm.Name = "frmProfileDetails";
+                profileViewForm.MdiParent = this;
+                profileViewForm.loadAccountIntoForm(loadedAccount);
+                profileViewForm.Show();
+            }
+        }
+
+        public void showReportingForm()
+        {
+            if (this.MdiChildren.Where(x => x.Name == "frmReporting").Count() > 0)
+            {
+                this.MdiChildren.First(x => x.Name == "frmReporting").Focus();
+            }
+            else
+            {
+                frmReporting reportForm = new frmReporting();
+                common.setFormFontSize(reportForm, this.loadedFontSize);
+                this.loadedTheme.themeForm(reportForm);
+                reportForm.MdiParent = this;
+                reportForm.loadAccountIntoForm(loadedAccount);
+                reportForm.Show();
+            }
+        }
 
         private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -346,14 +407,12 @@ namespace financeApp
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (frmAbout aboutForm = new frmAbout())
-            {
-                common.setFormFontSize(aboutForm, this.loadedFontSize);
-                this.loadedTheme.themeForm(aboutForm);
+            showAboutDialog();
+        }
 
-                aboutForm.ShowDialog();
-
-            }
+        private void showStartPageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showWelcomeForm();
         }
     }
 }
