@@ -91,6 +91,11 @@ public static class reporting
         return outputSeries;
     }
 
+    /// <summary>
+    /// Returns an empty "dummy series".
+    /// Useful for when there is no data to display
+    /// </summary>
+    /// <returns></returns>
     public static Series getDummySeries()
     {
         Series outputSeries = new Series("No Data Found");

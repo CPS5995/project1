@@ -47,6 +47,7 @@ namespace financeApp
             this.loadedAccount = accountToLoad;
             this.Text = "Reporting On: " + loadedAccount.name;
 
+            clbReportProfiles.Items.Clear();
             foreach (fundingProfile profile in loadedAccount.profiles)
             {
                 clbReportProfiles.Items.Add(profile.name.ToString(), true);
@@ -100,23 +101,48 @@ namespace financeApp
 
         private void runReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DateTime reportLowerBound = new DateTime();
-            DateTime reportUpperBound = new DateTime();
-            reporting.reportType reportType;
-
-            reportType = getReportTypeByName(tscbReportType.Text);
-
-            if (common.isDate(tstbLowerBound.Text))
+            if (validateReportBounds(tstbLowerBound.Text, tstbUpperBound.Text))
             {
-                reportLowerBound = DateTime.Parse(tstbLowerBound.Text);
+                chrtReportChart.Series.Clear();
+                runReport(getSelectedProfiles(),
+                    DateTime.Parse(tstbLowerBound.Text),
+                    DateTime.Parse(tstbUpperBound.Text),
+                    getReportTypeByName(tscbReportType.Text));
+            }
+            else
+            {
+                using (frmMessageBox messageBox = new frmMessageBox())
+                {
+                    common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
+                    common.getMainForm().loadedTheme.themeForm(messageBox);
+                    messageBox.show("Upper and Lower bounds MUST be dates and the\r\n" +
+                        "Lower Bound must be EARLIER than the Upper Bound.",
+                        "Invalid Report Bounds!", MessageBoxButtons.OK);
+                }
             }
 
-            if (common.isDate(tstbUpperBound.Text))
+        }
+
+        /// <summary>
+        /// Validates the boundaries of the report data.
+        /// The report has valid bounds if 
+        /// the upper and lower bounds are both dates, and the
+        /// lower bound is not chronologically after the upper bound
+        /// </summary>
+        /// <param name="lowerBound"></param>
+        /// <param name="upperBound"></param>
+        /// <returns></returns>
+        private bool validateReportBounds(string lowerBound, string upperBound)
+        {
+            if (!common.isDate(lowerBound) || !common.isDate(upperBound)
+                || DateTime.Parse(upperBound) < DateTime.Parse(lowerBound))
             {
-                reportUpperBound = DateTime.Parse(tstbUpperBound.Text);
+                return false;
             }
-            chrtReportChart.Series.Clear();
-            runReport(getSelectedProfiles(), reportLowerBound, reportUpperBound, reportType);
+            else
+            {
+                return true;
+            }
         }
 
 

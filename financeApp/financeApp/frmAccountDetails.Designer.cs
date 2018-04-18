@@ -42,6 +42,7 @@
             this.profilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSave = new System.Windows.Forms.Button();
+            this.lblTotals = new System.Windows.Forms.Label();
             this.ssAccountViewStatus.SuspendLayout();
             this.msAccountDetails.SuspendLayout();
             this.SuspendLayout();
@@ -80,6 +81,7 @@
             // 
             // lbProfiles
             // 
+            this.lbProfiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbProfiles.FormattingEnabled = true;
             this.lbProfiles.Location = new System.Drawing.Point(15, 207);
             this.lbProfiles.Name = "lbProfiles";
@@ -90,6 +92,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(15, 188);
             this.label2.Name = "label2";
@@ -164,11 +167,21 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // lblTotals
+            // 
+            this.lblTotals.AutoSize = true;
+            this.lblTotals.Location = new System.Drawing.Point(12, 67);
+            this.lblTotals.Name = "lblTotals";
+            this.lblTotals.Size = new System.Drawing.Size(36, 13);
+            this.lblTotals.TabIndex = 9;
+            this.lblTotals.Text = "Totals";
+            // 
             // frmAccountDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(481, 328);
+            this.Controls.Add(this.lblTotals);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lbProfiles);
@@ -209,5 +222,6 @@
         private System.Windows.Forms.ToolStripMenuItem addNewProfileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveChangesToolStripMenuItem;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label lblTotals;
     }
 }

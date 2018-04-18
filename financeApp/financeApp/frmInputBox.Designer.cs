@@ -86,6 +86,7 @@
             this.MinimizeBox = false;
             this.Name = "frmInputBox";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmInputBox";
             this.Load += new System.EventHandler(this.frmInputBox_Load);
             this.ResumeLayout(false);

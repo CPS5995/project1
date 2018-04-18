@@ -105,7 +105,7 @@ public static class common
     /// <returns></returns>
     public static financeApp.frmMain getMainForm()
     {
-        return (financeApp.frmMain)System.Windows.Forms.Application.OpenForms["frmMain"];
+        return (financeApp.frmMain)Application.OpenForms["frmMain"];
     }
 
     /// <summary>
@@ -113,9 +113,9 @@ public static class common
     /// Done by calling .Close() on all the children.
     /// </summary>
     /// <param name="parentForm"></param>
-    public static void closeAllMdiChildForms(System.Windows.Forms.Form parentForm)
+    public static void closeAllMdiChildForms(Form parentForm)
     {
-        foreach (System.Windows.Forms.Form childForm in parentForm.MdiChildren)
+        foreach (Form childForm in parentForm.MdiChildren)
         {
             childForm.Close();
         }
@@ -162,7 +162,6 @@ public static class common
     /// <returns></returns>
     public static cashFlowType getCashFlowTypeByName(string cashFlowTypeName)
     {
-
         foreach (cashFlowType flowType in Enum.GetValues(typeof(cashFlowType)))
         {
             if (Enum.GetName(typeof(cashFlowType), flowType) == cashFlowTypeName)
@@ -170,7 +169,6 @@ public static class common
                 return flowType;
             }
         }
-
         throw new ArgumentException("No such CashFlowType Exists");
     }
 
@@ -287,7 +285,6 @@ public static class common
 
     public static void deleteAccount(userAccount accountToDelete)
     {
-        //TODO
         database.sqlStatement deleteSql = new database.sqlStatement();
         deleteSql.connectionString = database.getConnectString();
 

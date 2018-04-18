@@ -89,7 +89,7 @@ namespace financeApp
                     !isNewProfileNameDuplicate(this.loadedAccount.profiles, inputBox.result))
                 {
                     common.addProfileToAccount(common.getMainForm().loadedAccount, new fundingProfile(common.getNextProfileId(), inputBox.result));
-                    loadAccountIntoForm(common.getMainForm().loadedAccount);
+                    common.getMainForm().refreshDataForAllMdiChildren();
                 }
                 else
                 {
@@ -195,10 +195,9 @@ namespace financeApp
                     {
                         //rename profile
                         fundingProfile renamedProfile = new fundingProfile(getSelectedProfile().id, inputBox.result, getSelectedProfile().cashFlows);
-                        //renamedProfile.name = inputBox.result;
 
                         common.updateProfileOnAccount(common.getMainForm().loadedAccount, getSelectedProfile(), renamedProfile);
-                        loadAccountIntoForm(common.getMainForm().loadedAccount);
+                        common.getMainForm().refreshDataForAllMdiChildren();
                     }
                     else
                     {
@@ -235,7 +234,7 @@ namespace financeApp
                                        "Delete Profile?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         common.deleteProfileFromAccount(loadedAccount, getSelectedProfile());
-                        loadAccountIntoForm(common.getMainForm().loadedAccount);
+                        common.getMainForm().refreshDataForAllMdiChildren();
                     }
                 }
             }
@@ -263,7 +262,7 @@ namespace financeApp
                     cashFlowForm.loadProfileIntoForm(getSelectedProfile());
 
                     cashFlowForm.ShowDialog();
-                    loadAccountIntoForm(common.getMainForm().loadedAccount);
+                    common.getMainForm().refreshDataForAllMdiChildren();
                 }
             }
         }
@@ -288,7 +287,7 @@ namespace financeApp
                                        "Delete Cash Flow?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         common.deleteCashFlowFromProfile(getSelectedProfile(), getSelectedCashFlow());
-                        loadAccountIntoForm(common.getMainForm().loadedAccount);
+                        common.getMainForm().refreshDataForAllMdiChildren();
                     }
                 }
             }
@@ -316,7 +315,7 @@ namespace financeApp
                     cashFlowForm.loadCashFlowIntoForm(getSelectedCashFlow());
 
                     cashFlowForm.ShowDialog();
-                    loadAccountIntoForm(common.getMainForm().loadedAccount);
+                    common.getMainForm().refreshDataForAllMdiChildren();
                 }
             }
         }
@@ -360,7 +359,7 @@ namespace financeApp
                                 "Import Failed", MessageBoxButtons.OK);
                         }
                     }
-                    loadAccountIntoForm(common.getMainForm().loadedAccount);
+                    common.getMainForm().refreshDataForAllMdiChildren();
                 }
             }
         }
@@ -376,6 +375,7 @@ namespace financeApp
             {
                 fileSelector.Multiselect = false;
                 fileSelector.Filter = "CSV Files (.csv)|*.csv";
+                fileSelector.Title = "Select File to Import.";
 
                 fileSelector.ShowDialog();
                 return fileSelector.FileName;

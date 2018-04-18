@@ -31,6 +31,10 @@ namespace financeApp
 
             populateProfilesListBox(loadedAccount.profiles);
 
+            lblTotals.Text = "Total Profiles: " + loadedAccount.profiles.Count() +
+                "\r\n\r\nTotal Cash Flows (income/expenses): " + loadedAccount.getAccountCashFlows().Count() + " (" + loadedAccount.getAllIncomeFlows().Count() + "/" + loadedAccount.getAllExpenseFlows().Count() + ")" +
+                "\r\n\r\nTotal Income: " + loadedAccount.getAllIncomeFlows().Sum(x => x.amount).ToString("C") +
+                "\r\n\r\nTotal Expenses: " + loadedAccount.getAllExpenseFlows().Sum(x => x.amount).ToString("C");
 
             tsslAccountStats.Text = "Total Profiles: " + loadedAccount.profiles.Count() + " | Total Cash Flows: " + loadedAccount.getAccountCashFlows().Count();
 
@@ -62,7 +66,7 @@ namespace financeApp
 
                 common.updateAccount(common.getMainForm().loadedAccount, updatedAccount);
                 common.getMainForm().loadedAccount = updatedAccount;
-                loadAccountIntoForm(common.getMainForm().loadedAccount);
+                common.getMainForm().refreshDataForAllMdiChildren();
             }
             else
             {
@@ -90,9 +94,8 @@ namespace financeApp
 
                 if (!string.IsNullOrEmpty(inputBox.result))
                 {
-                    /* TODO: SQL/database stuff */
                     common.addProfileToAccount(common.getMainForm().loadedAccount, new fundingProfile(common.getNextProfileId(), inputBox.result));
-                    loadAccountIntoForm(common.getMainForm().loadedAccount);
+                    common.getMainForm().refreshDataForAllMdiChildren();
                 }
 
             }
@@ -128,6 +131,7 @@ namespace financeApp
             }
 
         }
+
 
         private void saveChangesToolStripMenuItem_Click(object sender, EventArgs e)
         {

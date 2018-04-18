@@ -178,6 +178,11 @@ namespace financeApp
             }
         }
 
+        /// <summary>
+        /// attempts to read the user settings from a file, and returns a boolean
+        /// indicating if the settings were successfully read
+        /// </summary>
+        /// <returns></returns>
         private bool readUserSettingsFromFile()
         {
             float[] validFontSizes = { common.DEFAULT_FONT_SIZE, common.LARGE_FONT_SIZE, common.HUGE_FONT_SIZE };
@@ -208,6 +213,27 @@ namespace financeApp
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        public void refreshDataForAllMdiChildren()
+        {
+            foreach (Form mdiChild in this.MdiChildren)
+            {
+                if(mdiChild.Name == "frmAccountDetails")
+                {
+                    ((frmAccountDetails)mdiChild).loadAccountIntoForm(this.loadedAccount);
+                }
+
+                if (mdiChild.Name == "frmProfileDetails")
+                {
+                    ((frmProfileDetails)mdiChild).loadAccountIntoForm(this.loadedAccount);
+                }
+
+                if (mdiChild.Name == "frmReporting")
+                {
+                    ((frmReporting)mdiChild).loadAccountIntoForm(this.loadedAccount);
+                }
             }
         }
 
