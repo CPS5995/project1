@@ -21,7 +21,7 @@ namespace financeApp
 
         private void frmAccountDetails_Load(object sender, EventArgs e)
         {
-            common.getMainForm().loadedTheme.themePositiveButton(this.btnSave);
+            themeButtons();
         }
 
         public void loadAccountIntoForm(userAccount accountToLoad)
@@ -39,6 +39,11 @@ namespace financeApp
             tsslAccountStats.Text = "Total Profiles: " + loadedAccount.profiles.Count() + " | Total Cash Flows: " + loadedAccount.getAccountCashFlows().Count();
 
             txtAccountName.Text = loadedAccount.name;
+        }
+
+        public void themeButtons()
+        {
+            common.getMainForm().loadedTheme.themePositiveButton(this.btnSave);
         }
 
         private void populateProfilesListBox(List<fundingProfile> profilesToLoad)

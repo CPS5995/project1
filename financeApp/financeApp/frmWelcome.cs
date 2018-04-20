@@ -23,11 +23,15 @@ namespace financeApp
             this.AcceptButton = btnClose;
             this.CancelButton = btnClose;
 
+
             lblHeader.Text = "Welcome to '" + common.APPLICATION_NAME + "'";
             themeSideBar();
         }
 
-        private void themeSideBar()
+        /// <summary>
+        /// applies additional form specific theming not covered by the generic themer
+        /// </summary>
+        public void themeSideBar()
         {
             pnlLeft.BackColor = common.getMainForm().loadedTheme.accentColor;
             
@@ -35,7 +39,6 @@ namespace financeApp
             {
                 label.BackColor = common.getMainForm().loadedTheme.accentColor;
             }
-
         }
 
         /// <summary>

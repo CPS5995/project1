@@ -25,6 +25,7 @@ public class theme
     public theme(string name, string primaryColor, string accentColor, string textColor, string linkColor,
         string buttonTextColor, string selectionColor, string positiveColor, string negativeColor, string neutralColor)
     {
+        this.name = name;
         this.primaryColor = ColorTranslator.FromHtml(primaryColor);
         this.accentColor = ColorTranslator.FromHtml(accentColor);
         this.textColor = ColorTranslator.FromHtml(textColor);

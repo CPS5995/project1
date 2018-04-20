@@ -24,18 +24,29 @@ namespace financeApp
         public theme loadedTheme;
         public float loadedFontSize;
         public string rememberMeToken;
+        private List<theme> themes = new List<theme>();
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            this.loadedTheme = new theme("default", "#23272E", "#282C34", "#FFFFFF",
-                "#6494ED", "#FFFFFF", "#6494ED", "#73C990", "#FF6347", "#6494ED");
+            this.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            loadThemes();
+            createThemesToolStripMenu();
 
             /* if we can't read the settings file, use the defaults*/
             if (!readUserSettingsFromFile())
             {
+                this.loadedTheme = themes[0];
                 this.loadedFontSize = common.DEFAULT_FONT_SIZE;
                 normalToolStripMenuItem.Checked = true;
                 rememberMeToken = null;
+            }
+
+            foreach (ToolStripMenuItem menuItem in themeToolStripMenuItem.DropDownItems)
+            {
+                if (menuItem.ToString() == loadedTheme.name)
+                {
+                    menuItem.Checked = true;
+                }
             }
 
             if (!string.IsNullOrEmpty(this.rememberMeToken))
@@ -55,6 +66,7 @@ namespace financeApp
             {
                 hugeToolStripMenuItem.Checked = true;
             }
+
 
 
             this.loadedTheme.themeForm(this);
@@ -125,12 +137,10 @@ namespace financeApp
         /// <param name="fontSize"></param>
         private void resizeAllMdiChildren(float fontSize)
         {
-
             foreach (Form mdiChild in this.MdiChildren)
             {
                 common.setFormFontSize(mdiChild, fontSize);
             }
-
         }
 
         /// <summary>
@@ -147,7 +157,81 @@ namespace financeApp
             {
                 this.Close();
             }
+        }
 
+        private void themeAllForms(theme themeToApply)
+        {
+            themeToApply.themeForm(this);
+
+            foreach (Form mdiChild in this.MdiChildren)
+            {
+                themeToApply.themeForm(mdiChild);
+
+                if (mdiChild.Name == "frmAccountDetails")
+                {
+                    ((frmAccountDetails)mdiChild).themeButtons();
+                }
+
+                if (mdiChild.Name == "frmWelcome")
+                {
+                    ((frmWelcome)mdiChild).themeSideBar();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Loads all the potential "themes" into memory
+        /// Currently hard coded, but could be read in from a file
+        /// </summary>
+        private void loadThemes()
+        {
+            this.themes.Add(new theme("Atomic Black", "#23272E", "#282C34", "#FFFFFF", "#6494ED", "#FFFFFF", "#6494ED", "#73C990", "#FF6347", "#6494ED"));
+            this.themes.Add(new theme("Cotton Candy", "#FFD3E8", "#FFE8F3", "#8E1F55", "#6494ED", "#8E1F55", "#6494ED", "#BDE8A2", "#F4CAE0", "#AFE9FF"));
+            this.themes.Add(new theme("Muted", "#1C313A", "#455A64", "#F8F9F9", "#709EC9", "#F8F9F8F9", "#6494ED", "#4ECDC4", "#FF7070", "#709EC9"));
+            this.themes.Add(new theme("Lite", "#AFC2CB", "#E1F5FE", "#000000", "#709EC9", "#000000", "#6494ED", "#4ECDC4", "#FF7070", "#709EC9"));
+            this.themes.Add(new theme("Lenna", "#995461", "#A75E69", "#E1C3B8", "#71315A", "#E1C3B8", "#6494ED", "#71315A", "#BD5660", "#D09882"));
+        }
+
+        /// <summary>
+        /// Dynamically creates the Theme Selection Menu in the
+        /// top level ToolStrip, and adds event handlers to the items
+        /// </summary>
+        private void createThemesToolStripMenu()
+        {
+            foreach (theme theme in this.themes.OrderBy(x => x.name))
+            {
+                themeToolStripMenuItem.DropDownItems.Add(theme.name);
+            }
+
+            foreach (ToolStripMenuItem menuItem in themeToolStripMenuItem.DropDownItems)
+            {
+                menuItem.Click += new EventHandler(themeMenuItemClicked);
+                menuItem.CheckOnClick = true;
+            }
+
+        }
+
+        /// <summary>
+        /// Handles when an item in the themes menu is clicked.
+        /// Functions like a radio button (only one can be checked),
+        /// then applies the selected theme to the application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void themeMenuItemClicked(object sender, EventArgs e)
+        {
+            ToolStripMenuItem selectedItem = ((ToolStripMenuItem)sender);
+
+            foreach (ToolStripMenuItem menuItem in themeToolStripMenuItem.DropDownItems)
+            {
+                if (menuItem.ToString() != selectedItem.ToString())
+                {
+                    menuItem.Checked = false;
+                }
+                selectedItem.Checked = true;
+                this.loadedTheme = this.themes.First(x => x.name == selectedItem.Text);
+                themeAllForms(this.loadedTheme);
+            }
         }
 
         /// <summary>
@@ -168,6 +252,8 @@ namespace financeApp
                 writer.WriteStartElement("settings");
                 writer.WriteComment("Interface Font Size");
                 writer.WriteElementString("fontSize", this.loadedFontSize.ToString());
+                writer.WriteComment("Application Theme");
+                writer.WriteElementString("theme", this.loadedTheme.name);
                 writer.WriteComment("Remember Me Token");
                 writer.WriteElementString("rememberMe", this.rememberMeToken);
                 writer.WriteEndElement();
@@ -208,6 +294,15 @@ namespace financeApp
                 currentNode = settingsFile.SelectSingleNode("/settings/rememberMe");
                 this.rememberMeToken = currentNode.InnerText;
 
+                currentNode = settingsFile.SelectSingleNode("/settings/theme");
+                if (this.themes.FirstOrDefault(x => x.name == currentNode.InnerText) != null)
+                {
+                    this.loadedTheme = this.themes.First(x => x.name == currentNode.InnerText);
+                } else
+                {
+                    this.loadedTheme = themes[0];
+                }
+
                 return true;
             }
             catch (Exception)
@@ -220,7 +315,7 @@ namespace financeApp
         {
             foreach (Form mdiChild in this.MdiChildren)
             {
-                if(mdiChild.Name == "frmAccountDetails")
+                if (mdiChild.Name == "frmAccountDetails")
                 {
                     ((frmAccountDetails)mdiChild).loadAccountIntoForm(this.loadedAccount);
                 }

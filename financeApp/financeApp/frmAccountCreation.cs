@@ -55,6 +55,23 @@ namespace financeApp
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Intercepts the pressing of the [esc] key, and closes the form
+        /// This allows us to close the dialog by pressincg [esc]
+        /// </summary>
+        /// <param name="keyData"></param>
+        /// <returns></returns>
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (Form.ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                this.Close();
+                return true;
+            }
+
+            return base.ProcessDialogKey(keyData);
+        }
+
     }
 }

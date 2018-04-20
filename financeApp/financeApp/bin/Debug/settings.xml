@@ -3,6 +3,8 @@
 <settings>
   <!--Interface Font Size-->
   <fontSize>8.25</fontSize>
+  <!--Application Theme-->
+  <theme>Atomic Black</theme>
   <!--Remember Me Token-->
   <rememberMe>e5e0fcb5de87986cff91871feeb8cad923ed591b</rememberMe>
 </settings>
