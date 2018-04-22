@@ -149,6 +149,7 @@
             this.profilesToolStripMenuItem.Name = "profilesToolStripMenuItem";
             this.profilesToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.profilesToolStripMenuItem.Text = "Profiles";
+            this.profilesToolStripMenuItem.Visible = false;
             // 
             // addNewProfileToolStripMenuItem
             // 

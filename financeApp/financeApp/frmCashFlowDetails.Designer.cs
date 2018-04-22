@@ -32,6 +32,8 @@
             this.cashFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAndCloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ssCashFlowStatus = new System.Windows.Forms.StatusStrip();
@@ -46,11 +48,11 @@
             this.txtCashFlowDueDate = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.clearFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.msCashFlowDetails.SuspendLayout();
             this.ssCashFlowStatus.SuspendLayout();
             this.SuspendLayout();
@@ -96,6 +98,22 @@
             this.saveAndCloseToolStripMenuItem.Text = "Save and Close";
             this.saveAndCloseToolStripMenuItem.Click += new System.EventHandler(this.saveAndCloseToolStripMenuItem_Click);
             // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // clearFieldsToolStripMenuItem
+            // 
+            this.clearFieldsToolStripMenuItem.Name = "clearFieldsToolStripMenuItem";
+            this.clearFieldsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.clearFieldsToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.clearFieldsToolStripMenuItem.Text = "Clear Fields";
+            this.clearFieldsToolStripMenuItem.Click += new System.EventHandler(this.clearFieldsToolStripMenuItem_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -115,14 +133,17 @@
             this.ssCashFlowStatus.Location = new System.Drawing.Point(0, 313);
             this.ssCashFlowStatus.Name = "ssCashFlowStatus";
             this.ssCashFlowStatus.Size = new System.Drawing.Size(482, 22);
+            this.ssCashFlowStatus.SizingGrip = false;
             this.ssCashFlowStatus.TabIndex = 2;
             this.ssCashFlowStatus.Text = "statusStrip1";
             // 
             // tsslFlowStatus
             // 
             this.tsslFlowStatus.Name = "tsslFlowStatus";
-            this.tsslFlowStatus.Size = new System.Drawing.Size(46, 17);
+            this.tsslFlowStatus.Size = new System.Drawing.Size(436, 17);
+            this.tsslFlowStatus.Spring = true;
             this.tsslFlowStatus.Text = "[status]";
+            this.tsslFlowStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtCashFlowName
             // 
@@ -206,14 +227,6 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "Due Date:";
             // 
-            // closeToolStripMenuItem
-            // 
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.closeToolStripMenuItem.Text = "Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
-            // 
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(69, 223);
@@ -244,19 +257,31 @@
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // clearFieldsToolStripMenuItem
+            // label6
             // 
-            this.clearFieldsToolStripMenuItem.Name = "clearFieldsToolStripMenuItem";
-            this.clearFieldsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.clearFieldsToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.clearFieldsToolStripMenuItem.Text = "Clear Fields";
-            this.clearFieldsToolStripMenuItem.Click += new System.EventHandler(this.clearFieldsToolStripMenuItem_Click);
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(265, 132);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(71, 13);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "(mm/dd/yyyy)";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(265, 158);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(71, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "(mm/dd/yyyy)";
             // 
             // frmCashFlowDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 335);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnSave);
@@ -314,5 +339,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.ToolStripMenuItem clearFieldsToolStripMenuItem;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }

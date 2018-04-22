@@ -77,12 +77,15 @@ namespace financeApp
 
         private void frmMain_Shown(object sender, EventArgs e)
         {
+            /*
             using (frmLogin loginForm = new frmLogin())
             {
                 common.setFormFontSize(loginForm, this.loadedFontSize);
                 this.loadedTheme.themeForm(loginForm);
                 loginForm.ShowDialog();
             }
+            */
+            showLoginDialog();
 
             if (!string.IsNullOrEmpty(this.rememberMeToken))
             {
@@ -298,7 +301,8 @@ namespace financeApp
                 if (this.themes.FirstOrDefault(x => x.name == currentNode.InnerText) != null)
                 {
                     this.loadedTheme = this.themes.First(x => x.name == currentNode.InnerText);
-                } else
+                }
+                else
                 {
                     this.loadedTheme = themes[0];
                 }
@@ -341,6 +345,7 @@ namespace financeApp
             {
                 common.setFormFontSize(aboutForm, this.loadedFontSize);
                 this.loadedTheme.themeForm(aboutForm);
+                aboutForm.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
                 aboutForm.ShowDialog();
             }
@@ -361,6 +366,7 @@ namespace financeApp
                 frmWelcome welcomeForm = new frmWelcome();
                 common.setFormFontSize(welcomeForm, this.loadedFontSize);
                 this.loadedTheme.themeForm(welcomeForm);
+                welcomeForm.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
                 welcomeForm.Name = "frmWelcome";
                 welcomeForm.MdiParent = this;
                 welcomeForm.Show();
@@ -382,6 +388,7 @@ namespace financeApp
                 frmAccountDetails accountViewForm = new frmAccountDetails();
                 common.setFormFontSize(accountViewForm, this.loadedFontSize);
                 this.loadedTheme.themeForm(accountViewForm);
+                accountViewForm.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
                 accountViewForm.Name = "frmAccountDetails";
                 accountViewForm.MdiParent = this;
                 accountViewForm.loadAccountIntoForm(loadedAccount);
@@ -404,6 +411,7 @@ namespace financeApp
                 frmProfileDetails profileViewForm = new frmProfileDetails();
                 common.setFormFontSize(profileViewForm, this.loadedFontSize);
                 this.loadedTheme.themeForm(profileViewForm);
+                profileViewForm.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
                 profileViewForm.Name = "frmProfileDetails";
                 profileViewForm.MdiParent = this;
                 profileViewForm.loadAccountIntoForm(loadedAccount);
@@ -411,6 +419,10 @@ namespace financeApp
             }
         }
 
+        /// <summary>
+        /// spawns an instace of the reporting form if none exists
+        /// if one DOES exists, focuses the existing form
+        /// </summary>
         public void showReportingForm()
         {
             if (this.MdiChildren.Where(x => x.Name == "frmReporting").Count() > 0)
@@ -422,9 +434,26 @@ namespace financeApp
                 frmReporting reportForm = new frmReporting();
                 common.setFormFontSize(reportForm, this.loadedFontSize);
                 this.loadedTheme.themeForm(reportForm);
+                reportForm.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                reportForm.Name = "frmReporting";
                 reportForm.MdiParent = this;
                 reportForm.loadAccountIntoForm(loadedAccount);
                 reportForm.Show();
+            }
+        }
+
+        /// <summary>
+        /// Spawns and shows the Log In dialog.
+        /// THIS DOES NOT LOG THE USER OUT, it only shows the dialog.
+        /// </summary>
+        public void showLoginDialog()
+        {
+            using (frmLogin loginForm = new frmLogin())
+            {
+                common.setFormFontSize(loginForm, this.loadedFontSize);
+                this.loadedTheme.themeForm(loginForm);
+                loginForm.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                loginForm.ShowDialog();
             }
         }
 
@@ -439,12 +468,7 @@ namespace financeApp
                 "Log Out?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     logOut();
-                    using (frmLogin loginForm = new frmLogin())
-                    {
-                        common.setFormFontSize(loginForm, this.loadedFontSize);
-                        this.loadedTheme.themeForm(loginForm);
-                        loginForm.ShowDialog();
-                    }
+                    showLoginDialog();
 
                 }
             }

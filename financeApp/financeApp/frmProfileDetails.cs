@@ -85,23 +85,25 @@ namespace financeApp
 
                 inputBox.ShowDialog();
 
-                if (!string.IsNullOrEmpty(inputBox.result) &&
+                if (inputBox.DialogResult == DialogResult.OK)
+                {
+                    if (!string.IsNullOrEmpty(inputBox.result) &&
                     !isNewProfileNameDuplicate(this.loadedAccount.profiles, inputBox.result))
-                {
-                    common.addProfileToAccount(common.getMainForm().loadedAccount, new fundingProfile(common.getNextProfileId(), inputBox.result));
-                    common.getMainForm().refreshDataForAllMdiChildren();
-                }
-                else
-                {
-                    using (frmMessageBox messageBox = new frmMessageBox())
                     {
-                        common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
-                        common.getMainForm().loadedTheme.themeForm(messageBox);
-                        messageBox.show("You cannot have more than one profile with the same name",
-                            "Duplicate Profile Name", MessageBoxButtons.OK);
+                        common.addProfileToAccount(common.getMainForm().loadedAccount, new fundingProfile(common.getNextProfileId(), inputBox.result));
+                        common.getMainForm().refreshDataForAllMdiChildren();
+                    }
+                    else
+                    {
+                        using (frmMessageBox messageBox = new frmMessageBox())
+                        {
+                            common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
+                            common.getMainForm().loadedTheme.themeForm(messageBox);
+                            messageBox.show("You cannot have more than one profile with the same name",
+                                "Duplicate Profile Name", MessageBoxButtons.OK);
+                        }
                     }
                 }
-
             }
         }
 
@@ -120,7 +122,6 @@ namespace financeApp
             {
                 return loadedAccount.profiles.FirstOrDefault(x => x.name == lbProfiles.SelectedItem.ToString());
             }
-
         }
 
         /// <summary>
@@ -190,26 +191,29 @@ namespace financeApp
 
                     inputBox.ShowDialog();
 
-                    if (!string.IsNullOrEmpty(inputBox.result) &&
-                        !isRenameProfileNameDuplicate(this.loadedAccount.profiles, inputBox.result))
+                    /* i.e. only process if the user said OK */
+                    if (inputBox.DialogResult == DialogResult.OK)
                     {
-                        //rename profile
-                        fundingProfile renamedProfile = new fundingProfile(getSelectedProfile().id, inputBox.result, getSelectedProfile().cashFlows);
-
-                        common.updateProfileOnAccount(common.getMainForm().loadedAccount, getSelectedProfile(), renamedProfile);
-                        common.getMainForm().refreshDataForAllMdiChildren();
-                    }
-                    else
-                    {
-                        using (frmMessageBox messageBox = new frmMessageBox())
+                        if (!string.IsNullOrEmpty(inputBox.result) &&
+                            !isRenameProfileNameDuplicate(this.loadedAccount.profiles, inputBox.result))
                         {
-                            common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
-                            common.getMainForm().loadedTheme.themeForm(messageBox);
-                            messageBox.show("You cannot have more than one profile with the same name",
-                                "Duplicate Profile Name", MessageBoxButtons.OK);
+                            //rename profile
+                            fundingProfile renamedProfile = new fundingProfile(getSelectedProfile().id, inputBox.result, getSelectedProfile().cashFlows);
+
+                            common.updateProfileOnAccount(common.getMainForm().loadedAccount, getSelectedProfile(), renamedProfile);
+                            common.getMainForm().refreshDataForAllMdiChildren();
+                        }
+                        else
+                        {
+                            using (frmMessageBox messageBox = new frmMessageBox())
+                            {
+                                common.setFormFontSize(messageBox, common.getMainForm().loadedFontSize);
+                                common.getMainForm().loadedTheme.themeForm(messageBox);
+                                messageBox.show("You cannot have more than one profile with the same name",
+                                    "Duplicate Profile Name", MessageBoxButtons.OK);
+                            }
                         }
                     }
-
                 }
             }
         }
@@ -258,6 +262,7 @@ namespace financeApp
                 {
                     common.setFormFontSize(cashFlowForm, common.getMainForm().loadedFontSize);
                     common.getMainForm().loadedTheme.themeForm(cashFlowForm);
+                    cashFlowForm.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
                     cashFlowForm.loadAccountIntoForm(this.loadedAccount);
                     cashFlowForm.loadProfileIntoForm(getSelectedProfile());
 
@@ -310,6 +315,7 @@ namespace financeApp
                 {
                     common.setFormFontSize(cashFlowForm, common.getMainForm().loadedFontSize);
                     common.getMainForm().loadedTheme.themeForm(cashFlowForm);
+                    cashFlowForm.Icon = Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
                     cashFlowForm.loadAccountIntoForm(this.loadedAccount);
                     cashFlowForm.loadProfileIntoForm(getSelectedProfile());
                     cashFlowForm.loadCashFlowIntoForm(getSelectedCashFlow());

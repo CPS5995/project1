@@ -154,6 +154,7 @@ namespace financeApp
                     common.updateCashFlowOnAccount(loadedProfile, loadedFlow, flowToSave);
                     loadCashFlowIntoForm(flowToSave);
                 }
+                tsslFlowStatus.Text = "Flow Saved: " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString();
                 return true;
             }
             else
